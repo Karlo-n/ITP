@@ -1,1 +1,1011 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información sobre la Metanfetamina - CONASAMA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
+        :root {
+            --primary-color: #990000;
+            --secondary-color: #ffcc00;
+            --dark-color: #333;
+            --light-color: #fff;
+            --accent-color: #006847;
+            --meth-color: #f5f5f5;
+            --meth-dark: #e0e0e0;
+            --meth-primary: #8b00ff; /* Tono púrpura para la metanfetamina */
+            --meth-secondary: #4b0082; /* Púrpura más oscuro */
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: #1a1a1a;
+            color: var(--light-color);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Fondo con cristales */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
+        }
+
+        .crystal {
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background-color: rgba(139, 0, 255, 0.1);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            filter: blur(1px);
+            animation: float 20s infinite linear;
+        }
+
+        .crystal::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(139, 0, 255, 0.3), rgba(75, 0, 130, 0.1));
+            clip-path: polygon(50% 10%, 90% 30%, 90% 70%, 50% 90%, 10% 70%, 10% 30%);
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(-100px, -100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translate(calc(100vw + 100px), calc(100vh + 100px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        header {
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-bottom: 3px solid var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--light-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1rem;
+            border: 3px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: "🦅";
+            font-size: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-text h1 {
+            font-size: 2rem;
+            color: var(--light-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .logo-text p {
+            font-size: 1rem;
+            color: var(--secondary-color);
+            opacity: 0.9;
+        }
+
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .poster {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            border: 2px solid rgba(245, 245, 245, 0.1);
+        }
+
+        .poster-header {
+            background: linear-gradient(135deg, var(--meth-primary) 0%, var(--meth-secondary) 100%);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        .poster-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--light-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .poster-subtitle {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--meth-color);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .warning-label {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            padding: 0.5rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .poster-content {
+            padding: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .info-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .info-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--meth-primary);
+            color: var(--secondary-color);
+        }
+
+        .info-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .info-section p, .info-section li {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .info-section ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .info-section li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.8rem;
+        }
+
+        .info-section li::before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .risk-level {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .risk-label {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Estilos para el medidor de riesgo */
+        .risk-meter-container {
+            position: relative;
+            flex: 1;
+            margin: 0 1rem;
+        }
+        
+        .risk-meter {
+            height: 30px;
+            background: linear-gradient(to right, orange, orangered, red);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .risk-indicator {
+            position: absolute;
+            width: 0%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-right: 4px solid white;
+            transition: width 0.8s ease-in-out;
+        }
+        
+        .risk-arrow {
+            position: absolute;
+            top: -25px;
+            right: 5px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .risk-arrow:hover {
+            transform: scale(1.2);
+        }
+        
+        .risk-value {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: red;
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+        
+        .risk-value.visible {
+            opacity: 1;
+        }
+
+        .effects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .effect-card {
+            background: rgba(139, 0, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(139, 0, 255, 0.2);
+        }
+
+        .effect-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .effect-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .physical-effects {
+            background: linear-gradient(to bottom, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.05));
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .mental-effects {
+            background: linear-gradient(to bottom, rgba(0, 0, 255, 0.1), rgba(0, 0, 255, 0.05));
+            border: 1px solid rgba(0, 0, 255, 0.2);
+        }
+
+        .call-to-action {
+            background: linear-gradient(135deg, var(--meth-primary) 0%, var(--meth-secondary) 100%);
+            padding: 2rem;
+            text-align: center;
+            border-top: 3px solid var(--secondary-color);
+        }
+
+        .call-to-action h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--light-color);
+        }
+
+        .call-to-action p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .emergency-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            display: block;
+            margin: 1rem 0;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            text-align: center;
+            border-top: 2px solid var(--secondary-color);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-right: 0.5rem;
+        }
+
+        .footer-nav {
+            margin: 1rem 0;
+        }
+
+        .footer-nav a {
+            color: var(--light-color);
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Estilos para el menú de navegación */
+        .main-nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-item {
+            position: relative;
+            margin: 0 5px;
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 10px 15px;
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 204, 0, 0.2);
+            color: var(--secondary-color);
+        }
+        
+        .nav-link.active {
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        /* Estilos para el dropdown */
+        .dropdown-toggle {
+            position: relative;
+            padding-right: 25px;
+        }
+        
+        .dropdown-toggle::after {
+            content: "▼";
+            font-size: 10px;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-toggle::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            min-width: 200px;
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+            border-radius: 4px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 8px 15px;
+            color: var(--light-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-item:hover {
+            background-color: rgba(255, 204, 0, 0.1);
+            color: var(--secondary-color);
+            padding-left: 20px;
+        }
+        
+        /* Menú hamburguesa para móviles */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 200;
+        }
+        
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--light-color);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Línea de tiempo de adicción */
+        .timeline {
+            margin: 2rem 0;
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--meth-primary), var(--meth-secondary));
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd) {
+            justify-content: flex-end;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(139, 0, 255, 0.3);
+            position: relative;
+        }
+
+        .timeline-content::before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--meth-primary);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            left: -30px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::before {
+            right: -30px;
+        }
+
+        .timeline-content h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            margin-bottom: 0;
+        }
+        
+        /* Responsividad */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                margin-bottom: 1rem;
+                flex-direction: column;
+            }
+
+            .logo-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .poster-title {
+                font-size: 2.5rem;
+            }
+            
+            .poster-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .risk-level {
+                flex-direction: column;
+            }
+            
+            .risk-meter-container {
+                margin: 1rem 0;
+                width: 100%;
+            }
+            
+            .timeline-line {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                justify-content: flex-start;
+                margin-left: 40px;
+            }
+            
+            .timeline-content {
+                width: 100%;
+            }
+            
+            .timeline-item:nth-child(odd) {
+                justify-content: flex-start;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content::before,
+            .timeline-item:nth-child(even) .timeline-content::before {
+                left: -30px;
+                right: auto;
+            }
+            
+            /* Estilos responsive para el menú */
+            .menu-toggle {
+                display: flex;
+                margin-left: auto;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                padding: 80px 20px 40px;
+                transition: all 0.5s ease;
+                z-index: 100;
+                overflow-y: auto;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .nav-item {
+                margin: 10px 0;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                background-color: transparent;
+                box-shadow: none;
+                visibility: visible;
+                opacity: 1;
+                max-height: 0;
+                overflow: hidden;
+                transform: none;
+                transition: max-height 0.3s ease;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                max-height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo con cristales animados -->
+    <div class="background" id="background">
+        <!-- Cristales se añadirán dinámicamente con JavaScript -->
+    </div>
+    
+    <div class="overlay"></div>
+    
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text">
+                    <h1>CONASAMA</h1>
+                    <p>Centro Nacional de Información sobre Sustancias</p>
+                </div>
+            </div>
+            <!-- Menú de navegación -->
+            <nav class="main-nav">
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item"><a href="http://blog.apikarl.com" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="http://blog.apikarl.com/fentanilo" class="nav-link">Fentanilo</a></li>
+                    <li class="nav-item"><a href="http://blog.apikarl.com/metanfetamina" class="nav-link active">Metanfetamina</a></li>
+                    <li class="nav-item"><a href="http://blog.apikarl.com/cannabis" class="nav-link">Cannabis</a></li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">Más Sustancias</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://blog.apikarl.com/vapeadores" class="dropdown-item">Vapeadores</a></li>
+                            <li><a href="http://blog.apikarl.com/alcohol" class="dropdown-item">Alcohol</a></li>
+                            <li><a href="http://blog.apikarl.com/inhalables" class="dropdown-item">Inhalables</a></li>
+                            <li><a href="http://blog.apikarl.com/benzodiacepinas" class="dropdown-item">Benzodiacepinas</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="poster">
+            <div class="poster-header">
+                <h1 class="poster-title">METANFETAMINA</h1>
+                <h2 class="poster-subtitle">El devastador camino hacia la adicción</h2>
+                <div class="warning-label">¡Alerta Sanitaria!</div>
+            </div>
+            
+            <div class="poster-content">
+                <div class="info-section">
+                    <h2>¿Qué es la Metanfetamina?</h2>
+                    <p>La metanfetamina es un potente estimulante del sistema nervioso central, <strong>altamente adictivo</strong> y devastador para la salud física y mental. Su uso prolongado causa daños irreversibles en múltiples órganos y sistemas del cuerpo.</p>
+                    
+                    <!-- Componente de nivel de riesgo -->
+                    <div class="risk-level">
+                        <span class="risk-label">Nivel de riesgo:</span>
+                        <div class="risk-meter-container">
+                            <div class="risk-meter">
+                                <div class="risk-indicator" id="riskIndicator"></div>
+                            </div>
+                            <div class="risk-arrow" id="riskArrow">▼</div>
+                        </div>
+                        <span class="risk-value" id="riskValue">OCULTO</span>
+                    </div>
+                    
+                    <h3>Datos alarmantes</h3>
+                    <ul>
+                        <li>Más del 40% de los usuarios desarrollan psicosis por metanfetamina con síntomas similares a la esquizofrenia.</li>
+                        <li>La tasa de recaída puede superar el 90% en usuarios crónicos, incluso después de tratamiento intensivo.</li>
+                        <li>El daño cerebral puede persistir durante años después de dejar de consumirla, y algunos efectos son irreversibles.</li>
+                    </ul>
+                    
+                    <h3>Efectos inmediatos</h3>
+                    <div class="effects-grid">
+                        <div class="effect-card physical-effects">
+                            <div class="effect-icon">❤️‍🔥</div>
+                            <div class="effect-title">Cardiovascular</div>
+                            <p>Aumento de la presión arterial y ritmo cardíaco acelerado</p>
+                        </div>
+                        <div class="effect-card mental-effects">
+                            <div class="effect-icon">🧠</div>
+                            <div class="effect-title">Cognitivo</div>
+                            <p>Hiperactividad, insomnio, agitación</p>
+                        </div>
+                        <div class="effect-card physical-effects">
+                            <div class="effect-icon">🥵</div>
+                            <div class="effect-title">Temperatura</div>
+                            <p>Aumento peligroso de la temperatura corporal</p>
+                        </div>
+                        <div class="effect-card mental-effects">
+                            <div class="effect-icon">😨</div>
+                            <div class="effect-title">Emocional</div>
+                            <p>Paranoia, ansiedad extrema, irritabilidad</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h2>Señales de advertencia</h2>
+                    <h3>Síntomas de uso</h3>
+                    <ul>
+                        <li>Pérdida rápida y significativa de peso</li>
+                        <li>Deterioro dental severo ("boca de metanfetamina")</li>
+                        <li>Comportamiento errático, agresivo o paranoico</li>
+                        <li>Lesiones en la piel por rascarse intensamente</li>
+                        <li>Insomnio prolongado (días sin dormir)</li>
+                    </ul>
+                    
+                    <h3>La progresión de la adicción</h3>
+                    <div class="timeline">
+                        <div class="timeline-line"></div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Fase inicial</h3>
+                                <p>Euforia intensa, sensación de energía y confianza. El usuario siente que puede "conquistar el mundo".</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Fase de mantenimiento</h3>
+                                <p>La tolerancia aumenta, requiriendo más dosis para sentir los mismos efectos. Comienza el deterioro físico y mental.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Fase de crisis</h3>
+                                <p>Aparecen síntomas psicóticos, paranoia, alucinaciones. El consumo es prioritario sobre todas las responsabilidades.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-content">
+                                <h3>Fase de colapso</h3>
+                                <p>Severo deterioro de la salud física y mental. Daños irreversibles en órganos vitales y estructura cerebral.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3>Daños a largo plazo</h3>
+                    <p>La metanfetamina causa daños cerebrales permanentes, afectando áreas relacionadas con la memoria, toma de decisiones y control de impulsos. El deterioro cardiovascular, hepático y renal es progresivo y puede conducir a fallos orgánicos.</p>
+                </div>
+            </div>
+            
+            <div class="call-to-action">
+                <h2>Hay esperanza en la recuperación</h2>
+                <p>La adicción a la metanfetamina puede ser superada con tratamiento profesional y apoyo adecuado. El cerebro puede recuperarse parcialmente con abstinencia prolongada y terapias especializadas.</p>
+                <span class="emergency-number">800-911-2000</span>
+                <p>Línea de la Vida - Orientación las 24 horas</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div style="width: 40px; height: 40px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
+                    <span style="font-size: 20px;">🦅</span>
+                </div>
+                <span>GOBIERNO DE MÉXICO</span>
+            </div>
+            <div class="footer-nav">
+                <a href="https://www.gob.mx">Sitio Oficial</a>
+                <a href="https://www.gob.mx/terminos">Términos y Condiciones</a>
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/92883/POLITICA_DE_PRIVACIDAD_INDAABIN.pdf">Política de Privacidad</a>
+                <a href="https://www.gob.mx/salud/acciones-y-programas/centro-de-atencion-ciudadana-contra-las-adicciones">Contacto</a>
+            </div>
+            <p class="copyright">© 2025 - Comisión Nacional de Salud Mental y Adicciones</p>
+        </div>
+    </footer>
+
+<script>
+    // Toggle para el menú móvil
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        if (menuToggle && navMenu) {
+            menuToggle.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+            });
+        }
+        
+        // Funcionalidad del medidor de riesgo
+        const riskMeter = document.querySelector('.risk-meter');
+        const riskIndicator = document.getElementById('riskIndicator');
+        const riskArrow = document.getElementById('riskArrow');
+        const riskValue = document.getElementById('riskValue');
+        
+        // Función para mostrar el nivel extremo
+        function showExtreme() {
+            riskIndicator.style.width = '100%';
+            riskValue.textContent = 'EXTREMO';
+            riskValue.style.color = 'red';
+            riskValue.classList.add('visible');
+            
+            // Efecto pulsante para enfatizar el nivel extremo
+            let pulseEffect = setInterval(() => {
+                riskValue.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    riskValue.style.transform = 'scale(1)';
+                }, 300);
+            }, 1000);
+            
+            // Detener el efecto después de 5 segundos
+            setTimeout(() => {
+                clearInterval(pulseEffect);
+            }, 5000);
+        }
+        
+        // Evento de clic para la flecha
+        if (riskArrow) {
+            riskArrow.addEventListener('click', function() {
+                showExtreme();
+                this.style.transform = 'scale(1.2) rotate(180deg)';
+            });
+        }
+        
+        // Evento de clic para el medidor
+        if (riskMeter) {
+            riskMeter.addEventListener('click', function(e) {
+                const rect = this.getBoundingClientRect();
+                const clickPosition = (e.clientX - rect.left) / rect.width;
+                
+                // Si el clic está cerca del final (nivel extremo)
+                if (clickPosition > 0.8) {
+                    showExtreme();
+                } else {
+                    // Mostrar el nivel según donde se hizo clic
+                    riskIndicator.style.width = `${clickPosition * 100}%`;
+                    
+                    if (clickPosition < 0.33) {
+                        riskValue.textContent = 'BAJO';
+                        riskValue.style.color = 'orange';
+                    } else if (clickPosition < 0.66) {
+                        riskValue.textContent = 'MEDIO';
+                        riskValue.style.color = 'orangered';
+                    } else {
+                        riskValue.textContent = 'ALTO';
+                        riskValue.style.color = 'red';
+                    }
+                    
+                    riskValue.classList.add('visible');
+                }
+            });
+        }
+    });
+    
+    // Crear cristales flotantes para el fondo
+    const background = document.getElementById('background');
+    const numCrystals = 25;
+    
+    if (background) {
+        for (let i = 0; i < numCrystals; i++) {
+            const crystal = document.createElement('div');
+            crystal.classList.add('crystal');
+            
+            // Posición aleatoria
+            const randomX = Math.random() * 100;
+            const randomY = Math.random() * 100;
+            
+            // Tamaño aleatorio
+            const randomSize = 0.5 + Math.random() * 1.5;
+            
+            // Velocidad aleatoria (duración de la animación)
+            const randomDuration = 15 + Math.random() * 25;
+            
+            // Dirección aleatoria
+            const randomRotation = Math.random() * 360;
+            
+            // Establecer propiedades
+            crystal.style.left = `${randomX}%`;
+            crystal.style.top = `${randomY}%`;
+            crystal.style.transform = `scale(${randomSize}) rotate(${randomRotation}deg)`;
+            crystal.style.opacity = 0.3 + Math.random() * 0.5;
+            crystal.style.filter = `blur(${1 + Math.random() * 2}px)`;
+            crystal.style.animation = `float ${randomDuration}s infinite linear`;
+            crystal.style.animationDelay = `${-Math.random() * randomDuration}s`;
+            
+            background.appendChild(crystal);
+        }
+    }
+</script>
+</body>
+</html>
