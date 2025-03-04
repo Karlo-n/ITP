@@ -5,6 +5,7 @@
     { "src": "fentanilo/**/*.html", "use": "@vercel/static" },
     { "src": "metanfetamina/**/*.html", "use": "@vercel/static" },
     { "src": "cannabis/**/*.html", "use": "@vercel/static" },
+    { "src": "vapeadores/**/*.html", "use": "@vercel/static" },
     { "src": "*.css", "use": "@vercel/static" },
     { "src": "*.js", "use": "@vercel/static" },
     { "src": "*.png", "use": "@vercel/static" },
