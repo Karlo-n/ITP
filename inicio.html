@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Informativo sobre Sustancias</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #990000;
+            --secondary-color: #ffcc00;
+            --dark-color: #333;
+            --light-color: #fff;
+            --accent-color: #006847;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: var(--dark-color);
+            color: var(--light-color);
+        }
+
+        .background-slider {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transform: scale(1.08);
+            transition: opacity 1.5s ease-in-out, transform 2s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 0.25;
+            transform: scale(1);
+        }
+
+        .slide.fade-out {
+            opacity: 0;
+            transform: scale(1.05);
+        }
+
+        /* Simulamos las imágenes de fondo con colores diferentes */
+        .slide:nth-child(1) { background-color: #1a1a1a; background-image: linear-gradient(45deg, #000, #333); }
+        .slide:nth-child(2) { background-color: #330000; background-image: linear-gradient(45deg, #200, #400); }
+        .slide:nth-child(3) { background-color: #002233; background-image: linear-gradient(45deg, #002, #004); }
+        .slide:nth-child(4) { background-color: #333300; background-image: linear-gradient(45deg, #220, #440); }
+        .slide:nth-child(5) { background-color: #330033; background-image: linear-gradient(45deg, #202, #404); }
+        .slide:nth-child(6) { background-color: #003322; background-image: linear-gradient(45deg, #020, #040); }
+        .slide:nth-child(7) { background-color: #331100; background-image: linear-gradient(45deg, #210, #420); }
+        .slide:nth-child(8) { background-color: #002222; background-image: linear-gradient(45deg, #022, #044); }
+        .slide:nth-child(9) { background-color: #110033; background-image: linear-gradient(45deg, #102, #204); }
+        .slide:nth-child(10) { background-color: #332200; background-image: linear-gradient(45deg, #320, #640); }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        header {
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-bottom: 3px solid var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--light-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1rem;
+            border: 3px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: "🦅";
+            font-size: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-text h1 {
+            font-size: 2rem;
+            color: var(--light-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .logo-text p {
+            font-size: 1rem;
+            color: var(--secondary-color);
+            opacity: 0.9;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .intro {
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+            border-left: 5px solid var(--secondary-color);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            animation: slideInFromLeft 0.8s ease-out forwards;
+        }
+
+        .intro h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .intro p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .substance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .substance-card {
+            background: linear-gradient(145deg, rgba(20, 20, 20, 0.7), rgba(10, 10, 10, 0.9));
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .substance-card:nth-child(1) { animation-delay: 0.1s; }
+        .substance-card:nth-child(2) { animation-delay: 0.2s; }
+        .substance-card:nth-child(3) { animation-delay: 0.3s; }
+        .substance-card:nth-child(4) { animation-delay: 0.4s; }
+        .substance-card:nth-child(5) { animation-delay: 0.5s; }
+        .substance-card:nth-child(6) { animation-delay: 0.6s; }
+        .substance-card:nth-child(7) { animation-delay: 0.7s; }
+
+        .substance-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4), 0 0 30px rgba(var(--secondary-color-rgb), 0.3);
+            z-index: 10;
+        }
+
+        .substance-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, 
+                rgba(var(--primary-color-rgb), 0.5) 0%, 
+                rgba(0, 0, 0, 0.2) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: -1;
+        }
+
+        .substance-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header {
+            height: 160px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-icon {
+            font-size: 100px;
+            position: relative;
+            z-index: 1;
+            opacity: 0.8;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .substance-card:hover .card-icon {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        .card-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.3) contrast(1.2);
+            transition: all 0.5s;
+        }
+
+        .substance-card:hover .card-bg {
+            filter: brightness(0.4) contrast(1.3);
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--light-color);
+            transition: color 0.3s;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .substance-card:hover .card-title {
+            color: var(--secondary-color);
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .card-action {
+            text-align: center;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background-color: var(--primary-color);
+            color: var(--light-color);
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            font-size: 0.9rem;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: var(--secondary-color);
+            transition: height 0.3s ease-in-out;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            color: var(--dark-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(var(--primary-color-rgb), 0.5);
+        }
+
+        .btn:hover::before {
+            height: 100%;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            text-align: center;
+            border-top: 2px solid var(--secondary-color);
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-right: 0.5rem;
+        }
+
+        .footer-nav {
+            margin: 1rem 0;
+        }
+
+        .footer-nav a {
+            color: var(--light-color);
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .slide-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            opacity: 0;
+            transform: scale(1.1);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .slide-transition.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .transition-icon {
+            font-size: 60px;
+            color: var(--secondary-color);
+            animation: pulse 1s infinite;
+        }
+
+        /* Responsividad */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                margin-bottom: 1rem;
+                flex-direction: column;
+            }
+
+            .logo-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .substance-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo con cambio de imágenes -->
+    <div class="background-slider">
+        <div class="slide active"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+    </div>
+    
+    <div class="overlay"></div>
+    
+    <!-- Animación de transición entre slides -->
+    <div class="slide-transition">
+        <div class="transition-icon">⚠️</div>
+    </div>
+    
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text">
+                    <h1>CONASAMA</h1>
+                    <p>Centro Nacional de Información sobre Sustancias</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <section class="intro">
+            <h2>Información para la Prevención</h2>
+            <p>Bienvenido al portal informativo sobre sustancias y sus riesgos para la salud. Aquí encontrarás información detallada, actualizada y basada en evidencia científica para ayudar a prevenir los daños asociados al consumo de diferentes sustancias.</p>
+            <p>Selecciona cualquiera de las sustancias para conocer sus efectos, riesgos y consecuencias para la salud física y mental.</p>
+        </section>
+        
+        <section class="substance-grid">
+            <!-- Fentanilo -->
+            <div class="substance-card" onclick="window.location.href='http://ITP.apikarl.com/documentacion/fentanilo'">
+                <div class="card-header">
+                    <div class="card-bg"></div>
+                    <div class="card-icon">💉</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Fentanilo</h3>
+                    <p class="card-description">Opioide sintético 50-100 veces más potente que la morfina. Dosis microscópicas pueden ser letales. Actúa deprimiendo el sistema nervioso central.</p>
+                    <div class="card-action">
+                        <a href="http://ITP.apikarl.com/documentacion/fentanilo" class="btn">Más información</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Metanfetamina -->
+            <div class="substance-card" onclick="window.location.href='http://ITP.apikarl.com/documentacion/metanfetamina'">
+                <div class="card-header">
+                    <div class="card-bg"></div>
+                    <div class="card-icon">🧠</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Metanfetamina</h3>
+                    <p class="card-description">Estimulante altamente adictivo que afecta al sistema nervioso central. Causa daños severos a nivel cerebral, físico y psicológico.</p>
+                    <div class="card-action">
+                        <a href="http://ITP.apikarl.com/documentacion/metanfetamina" class="btn">Más información</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cannabis -->
+            <div class="substance-card" onclick="window.location.href='http://ITP.apikarl.com/documentacion/cannabis'">
+                <div class="card-header">
+                    <div class="card-bg"></div>
+                    <div class="card-icon">🍁</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Cannabis</h3>
+                    <p class="card-description">Planta con compuestos psicoactivos que alteran la percepción y el estado de ánimo. Su uso crónico puede tener efectos negativos en la salud mental.</p>
+                    <div class="card-action">
+                        <a href="http://ITP.apikarl.com/documentacion/cannabis" class="btn">Más información</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vapeadores -->
+            <div class="substance-card" onclick="window.location.href='http://ITP.apikarl.com/documentacion/vapeadores'">
+                <div class="card-header">
+                    <div class="card-bg"></div>
+                    <div class="card-icon">💨</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Vapeadores</h3>
+                    <p class="card-description">Dispositivos que calientan líquidos para crear vapor inhalable. Contienen nicotina y otras sustancias químicas que pueden dañar los pulmones.</p>
+                    <div class="card-action">
+                        <a href="http://ITP.apikarl.com/documentacion/vapeadores" class="btn">Más información</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Alcohol -->
+            <div class="substance-card" onclick="window.location.href='http://ITP.apikarl.com/documentacion/alcohol'">
+                <div class="card-header">
+                    <div class="card-bg"></div>
+                    <div class="card-icon">🥃</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Alcohol</h3>
+                    <p class="card-description">Depresivo del sistema nervioso central que afecta la función cerebral. Su consumo excesivo causa daños al hígado, corazón y otros órganos.</p>
+                    <div class="card-action">
+                        <a href="http://ITP.apikarl.com/documentacion/alcohol" class="btn">Más información</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Inhalables -->
+            <div class="substance-card" onclick="window.location.href='http://ITP.apikarl.com/documentacion/inhalables'">
+                <div class="card-header">
+                    <div class="card-bg"></div>
+                    <div class="card-icon">☣️</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Inhalables</h3>
+                    <p class="card-description">Sustancias químicas volátiles que producen vapores psicoactivos. Causan daño cerebral irreversible, problemas respiratorios y cardíacos.</p>
+                    <div class="card-action">
+                        <a href="http://ITP.apikarl.com/documentacion/inhalables" class="btn">Más información</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Benzodiacepinas -->
+            <div class="substance-card" onclick="window.location.href='http://ITP.apikarl.com/documentacion/benzodiacepinas'">
+                <div class="card-header">
+                    <div class="card-bg"></div>
+                    <div class="card-icon">💊</div>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Benzodiacepinas</h3>
+                    <p class="card-description">Medicamentos depresores del sistema nervioso. Su uso no prescrito puede causar dependencia y síndrome de abstinencia severo.</p>
+                    <div class="card-action">
+                        <a href="http://ITP.apikarl.com/documentacion/benzodiacepinas" class="btn">Más información</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div style="width: 40px; height: 40px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
+                    <span style="font-size: 20px;">🦅</span>
+                </div>
+                <span>GOBIERNO DE MÉXICO</span>
+            </div>
+            <div class="footer-nav">
+                <a href="https://www.gob.mx">Sitio Oficial</a>
+                <a href="#">Términos y Condiciones</a>
+                <a href="#">Política de Privacidad</a>
+                <a href="#">Contacto</a>
+            </div>
+            <p class="copyright">© 2025 - Comisión Nacional de Salud Mental y Adicciones</p>
+        </div>
+    </footer>
+
+    <script>
+        // Variables para el control del carrusel
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const transitionOverlay = document.querySelector('.slide-transition');
+        
+        // Función para cambiar de diapositiva
+        function changeSlide() {
+            // Mostrar la animación de transición
+            transitionOverlay.classList.add('active');
+            
+            setTimeout(() => {
+                // Quitar la clase active de la diapositiva actual
+                slides[currentSlide].classList.remove('active');
+                slides[currentSlide].classList.add('fade-out');
+                
+                // Calcular la siguiente diapositiva
+                currentSlide = (currentSlide + 1) % totalSlides;
+                
+                // Activar la nueva diapositiva
+                slides[currentSlide].classList.remove('fade-out');
+                slides[currentSlide].classList.add('active');
+                
+                // Ocultar la animación de transición
+                setTimeout(() => {
+                    transitionOverlay.classList.remove('active');
+                }, 500);
+            }, 500);
+        }
+        
+        // Iniciar el carrusel automático
+        setInterval(changeSlide, 10000);
+        
+        // Animación para las tarjetas al hacer scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.substance-card');
+            
+            function checkScroll() {
+                cards.forEach(card => {
+                    const cardPosition = card.getBoundingClientRect();
+                    
+                    // Si la tarjeta está visible en la ventana
+                    if (cardPosition.top < window.innerHeight * 0.9) {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }
+                });
+            }
+            
+            // Verificar inicialmente
+            checkScroll();
+            
+            // Verificar al hacer scroll
+            window.addEventListener('scroll', checkScroll);
+        });
+        
+        // Efecto hover para los botones
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
