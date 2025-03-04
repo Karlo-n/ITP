@@ -89,6 +89,121 @@
             pointer-events: none;
         }
 
+        /* Estilos para el aviso de disclaimer */
+        .disclaimer-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .disclaimer-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .disclaimer-content {
+            background: linear-gradient(145deg, #222, #111);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            animation: modalAppear 0.5s forwards;
+        }
+
+        @keyframes modalAppear {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .disclaimer-header {
+            background: linear-gradient(to right, #990000, #660000);
+            padding: 1.5rem;
+            border-bottom: 2px solid #ffcc00;
+        }
+
+        .disclaimer-header h3 {
+            color: #ffffff;
+            margin: 0;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .disclaimer-body {
+            padding: 2rem;
+            color: #ffffff;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* Estilos para la imagen circular */
+        .disclaimer-image-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #ffcc00;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .disclaimer-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .disclaimer-image-container:hover .disclaimer-image {
+            transform: scale(1.1);
+        }
+
+        .disclaimer-footer {
+            padding: 1.5rem;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .disclaimer-btn {
+            background-color: #ffcc00;
+            color: #333;
+            border: none;
+            padding: 0.7rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .disclaimer-btn:hover {
+            background-color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 204, 0, 0.5);
+        }
+
         header {
             padding: 2rem;
             background-color: rgba(0, 0, 0, 0.7);
@@ -478,6 +593,20 @@
             .substance-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
+            
+            .disclaimer-content {
+                width: 95%;
+                max-width: 400px;
+            }
+            
+            .disclaimer-header h3 {
+                font-size: 1.3rem;
+            }
+            
+            .disclaimer-body {
+                padding: 1.5rem;
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -501,6 +630,24 @@
     <!-- Animación de transición entre slides -->
     <div class="slide-transition">
         <div class="transition-icon">⚠️</div>
+    </div>
+    
+    <!-- Modal de disclaimer con imagen circular -->
+    <div id="disclaimer-modal" class="disclaimer-modal">
+        <div class="disclaimer-content">
+            <div class="disclaimer-header">
+                <h3>Aviso Importante</h3>
+            </div>
+            <div class="disclaimer-body">
+                <div class="disclaimer-image-container">
+                    <img src="ITP.png" alt="Logo ITP" class="disclaimer-image">
+                </div>
+                <p>Esta web no está asociada a ninguna institución gubernamental, solo es para proyectos escolares.</p>
+            </div>
+            <div class="disclaimer-footer">
+                <button id="disclaimer-accept" class="disclaimer-btn">Entendido</button>
+            </div>
+        </div>
     </div>
     
     <header>
@@ -715,6 +862,28 @@
             button.addEventListener('mouseleave', function() {
                 this.style.transform = 'translateY(0)';
             });
+        });
+        
+        // Función para mostrar el disclaimer modal
+        function showDisclaimerModal() {
+            const modal = document.getElementById('disclaimer-modal');
+            
+            // Si el usuario ya ha visto el aviso (guardado en sessionStorage), no mostrarlo de nuevo
+            if (!sessionStorage.getItem('disclaimerShown')) {
+                modal.classList.add('active');
+                
+                // Cuando el usuario haga clic en "Entendido", cerrar el modal
+                document.getElementById('disclaimer-accept').addEventListener('click', function() {
+                    modal.classList.remove('active');
+                    // Guardar en sessionStorage que el usuario ya ha visto el aviso
+                    sessionStorage.setItem('disclaimerShown', 'true');
+                });
+            }
+        }
+        
+        // Mostrar el disclaimer cuando la página termine de cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            showDisclaimerModal();
         });
     </script>
 </body>
