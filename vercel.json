@@ -9,10 +9,6 @@
     { "src": "*.svg", "use": "@vercel/static" },
     { "src": "*.json", "use": "@vercel/static" }
   ],
-  "rewrites": [
-    { "source": "/docs", "destination": "/docs/index.html" },
-    { "source": "/docs/:path*", "destination": "/docs/:path*" }
-  ],
   "headers": [
     {
       "source": "/(.*)\\.js",
