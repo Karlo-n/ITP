@@ -1,1 +1,970 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información sobre el Cannabis - CONASAMA</title>
+<!-- Favicons -->
+    <link rel="icon" type="image/png" href="gob.png">
+    <link rel="shortcut icon" type="image/png" href="gob.png">
+    <link rel="apple-touch-icon" href="gob.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
+        :root {
+            --primary-color: #006400; /* Verde oscuro para cannabis */
+            --secondary-color: #8bc34a; /* Verde claro */
+            --dark-color: #333;
+            --light-color: #fff;
+            --accent-color: #006847;
+            --cannabis-color: #f5f5f5;
+            --cannabis-dark: #e0e0e0;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: #1a1a1a;
+            color: var(--light-color);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Fondo con hojas */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
+        }
+
+        .leaf {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23006400' opacity='0.2' d='M50 0 C60 30 80 40 100 50 C80 60 60 70 50 100 C40 70 20 60 0 50 C20 40 40 30 50 0'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            filter: blur(1px);
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(-100px, -100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(calc(100vw + 100px), calc(100vh + 100px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        header {
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-bottom: 3px solid var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--light-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1rem;
+            border: 3px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: "🦅";
+            font-size: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-text h1 {
+            font-size: 2rem;
+            color: var(--light-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .logo-text p {
+            font-size: 1rem;
+            color: var(--secondary-color);
+            opacity: 0.9;
+        }
+
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .poster {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            border: 2px solid rgba(139, 195, 74, 0.2);
+        }
+
+        .poster-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #003300 100%);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        .poster-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--light-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .poster-subtitle {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--cannabis-color);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .warning-label {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            padding: 0.5rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .poster-content {
+            padding: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .info-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .info-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--secondary-color);
+        }
+
+        .info-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .info-section p, .info-section li {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .info-section ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .info-section li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.8rem;
+        }
+
+        .info-section li::before {
+            content: "🍃";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .info-box {
+            background: rgba(139, 195, 74, 0.1);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .info-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .info-box p {
+            margin-bottom: 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+
+        .comparison-table th {
+            padding: 1rem;
+            background-color: rgba(0, 100, 0, 0.4);
+            text-align: left;
+            color: var(--light-color);
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(139, 195, 74, 0.2);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: rgba(139, 195, 74, 0.05);
+        }
+
+        .cannabinoid-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .cannabinoid-card {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(0, 100, 0, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(139, 195, 74, 0.3);
+        }
+
+        .cannabinoid-card h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .cannabinoid-card h4 span {
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .cannabinoid-card p {
+            margin-bottom: 0;
+        }
+
+        .risk-spectrum {
+            position: relative;
+            height: 80px;
+            margin: 2rem 0;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .risk-line {
+            position: relative;
+            height: 15px;
+            background: linear-gradient(to right, #4CAF50, #FFC107, #FF5722);
+            border-radius: 7.5px;
+            margin: 1rem 0;
+        }
+
+        .risk-marker {
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background-color: var(--light-color);
+            border: 2px solid var(--dark-color);
+            border-radius: 4px;
+            transform: translateX(-50%);
+            cursor: pointer;
+            z-index: 1;
+            top: -8px;
+        }
+
+        .risk-marker::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 100%;
+            transform: translateX(-50%);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid var(--light-color);
+        }
+
+        .risk-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            color: var(--light-color);
+            font-size: 0.9rem;
+        }
+
+        #occasional-use {
+            left: 30%;
+        }
+
+        #frequent-use {
+            left: 60%;
+        }
+
+        #heavy-use {
+            left: 90%;
+        }
+
+        #adolescent-use {
+            top: 15px;
+            left: 75%;
+            background-color: #FF5722;
+            border-color: #E64A19;
+        }
+
+        #adolescent-use::after {
+            border-top-color: #FF5722;
+        }
+
+        .risk-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .risk-marker:hover .risk-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .call-to-action {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #003300 100%);
+            padding: 2rem;
+            text-align: center;
+            border-top: 3px solid var(--secondary-color);
+        }
+
+        .call-to-action h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--light-color);
+        }
+
+        .call-to-action p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .emergency-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            display: block;
+            margin: 1rem 0;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            text-align: center;
+            border-top: 2px solid var(--secondary-color);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-right: 0.5rem;
+        }
+
+        .footer-nav {
+            margin: 1rem 0;
+        }
+
+        .footer-nav a {
+            color: var(--light-color);
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Estilos para el menú de navegación */
+        .main-nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-item {
+            position: relative;
+            margin: 0 5px;
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 10px 15px;
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(139, 195, 74, 0.2);
+            color: var(--secondary-color);
+        }
+        
+        .nav-link.active {
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        /* Estilos para el dropdown */
+        .dropdown-toggle {
+            position: relative;
+            padding-right: 25px;
+        }
+        
+        .dropdown-toggle::after {
+            content: "▼";
+            font-size: 10px;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-toggle::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            min-width: 200px;
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+            border-radius: 4px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 8px 15px;
+            color: var(--light-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-item:hover {
+            background-color: rgba(139, 195, 74, 0.1);
+            color: var(--secondary-color);
+            padding-left: 20px;
+        }
+        
+        /* Menú hamburguesa para móviles */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 200;
+        }
+        
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--light-color);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        /* Responsividad */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                margin-bottom: 1rem;
+                flex-direction: column;
+            }
+
+            .logo-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .poster-title {
+                font-size: 2.5rem;
+            }
+            
+            .poster-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .cannabinoid-cards {
+                flex-direction: column;
+            }
+            
+            .risk-spectrum {
+                height: auto;
+                padding-bottom: 3rem;
+            }
+            
+            .risk-marker .risk-tooltip {
+                transform: translateX(-50%) scale(0.8);
+                white-space: normal;
+                width: 150px;
+                font-size: 0.8rem;
+            }
+            
+            /* Estilos responsive para el menú */
+            .menu-toggle {
+                display: flex;
+                margin-left: auto;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                padding: 80px 20px 40px;
+                transition: all 0.5s ease;
+                z-index: 100;
+                overflow-y: auto;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .nav-item {
+                margin: 10px 0;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                background-color: transparent;
+                box-shadow: none;
+                visibility: visible;
+                opacity: 1;
+                max-height: 0;
+                overflow: hidden;
+                transform: none;
+                transition: max-height 0.3s ease;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                max-height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo con hojas animadas -->
+    <div class="background" id="background">
+        <!-- Hojas se añadirán dinámicamente con JavaScript -->
+    </div>
+    
+    <div class="overlay"></div>
+    
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text">
+                    <h1>CONASAMA</h1>
+                    <p>Centro Nacional de Información sobre Sustancias</p>
+                </div>
+            </div>
+            <!-- Menú de navegación -->
+            <nav class="main-nav">
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item"><a href="http://blog.apikarl.com" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="http://blog.apikarl.com/fentanilo" class="nav-link">Fentanilo</a></li>
+                    <li class="nav-item"><a href="http://blog.apikarl.com/metanfetamina" class="nav-link">Metanfetamina</a></li>
+                    <li class="nav-item"><a href="http://blog.apikarl.com/cannabis" class="nav-link active">Cannabis</a></li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">Más Sustancias</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://blog.apikarl.com/vapeadores" class="dropdown-item">Vapeadores</a></li>
+                            <li><a href="http://blog.apikarl.com/alcohol" class="dropdown-item">Alcohol</a></li>
+                            <li><a href="http://blog.apikarl.com/inhalables" class="dropdown-item">Inhalables</a></li>
+                            <li><a href="http://blog.apikarl.com/benzodiacepinas" class="dropdown-item">Benzodiacepinas</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="poster">
+            <div class="poster-header">
+                <h1 class="poster-title">CANNABIS</h1>
+                <h2 class="poster-subtitle">Información basada en evidencia</h2>
+                <div class="warning-label">Información de Salud Pública</div>
+            </div>
+            
+            <div class="poster-content">
+                <div class="info-section">
+                    <h2>¿Qué es el Cannabis?</h2>
+                    <p>El cannabis, también conocido como marihuana, es una planta con propiedades psicoactivas derivadas principalmente de su compuesto THC (tetrahidrocannabinol). Contiene más de 100 cannabinoides diferentes que pueden afectar el cerebro y el cuerpo de diversas maneras.</p>
+                    
+                    <div class="info-box">
+                        <h4>Panorama legal en México</h4>
+                        <p>En México, la situación legal del cannabis ha evolucionado en los últimos años. Actualmente, su uso médico está regulado bajo ciertas condiciones, mientras que el uso recreativo sigue siendo objeto de debate y modificaciones legales. Es importante mantenerse informado sobre la legislación vigente.</p>
+                    </div>
+                    
+                    <h3>Principales cannabinoides</h3>
+                    <div class="cannabinoid-cards">
+                        <div class="cannabinoid-card">
+                            <h4><span>🔆</span> THC</h4>
+                            <p>Tetrahidrocannabinol: principal componente psicoactivo responsable de la sensación de "subidón" o "high". Puede causar euforia, alteración sensorial y cognitiva.</p>
+                        </div>
+                        <div class="cannabinoid-card">
+                            <h4><span>🧠</span> CBD</h4>
+                            <p>Cannabidiol: no psicoactivo, asociado con propiedades antiinflamatorias, ansiolíticas y anticonvulsivas. No produce intoxicación.</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Formas de consumo</h3>
+                    <ul>
+                        <li>Fumado (flores o "cogollos")</li>
+                        <li>Vaporización (menor daño respiratorio)</li>
+                        <li>Comestibles (efecto más duradero e intenso)</li>
+                        <li>Tinturas y aceites (uso medicinal común)</li>
+                        <li>Concentrados (hash, ceras, shatter - alta potencia)</li>
+                    </ul>
+                </div>
+                
+                <div class="info-section">
+                    <h2>Efectos y Riesgos</h2>
+                    
+                    <h3>Efectos a corto plazo</h3>
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Efectos físicos</th>
+                                    <th>Efectos psicológicos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Ojos rojos</td>
+                                    <td>Alteración de la percepción del tiempo</td>
+                                </tr>
+                                <tr>
+                                    <td>Boca seca</td>
+                                    <td>Euforia o relajación</td>
+                                </tr>
+                                <tr>
+                                    <td>Aumento del apetito</td>
+                                    <td>Cambios en la concentración y memoria</td>
+                                </tr>
+                                <tr>
+                                    <td>Aumento del ritmo cardíaco</td>
+                                    <td>Posible ansiedad o paranoia (dosis altas)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h3>Espectro de riesgo</h3>
+                    <p>El riesgo asociado al consumo de cannabis varía significativamente según la frecuencia, intensidad, edad de inicio y factores individuales:</p>
+                    
+                    <div class="risk-spectrum">
+                        <div class="risk-line"></div>
+                        <div class="risk-marker" id="occasional-use" style="left: 30%;">
+                            <div class="risk-tooltip">Consumo ocasional adulto</div>
+                        </div>
+                        <div class="risk-marker" id="frequent-use" style="left: 60%;">
+                            <div class="risk-tooltip">Consumo frecuente</div>
+                        </div>
+                        <div class="risk-marker" id="heavy-use" style="left: 90%;">
+                            <div class="risk-tooltip">Consumo intensivo</div>
+                        </div>
+                        <div class="risk-marker" id="adolescent-use" style="left: 75%;">
+                            <div class="risk-tooltip">Consumo adolescente</div>
+                        </div>
+                        <div class="risk-labels">
+                            <span>Menor riesgo</span>
+                            <span>Riesgo moderado</span>
+                            <span>Mayor riesgo</span>
+                        </div>
+                    </div>
+                    
+                    <h3>Consideraciones importantes</h3>
+                    <ul>
+                        <li>El cerebro sigue desarrollándose hasta aproximadamente los 25 años. El consumo durante la adolescencia conlleva mayores riesgos.</li>
+                        <li>Las personas con antecedentes familiares de trastornos psicóticos pueden tener mayor riesgo al consumir cannabis con alto contenido de THC.</li>
+                        <li>Evite conducir o manejar maquinaria peligrosa bajo los efectos del cannabis.</li>
+                        <li>El consumo durante el embarazo puede afectar el desarrollo fetal.</li>
+                    </ul>
+                    
+                    <div class="info-box">
+                        <h4>Uso medicinal</h4>
+                        <p>El cannabis medicinal ha mostrado beneficios para condiciones como dolor crónico, espasticidad en esclerosis múltiple, náuseas por quimioterapia, y ciertos tipos de epilepsia. Sin embargo, debe ser prescrito y supervisado por profesionales de la salud. No se automedique.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="call-to-action">
+                <h2>Información y Recursos</h2>
+                <p>Si tienes dudas sobre el consumo de cannabis o necesitas orientación sobre reducción de riesgos, existen servicios gratuitos y confidenciales disponibles.</p>
+                <span class="emergency-number">800-911-2000</span>
+                <p>Línea de la Vida - Orientación las 24 horas</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+                    <div class="footer-content">
+            <div class="footer-logo">
+                <div style="width: 40px; height: 40px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
+                    <span style="font-size: 20px;">🦅</span>
+                </div>
+                <span>GOBIERNO DE MÉXICO</span>
+            </div>
+            <div class="footer-nav">
+                <a href="https://www.gob.mx">Sitio Oficial</a>
+                <a href="https://www.gob.mx/terminos">Términos y Condiciones</a>
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/92883/POLITICA_DE_PRIVACIDAD_INDAABIN.pdf">Política de Privacidad</a>
+                <a href="https://www.gob.mx/salud/acciones-y-programas/centro-de-atencion-ciudadana-contra-las-adicciones">Contacto</a>
+            </div>
+            <p class="copyright">© 2025 - Comisión Nacional de Salud Mental y Adicciones</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle para el menú móvil
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                });
+            }
+            
+            // Funcionalidad para los tooltips de riesgo
+            const riskMarkers = document.querySelectorAll('.risk-marker');
+            
+            riskMarkers.forEach(marker => {
+                marker.addEventListener('mouseenter', function() {
+                    const tooltip = this.querySelector('.risk-tooltip');
+                    if (tooltip) {
+                        tooltip.style.opacity = '1';
+                        tooltip.style.visibility = 'visible';
+                    }
+                });
+                
+                marker.addEventListener('mouseleave', function() {
+                    const tooltip = this.querySelector('.risk-tooltip');
+                    if (tooltip) {
+                        tooltip.style.opacity = '0';
+                        tooltip.style.visibility = 'hidden';
+                    }
+                });
+            });
+            
+            // Animación de los marcadores de riesgo al cargar la página
+            setTimeout(() => {
+                riskMarkers.forEach((marker, index) => {
+                    setTimeout(() => {
+                        marker.style.transition = 'transform 0.5s ease-out';
+                        marker.style.transform = 'translateX(-50%) translateY(-5px)';
+                        setTimeout(() => {
+                            marker.style.transform = 'translateX(-50%) translateY(0)';
+                        }, 300);
+                    }, index * 200);
+                });
+            }, 1000);
+        });
+        
+        // Crear hojas flotantes para el fondo
+        const background = document.getElementById('background');
+        const numLeaves = 25;
+        
+        if (background) {
+            for (let i = 0; i < numLeaves; i++) {
+                const leaf = document.createElement('div');
+                leaf.classList.add('leaf');
+                
+                // Posición aleatoria
+                const randomX = Math.random() * 100;
+                const randomY = Math.random() * 100;
+                
+                // Tamaño aleatorio
+                const randomSize = 0.5 + Math.random() * 1.5;
+                
+                // Velocidad aleatoria (duración de la animación)
+                const randomDuration = 15 + Math.random() * 25;
+                
+                // Dirección aleatoria
+                const randomRotation = Math.random() * 360;
+                
+                // Establecer propiedades
+                leaf.style.left = `${randomX}%`;
+                leaf.style.top = `${randomY}%`;
+                leaf.style.transform = `scale(${randomSize}) rotate(${randomRotation}deg)`;
+                leaf.style.opacity = 0.3 + Math.random() * 0.5;
+                leaf.style.filter = `blur(${Math.random() * 2}px)`;
+                leaf.style.animation = `float ${randomDuration}s infinite linear`;
+                leaf.style.animationDelay = `${-Math.random() * randomDuration}s`;
+                
+                background.appendChild(leaf);
+            }
+        }
+    </script>
+</body>
+</html>
