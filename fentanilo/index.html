@@ -288,31 +288,56 @@
             font-size: 1.2rem;
         }
 
-        .risk-meter {
+        /* Nuevos estilos para el medidor de riesgo mejorado */
+        .risk-meter-container {
+            position: relative;
             flex: 1;
-            height: 30px;
-            background: linear-gradient(to right, yellow, orange, red);
             margin: 0 1rem;
+        }
+        
+        .risk-meter {
+            height: 30px;
+            background: linear-gradient(to right, orange, orangered, red);
             border-radius: 15px;
             position: relative;
+            overflow: hidden;
+            cursor: pointer;
         }
-
-        .risk-meter::after {
-            content: "";
+        
+        .risk-indicator {
             position: absolute;
-            top: -10px;
-            right: 5px;
-            width: 0;
-            height: 0;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 10px solid white;
+            width: 0%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-right: 4px solid white;
+            transition: width 0.8s ease-in-out;
         }
-
+        
+        .risk-arrow {
+            position: absolute;
+            top: -25px;
+            right: 5px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .risk-arrow:hover {
+            transform: scale(1.2);
+        }
+        
         .risk-value {
             font-weight: bold;
             font-size: 1.2rem;
             color: red;
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+        
+        .risk-value.visible {
+            opacity: 1;
         }
 
         .call-to-action {
@@ -420,7 +445,7 @@
                 flex-direction: column;
             }
             
-            .risk-meter {
+            .risk-meter-container {
                 margin: 1rem 0;
                 width: 100%;
             }
@@ -477,10 +502,16 @@
                     <h2>¿Qué es el Fentanilo?</h2>
                     <p>El fentanilo es un potente opioide sintético similar a la morfina, pero <strong>50 a 100 veces más potente</strong>. Se prescribe legalmente para tratar el dolor severo, pero su uso ilícito ha causado miles de muertes.</p>
                     
+                    <!-- Nuevo componente de nivel de riesgo -->
                     <div class="risk-level">
                         <span class="risk-label">Nivel de riesgo:</span>
-                        <div class="risk-meter"></div>
-                        <span class="risk-value">EXTREMO</span>
+                        <div class="risk-meter-container">
+                            <div class="risk-meter">
+                                <div class="risk-indicator" id="riskIndicator"></div>
+                            </div>
+                            <div class="risk-arrow" id="riskArrow">▼</div>
+                        </div>
+                        <span class="risk-value" id="riskValue">OCULTO</span>
                     </div>
                     
                     <h3>Datos alarmantes</h3>
@@ -568,6 +599,65 @@
                     bars[0].style.transform = 'none';
                     bars[1].style.opacity = '1';
                     bars[2].style.transform = 'none';
+                }
+            });
+            
+            // Nuevo código para la funcionalidad del medidor de riesgo
+            const riskMeter = document.querySelector('.risk-meter');
+            const riskIndicator = document.getElementById('riskIndicator');
+            const riskArrow = document.getElementById('riskArrow');
+            const riskValue = document.getElementById('riskValue');
+            
+            // Función para mostrar el nivel extremo
+            function showExtreme() {
+                riskIndicator.style.width = '100%';
+                riskValue.textContent = 'EXTREMO';
+                riskValue.classList.add('visible');
+                
+                // Efecto pulsante para enfatizar el nivel extremo
+                let pulseEffect = setInterval(() => {
+                    riskValue.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        riskValue.style.transform = 'scale(1)';
+                    }, 300);
+                }, 1000);
+                
+                // Detener el efecto después de 5 segundos
+                setTimeout(() => {
+                    clearInterval(pulseEffect);
+                }, 5000);
+            }
+            
+            // Evento de clic para la flecha
+            riskArrow.addEventListener('click', function() {
+                showExtreme();
+                this.style.transform = 'scale(1.2) rotate(180deg)';
+            });
+            
+            // Evento de clic para el medidor
+            riskMeter.addEventListener('click', function(e) {
+                const rect = this.getBoundingClientRect();
+                const clickPosition = (e.clientX - rect.left) / rect.width;
+                
+                // Si el clic está cerca del final (nivel extremo)
+                if (clickPosition > 0.8) {
+                    showExtreme();
+                } else {
+                    // Mostrar el nivel según donde se hizo clic
+                    riskIndicator.style.width = `${clickPosition * 100}%`;
+                    
+                    if (clickPosition < 0.33) {
+                        riskValue.textContent = 'BAJO';
+                        riskValue.style.color = 'orange';
+                    } else if (clickPosition < 0.66) {
+                        riskValue.textContent = 'MEDIO';
+                        riskValue.style.color = 'orangered';
+                    } else {
+                        riskValue.textContent = 'ALTO';
+                        riskValue.style.color = 'red';
+                    }
+                    
+                    riskValue.classList.add('visible');
                 }
             });
         });
