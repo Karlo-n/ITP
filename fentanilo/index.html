@@ -416,6 +416,122 @@
             opacity: 0.7;
         }
 
+        /* Estilos para el menú de navegación mejorado */
+        .main-nav {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-item {
+            position: relative;
+            margin: 0 5px;
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 10px 15px;
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 204, 0, 0.2);
+            color: var(--secondary-color);
+        }
+        
+        .nav-link.active {
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        /* Estilos para el dropdown */
+        .dropdown-toggle {
+            position: relative;
+            padding-right: 25px;
+        }
+        
+        .dropdown-toggle::after {
+            content: "▼";
+            font-size: 10px;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-toggle::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            min-width: 200px;
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+            border-radius: 4px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 8px 15px;
+            color: var(--light-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-item:hover {
+            background-color: rgba(255, 204, 0, 0.1);
+            color: var(--secondary-color);
+            padding-left: 20px;
+        }
+        
+        /* Menú hamburguesa para móviles */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 200;
+        }
+        
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--light-color);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+        
         /* Responsividad */
         @media (max-width: 768px) {
             .header-content {
@@ -449,6 +565,51 @@
                 margin: 1rem 0;
                 width: 100%;
             }
+            
+            /* Estilos responsive para el menú */
+            .menu-toggle {
+                display: flex;
+                margin-left: auto;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                padding: 80px 20px 40px;
+                transition: all 0.5s ease;
+                z-index: 100;
+                overflow-y: auto;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .nav-item {
+                margin: 10px 0;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                background-color: transparent;
+                box-shadow: none;
+                visibility: visible;
+                opacity: 1;
+                max-height: 0;
+                overflow: hidden;
+                transform: none;
+                transition: max-height 0.3s ease;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                max-height: 200px;
+            }
         }
     </style>
 </head>
@@ -469,20 +630,26 @@
                     <p>Centro Nacional de Información sobre Sustancias</p>
                 </div>
             </div>
+            <!-- Nuevo menú de navegación aquí -->
             <nav class="main-nav">
-                <ul class="nav-links">
-                    <li><a href="http://ITP.apikarl.com/documentacion/" class="nav-link">Inicio</a></li>
-                    <li><a href="http://ITP.apikarl.com/documentacion/fentanilo" class="nav-link">Fentanilo</a></li>
-                    <li><a href="http://ITP.apikarl.com/documentacion/metanfetamina" class="nav-link">Metanfetamina</a></li>
-                    <li><a href="http://ITP.apikarl.com/documentacion/cannabis" class="nav-link">Cannabis</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="nav-link">Más Sustancias</a>
-                        <div class="dropdown-content">
-                            <a href="http://ITP.apikarl.com/documentacion/vapeadores">Vapeadores</a>
-                            <a href="http://ITP.apikarl.com/documentacion/alcohol">Alcohol</a>
-                            <a href="http://ITP.apikarl.com/documentacion/inhalables">Inhalables</a>
-                            <a href="http://ITP.apikarl.com/documentacion/benzodiacepinas">Benzodiacepinas</a>
-                        </div>
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item"><a href="http://ITP.apikarl.com/documentacion/" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="http://ITP.apikarl.com/documentacion/fentanilo" class="nav-link active">Fentanilo</a></li>
+                    <li class="nav-item"><a href="http://ITP.apikarl.com/documentacion/metanfetamina" class="nav-link">Metanfetamina</a></li>
+                    <li class="nav-item"><a href="http://ITP.apikarl.com/documentacion/cannabis" class="nav-link">Cannabis</a></li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">Más Sustancias</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://ITP.apikarl.com/documentacion/vapeadores" class="dropdown-item">Vapeadores</a></li>
+                            <li><a href="http://ITP.apikarl.com/documentacion/alcohol" class="dropdown-item">Alcohol</a></li>
+                            <li><a href="http://ITP.apikarl.com/documentacion/inhalables" class="dropdown-item">Inhalables</a></li>
+                            <li><a href="http://ITP.apikarl.com/documentacion/benzodiacepinas" class="dropdown-item">Benzodiacepinas</a></li>
+                        </ul>
                     </li>
                 </ul>
             </nav>
