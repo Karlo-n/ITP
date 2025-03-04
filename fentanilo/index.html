@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información sobre el Fentanilo - CONASAMA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #990000;
+            --secondary-color: #ffcc00;
+            --dark-color: #333;
+            --light-color: #fff;
+            --accent-color: #006847;
+            --fentanyl-color: #f5f5f5;
+            --fentanyl-dark: #e0e0e0;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: #1a1a1a;
+            color: var(--light-color);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Fondo con jeringas */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
+        }
+
+        .syringe {
+            position: absolute;
+            width: 80px;
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            transform: rotate(45deg);
+            filter: blur(1px);
+            animation: float 15s infinite linear;
+        }
+
+        .syringe::before {
+            content: "";
+            position: absolute;
+            right: -10px;
+            top: -5px;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+
+        .syringe::after {
+            content: "";
+            position: absolute;
+            left: -5px;
+            top: 3px;
+            width: 10px;
+            height: 4px;
+            background-color: rgba(245, 245, 245, 0.3);
+            border-radius: 2px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: rotate(45deg) translate(-100px, -100px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: rotate(45deg) translate(calc(100vw + 100px), calc(100vh + 100px));
+                opacity: 0;
+            }
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        header {
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-bottom: 3px solid var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--light-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1rem;
+            border: 3px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: "🦅";
+            font-size: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-text h1 {
+            font-size: 2rem;
+            color: var(--light-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .logo-text p {
+            font-size: 1rem;
+            color: var(--secondary-color);
+            opacity: 0.9;
+        }
+
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .poster {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            border: 2px solid rgba(245, 245, 245, 0.1);
+        }
+
+        .poster-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #660000 100%);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        .poster-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--light-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .poster-subtitle {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--fentanyl-color);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .warning-label {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            padding: 0.5rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .poster-content {
+            padding: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .info-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .info-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--secondary-color);
+        }
+
+        .info-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .info-section p, .info-section li {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .info-section ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .info-section li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.8rem;
+        }
+
+        .info-section li::before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .risk-level {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 10px;
+        }
+
+        .risk-label {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .risk-meter {
+            flex: 1;
+            height: 30px;
+            background: linear-gradient(to right, yellow, orange, red);
+            margin: 0 1rem;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .risk-meter::after {
+            content: "";
+            position: absolute;
+            top: -10px;
+            right: 5px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid white;
+        }
+
+        .risk-value {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: red;
+        }
+
+        .call-to-action {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #660000 100%);
+            padding: 2rem;
+            text-align: center;
+            border-top: 3px solid var(--secondary-color);
+        }
+
+        .call-to-action h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--light-color);
+        }
+
+        .call-to-action p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .emergency-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            display: block;
+            margin: 1rem 0;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            text-align: center;
+            border-top: 2px solid var(--secondary-color);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-right: 0.5rem;
+        }
+
+        .footer-nav {
+            margin: 1rem 0;
+        }
+
+        .footer-nav a {
+            color: var(--light-color);
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Estilos del menú de navegación */
+        .main-nav {
+            margin-left: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-color);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            border: 1px solid var(--secondary-color);
+            border-radius: 8px;
+            min-width: 200px;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.8rem 1.2rem;
+            color: var(--light-color);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(255, 204, 0, 0.2);
+            color: var(--secondary-color);
+        }
+
+        /* Burger menu para móvil */
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 200;
+        }
+
+        .burger-bar {
+            width: 100%;
+            height: 3px;
+            background-color: var(--light-color);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Responsividad */
+        @media (max-width: 1024px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .nav-link {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                margin-bottom: 1rem;
+                flex-direction: column;
+            }
+
+            .logo-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .burger-menu {
+                display: flex;
+                position: absolute;
+                top: 2rem;
+                right: 2rem;
+            }
+
+            .main-nav {
+                margin: 0;
+                width: 100%;
+                overflow: hidden;
+                max-height: 0;
+                transition: max-height 0.5s ease;
+            }
+
+            .main-nav.active {
+                max-height: 300px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 0;
+                width: 100%;
+                padding: 1rem 0;
+            }
+
+            .nav-link {
+                display: block;
+                padding: 0.8rem 0;
+                text-align: center;
+            }
+        }
+
+            .poster-title {
+                font-size: 2.5rem;
+            }
+            
+            .poster-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .risk-level {
+                flex-direction: column;
+            }
+            
+            .risk-meter {
+                margin: 1rem 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo con jeringas animadas -->
+    <div class="background" id="background">
+        <!-- Jeringas se añadirán dinámicamente con JavaScript -->
+    </div>
+    
+    <div class="overlay"></div>
+    
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text">
+                    <h1>CONASAMA</h1>
+                    <p>Centro Nacional de Información sobre Sustancias</p>
+                </div>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="http://ITP.apikarl.com/documentacion/" class="nav-link">Inicio</a></li>
+                    <li><a href="http://ITP.apikarl.com/documentacion/fentanilo" class="nav-link">Fentanilo</a></li>
+                    <li><a href="http://ITP.apikarl.com/documentacion/metanfetamina" class="nav-link">Metanfetamina</a></li>
+                    <li><a href="http://ITP.apikarl.com/documentacion/cannabis" class="nav-link">Cannabis</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">Más Sustancias</a>
+                        <div class="dropdown-content">
+                            <a href="http://ITP.apikarl.com/documentacion/vapeadores">Vapeadores</a>
+                            <a href="http://ITP.apikarl.com/documentacion/alcohol">Alcohol</a>
+                            <a href="http://ITP.apikarl.com/documentacion/inhalables">Inhalables</a>
+                            <a href="http://ITP.apikarl.com/documentacion/benzodiacepinas">Benzodiacepinas</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="poster">
+            <div class="poster-header">
+                <h1 class="poster-title">FENTANILO</h1>
+                <h2 class="poster-subtitle">Una crisis mortal invisible</h2>
+                <div class="warning-label">¡Alerta Sanitaria!</div>
+            </div>
+            
+            <div class="poster-content">
+                <div class="info-section">
+                    <h2>¿Qué es el Fentanilo?</h2>
+                    <p>El fentanilo es un potente opioide sintético similar a la morfina, pero <strong>50 a 100 veces más potente</strong>. Se prescribe legalmente para tratar el dolor severo, pero su uso ilícito ha causado miles de muertes.</p>
+                    
+                    <div class="risk-level">
+                        <span class="risk-label">Nivel de riesgo:</span>
+                        <div class="risk-meter"></div>
+                        <span class="risk-value">EXTREMO</span>
+                    </div>
+                    
+                    <h3>Datos alarmantes</h3>
+                    <ul>
+                        <li>Una dosis letal puede ser tan pequeña como 2 miligramos, equivalente a unos pocos granos de sal.</li>
+                        <li>El fentanilo es responsable de más del 70% de todas las muertes por sobredosis de opioides.</li>
+                        <li>Puede causar la muerte en cuestión de minutos por depresión respiratoria.</li>
+                    </ul>
+                </div>
+                
+                <div class="info-section">
+                    <h2>Señales de advertencia</h2>
+                    <h3>Síntomas de sobredosis</h3>
+                    <ul>
+                        <li>Respiración extremadamente lenta o detenida</li>
+                        <li>Pérdida del conocimiento</li>
+                        <li>Pupilas contraídas (puntiformes)</li>
+                        <li>Piel fría y húmeda</li>
+                        <li>Coloración azulada o morada en labios y uñas</li>
+                    </ul>
+                    
+                    <h3>Peligros ocultos</h3>
+                    <p>El fentanilo ilícito se mezcla frecuentemente con otras drogas como heroína, cocaína o metanfetamina, y también se vende como pastillas falsificadas, lo que aumenta el riesgo de sobredosis accidental.</p>
+                    
+                    <h3>Naloxona: un antídoto vital</h3>
+                    <p>La naloxona (Narcan®) puede revertir una sobredosis de opioides, incluido el fentanilo, si se administra a tiempo. Puede salvar vidas en una emergencia.</p>
+                </div>
+            </div>
+            
+            <div class="call-to-action">
+                <h2>¿Necesitas ayuda?</h2>
+                <p>Si tú o alguien que conoces está luchando contra la adicción, hay esperanza y ayuda disponible. No enfrentes esto solo.</p>
+                <span class="emergency-number">800-911-2000</span>
+                <p>Línea de la Vida - Orientación las 24 horas</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div style="width: 40px; height: 40px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
+                    <span style="font-size: 20px;">🦅</span>
+                </div>
+                <span>GOBIERNO DE MÉXICO</span>
+            </div>
+            <div class="footer-nav">
+                <a href="https://www.gob.mx">Sitio Oficial</a>
+                <a href="https://www.gob.mx/terminos">Términos y Condiciones</a>
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/92883/POLITICA_DE_PRIVACIDAD_INDAABIN.pdf">Política de Privacidad</a>
+                <a href="https://www.gob.mx/salud/acciones-y-programas/centro-de-atencion-ciudadana-contra-las-adicciones">Contacto</a>
+            </div>
+            <p class="copyright">© 2025 - Comisión Nacional de Salud Mental y Adicciones</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle para el menú móvil
+        document.addEventListener('DOMContentLoaded', function() {
+            const burgerMenu = document.createElement('div');
+            burgerMenu.classList.add('burger-menu');
+            
+            for (let i = 0; i < 3; i++) {
+                const bar = document.createElement('div');
+                bar.classList.add('burger-bar');
+                burgerMenu.appendChild(bar);
+            }
+            
+            const header = document.querySelector('.header-content');
+            header.appendChild(burgerMenu);
+            
+            const mainNav = document.querySelector('.main-nav');
+            
+            burgerMenu.addEventListener('click', function() {
+                mainNav.classList.toggle('active');
+                
+                const bars = document.querySelectorAll('.burger-bar');
+                bars.forEach(bar => bar.classList.toggle('active'));
+                
+                if (mainNav.classList.contains('active')) {
+                    bars[0].style.transform = 'translateY(9px) rotate(45deg)';
+                    bars[1].style.opacity = '0';
+                    bars[2].style.transform = 'translateY(-9px) rotate(-45deg)';
+                } else {
+                    bars[0].style.transform = 'none';
+                    bars[1].style.opacity = '1';
+                    bars[2].style.transform = 'none';
+                }
+            });
+        });
+        
+        // Crear jeringas flotantes para el fondo
+        const background = document.getElementById('background');
+        const numSyringes = 20;
+        
+        for (let i = 0; i < numSyringes; i++) {
+            const syringe = document.createElement('div');
+            syringe.classList.add('syringe');
+            
+            // Posición aleatoria
+            const randomX = Math.random() * 100;
+            const randomY = Math.random() * 100;
+            
+            // Tamaño aleatorio
+            const randomSize = 0.5 + Math.random() * 1.5;
+            
+            // Velocidad aleatoria (duración de la animación)
+            const randomDuration = 15 + Math.random() * 25;
+            
+            // Dirección aleatoria
+            const randomRotation = 30 + Math.random() * 60;
+            
+            // Establecer propiedades
+            syringe.style.left = `${randomX}%`;
+            syringe.style.top = `${randomY}%`;
+            syringe.style.transform = `rotate(${randomRotation}deg)`;
+            syringe.style.opacity = 0.3 + Math.random() * 0.5;
+            syringe.style.filter = `blur(${1 + Math.random() * 2}px)`;
+            syringe.style.transform = `scale(${randomSize}) rotate(${randomRotation}deg)`;
+            syringe.style.animation = `float ${randomDuration}s infinite linear`;
+            syringe.style.animationDelay = `${-Math.random() * randomDuration}s`;
+            
+            background.appendChild(syringe);
+        }
+    </script>
+</body>
+</html>
