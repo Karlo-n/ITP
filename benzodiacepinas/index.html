@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información sobre Benzodiacepinas - CONASAMA</title>
+    <link rel="icon" type="image/png" href="gob.png">
+    <link rel="shortcut icon" type="image/png" href="gob.png">
+    <link rel="apple-touch-icon" href="gob.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #2E8B57; /* Verde mar para benzodiacepinas */
+            --secondary-color: #3CB371; /* Verde medio primavera */
+            --dark-color: #333;
+            --light-color: #fff;
+            --accent-color: #66CDAA; /* Aguamarina medio */
+            --benzo-light: #E0FFFF; /* Cian claro */
+            --benzo-dark: #2E8B57; /* Verde mar oscuro */
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: #1a1a1a;
+            color: var(--light-color);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Fondo con píldoras animadas */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
+        }
+
+        .pill {
+            position: absolute;
+            width: 30px;
+            height: 15px;
+            background-color: rgba(102, 205, 170, 0.1);
+            border-radius: 7.5px;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-20vh) rotate(360deg) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        header {
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-bottom: 3px solid var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--light-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1rem;
+            border: 3px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: "🦅";
+            font-size: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-text h1 {
+            font-size: 2rem;
+            color: var(--light-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .logo-text p {
+            font-size: 1rem;
+            color: var(--secondary-color);
+            opacity: 0.9;
+        }
+
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .poster {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            border: 2px solid rgba(60, 179, 113, 0.2);
+        }
+
+        .poster-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--benzo-dark) 100%);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid var(--secondary-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poster-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%2366CDAA' opacity='0.05' d='M0 40 C20 40 20 10 40 10 C60 10 60 40 80 40 C100 40 100 10 120 10 L 120 100 L 0 100 Z'/%3E%3C/svg%3E");
+            background-size: 100px 100px;
+            animation: wave 10s linear infinite;
+        }
+
+        @keyframes wave {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 200px 0;
+            }
+        }
+
+        .poster-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--light-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .poster-subtitle {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--benzo-light);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .warning-label {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            padding: 0.5rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .poster-content {
+            padding: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .info-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .info-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--secondary-color);
+        }
+
+        .info-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .info-section p, .info-section li {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .info-section ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .info-section li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.8rem;
+        }
+
+        .info-section li::before {
+            content: "💊";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .info-box {
+            background: rgba(60, 179, 113, 0.1);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .info-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .info-box p {
+            margin-bottom: 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+
+        .comparison-table th {
+            padding: 1rem;
+            background-color: rgba(46, 139, 87, 0.4);
+            text-align: left;
+            color: var(--light-color);
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(60, 179, 113, 0.2);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: rgba(60, 179, 113, 0.05);
+        }
+
+        .benzo-types {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .benzo-type {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(46, 139, 87, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(60, 179, 113, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benzo-type h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .benzo-type h4 span {
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .benzo-type p {
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .benzo-type::after {
+            content: "";
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(102, 205, 170, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .effect-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .effect-card {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(46, 139, 87, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(60, 179, 113, 0.3);
+        }
+
+        .effect-card h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .effect-card h4 span {
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .effect-card p {
+            margin-bottom: 0;
+        }
+
+        /* Animación de reloj de arena para vida media */
+        .half-life {
+            margin: 2rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hourglass-container {
+            position: relative;
+            width: 100px;
+            height: 160px;
+            margin: 1rem 0;
+        }
+
+        .hourglass {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hourglass-top {
+            position: absolute;
+            top: 0;
+            left: 20px;
+            width: 60px;
+            height: 70px;
+            background-color: rgba(102, 205, 170, 0.2);
+            border-radius: 10px 10px 0 0;
+            border: 2px solid rgba(102, 205, 170, 0.5);
+            border-bottom: none;
+            overflow: hidden;
+        }
+
+        .hourglass-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 20px;
+            width: 60px;
+            height: 70px;
+            background-color: rgba(102, 205, 170, 0.2);
+            border-radius: 0 0 10px 10px;
+            border: 2px solid rgba(102, 205, 170, 0.5);
+            border-top: none;
+            overflow: hidden;
+        }
+
+        .hourglass-center {
+            position: absolute;
+            top: 70px;
+            left: 40px;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(102, 205, 170, 0.5);
+            transform: rotate(45deg);
+            border: 2px solid rgba(102, 205, 170, 0.5);
+        }
+
+        .sand-top {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background-color: rgba(102, 205, 170, 0.5);
+            animation: sand-flow 10s linear infinite;
+            transform-origin: bottom center;
+        }
+
+        .sand-bottom {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background-color: rgba(102, 205, 170, 0.5);
+            animation: sand-pile 10s linear infinite;
+            transform-origin: top center;
+        }
+
+        .sand-stream {
+            position: absolute;
+            top: 70px;
+            left: 48px;
+            width: 4px;
+            height: 20px;
+            background-color: rgba(102, 205, 170, 0.5);
+            animation: sand-stream 10s linear infinite;
+        }
+
+        @keyframes sand-flow {
+            0% {
+                height: 50%;
+            }
+            90% {
+                height: 0%;
+            }
+            100% {
+                height: 0%;
+            }
+        }
+
+        @keyframes sand-pile {
+            0% {
+                height: 0%;
+            }
+            90% {
+                height: 50%;
+            }
+            100% {
+                height: 50%;
+            }
+        }
+
+        @keyframes sand-stream {
+            0% {
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .half-life-labels {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 1rem;
+        }
+
+        .half-life-label {
+            text-align: center;
+            padding: 0.5rem 1rem;
+            background-color: rgba(46, 139, 87, 0.2);
+            border-radius: 5px;
+            border: 1px solid rgba(60, 179, 113, 0.3);
+            font-size: 0.9rem;
+        }
+
+        .half-life-label strong {
+            display: block;
+            color: var(--secondary-color);
+            margin-bottom: 0.3rem;
+        }
+
+        /* Gráfico de dependencia */
+        .dependence-graph {
+            margin: 2rem 0;
+            background-color: rgba(46, 139, 87, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .graph-title {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .graph-container {
+            height: 200px;
+            position: relative;
+            margin: 0 10px;
+        }
+
+        .graph-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--secondary-color);
+        }
+
+        .graph-y-axis {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background-color: var(--secondary-color);
+        }
+
+        .graph-curve {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                transparent, 
+                transparent 30%, 
+                rgba(102, 205, 170, 0.1) 30%, 
+                rgba(102, 205, 170, 0.1));
+            clip-path: polygon(
+                0 100%,
+                0 80%,
+                20% 75%,
+                40% 65%,
+                60% 40%,
+                80% 25%,
+                100% 0,
+                100% 100%
+            );
+        }
+
+        .graph-marker {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            transform: translate(-50%, 50%);
+        }
+
+        .graph-label {
+            position: absolute;
+            font-size: 0.8rem;
+            color: var(--light-color);
+            transform: translateX(-50%);
+            text-align: center;
+            max-width: 80px;
+        }
+
+        .graph-y-label {
+            position: absolute;
+            left: -80px;
+            transform: translateY(50%);
+            font-size: 0.8rem;
+            color: var(--light-color);
+            text-align: right;
+            width: 70px;
+        }
+
+        .graph-x-label {
+            position: absolute;
+            bottom: -30px;
+            transform: translateX(-50%);
+            font-size: 0.8rem;
+            color: var(--light-color);
+            text-align: center;
+        }
+
+        .warning-panel {
+            margin: 2rem 0;
+            background-color: rgba(220, 53, 69, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid rgba(220, 53, 69, 0.7);
+        }
+
+        .warning-panel h3 {
+            color: rgba(220, 53, 69, 0.9);
+            margin-bottom: 1rem;
+        }
+
+        .warning-panel ul li::before {
+            content: "⚠️";
+        }
+
+        .call-to-action {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--benzo-dark) 100%);
+            padding: 2rem;
+            text-align: center;
+            border-top: 3px solid var(--secondary-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .call-to-action::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%2366CDAA' opacity='0.05' d='M0 40 C20 40 20 10 40 10 C60 10 60 40 80 40 C100 40 100 10 120 10 L 120 100 L 0 100 Z'/%3E%3C/svg%3E");
+            background-size: 100px 100px;
+            animation: wave 10s linear infinite reverse;
+        }
+
+        .call-to-action h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--light-color);
+            position: relative;
+        }
+
+        .call-to-action p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+
+        .emergency-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            display: block;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            text-align: center;
+            border-top: 2px solid var(--secondary-color);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-right: 0.5rem;
+        }
+
+        .footer-nav {
+            margin: 1rem 0;
+        }
+
+        .footer-nav a {
+            color: var(--light-color);
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Estilos para el menú de navegación */
+        .main-nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-item {
+            position: relative;
+            margin: 0 5px;
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 10px 15px;
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(60, 179, 113, 0.2);
+            color: var(--secondary-color);
+        }
+        
+        .nav-link.active {
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        /* Estilos para el dropdown */
+        .dropdown-toggle {
+            position: relative;
+            padding-right: 25px;
+        }
+        
+        .dropdown-toggle::after {
+            content: "▼";
+            font-size: 10px;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-toggle::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            min-width: 200px;
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+            border-radius: 4px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 8px 15px;
+            color: var(--light-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-item:hover {
+            background-color: rgba(60, 179, 113, 0.1);
+            color: var(--secondary-color);
+            padding-left: 20px;
+        }
+        
+        /* Menú hamburguesa para móviles */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 200;
+        }
+        
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--light-color);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Responsividad */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                margin-bottom: 1rem;
+                flex-direction: column;
+            }
+
+            .logo-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .poster-title {
+                font-size: 2.5rem;
+            }
+            
+            .poster-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .effect-cards {
+                flex-direction: column;
+            }
+            
+            .benzo-types {
+                flex-direction: column;
+            }
+            
+            .half-life-labels {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .graph-container {
+                height: 150px;
+            }
+            
+            /* Estilos responsive para el menú */
+            .menu-toggle {
+                display: flex;
+                margin-left: auto;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                padding: 80px 20px 40px;
+                transition: all 0.5s ease;
+                z-index: 100;
+                overflow-y: auto;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .nav-item {
+                margin: 10px 0;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                background-color: transparent;
+                box-shadow: none;
+                visibility: visible;
+                opacity: 1;
+                max-height: 0;
+                overflow: hidden;
+                transform: none;
+                transition: max-height 0.3s ease;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                max-height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo con píldoras animadas -->
+    <div class="background" id="background">
+        <!-- Píldoras se añadirán dinámicamente con JavaScript -->
+    </div>
+    
+    <div class="overlay"></div>
+    
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text">
+                    <h1>CONASAMA</h1>
+                    <p>Centro Nacional de Información sobre Sustancias</p>
+                </div>
+            </div>
+            <!-- Menú de navegación -->
+            <nav class="main-nav">
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item"><a href="http://blog.apikarl.com" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="http://blog.apikarl.com/fentanilo" class="nav-link">Fentanilo</a></li>
+                    <li class="nav-item"><a href="http://blog.apikarl.com/metanfetamina" class="nav-link">Metanfetamina</a></li>
+                    <li class="nav-item"><a href="http://blog.apikarl.com/cannabis" class="nav-link">Cannabis</a></li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">Más Sustancias</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://blog.apikarl.com/vapeadores" class="dropdown-item">Vapeadores</a></li>
+                            <li><a href="http://blog.apikarl.com/alcohol" class="dropdown-item">Alcohol</a></li>
+                            <li><a href="http://blog.apikarl.com/inhalables" class="dropdown-item">Inhalables</a></li>
+                            <li><a href="http://blog.apikarl.com/benzodiacepinas" class="dropdown-item active">Benzodiacepinas</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="poster">
+            <div class="poster-header">
+                <h1 class="poster-title">BENZODIACEPINAS</h1>
+                <h2 class="poster-subtitle">Información basada en evidencia</h2>
+                <div class="warning-label">Información de Salud Pública</div>
+            </div>
+            
+            <div class="poster-content">
+                <div class="info-section">
+                    <h2>¿Qué son las Benzodiacepinas?</h2>
+                    <p>Las benzodiacepinas son medicamentos psicotrópicos con efectos sedantes, hipnóticos, ansiolíticos, anticonvulsivos y miorrelajantes. Actúan sobre el sistema nervioso central aumentando la actividad del neurotransmisor inhibitorio GABA (ácido gamma-aminobutírico), lo que resulta en una disminución de la excitabilidad neuronal.</p>
+                    
+                    <div class="info-box">
+                        <h4>Uso médico vs. problemático</h4>
+                        <p>Aunque son medicamentos legítimos con importantes usos terapéuticos, las benzodiacepinas tienen un elevado potencial de abuso y dependencia, especialmente cuando se consumen sin prescripción médica, en dosis mayores a las indicadas o por períodos prolongados más allá de lo recomendado.</p>
+                    </div>
+                    
+                    <h3>Tipos comunes de benzodiacepinas</h3>
+                    <div class="benzo-types">
+                        <div class="benzo-type">
+                            <h4><span>💊</span> Acción ultracorta</h4>
+                            <p><strong>Ejemplos:</strong> Midazolam (Dormicum®)</p>
+                            <p><strong>Usos:</strong> Inducción anestésica, procedimientos médicos</p>
+                            <p><strong>Vida media:</strong> 1-4 horas</p>
+                        </div>
+                        <div class="benzo-type">
+                            <h4><span>💊</span> Acción corta</h4>
+                            <p><strong>Ejemplos:</strong> Alprazolam (Xanax®), Lorazepam (Ativan®)</p>
+                            <p><strong>Usos:</strong> Ansiedad aguda, crisis de pánico</p>
+                            <p><strong>Vida media:</strong> 10-20 horas</p>
+                        </div>
+                        <div class="benzo-type">
+                            <h4><span>💊</span> Acción larga</h4>
+                            <p><strong>Ejemplos:</strong> Diazepam (Valium®), Clonazepam (Rivotril®)</p>
+                            <p><strong>Usos:</strong> Ansiedad crónica, insomnio, epilepsia</p>
+                            <p><strong>Vida media:</strong> 20-100 horas</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Vida media y acumulación</h3>
+                    <div class="half-life">
+                        <p>La vida media de una benzodiacepina determina su duración de acción y potencial de acumulación en el organismo.</p>
+                        
+                        <div class="hourglass-container">
+                            <div class="hourglass">
+                                <div class="hourglass-top">
+                                    <div class="sand-top"></div>
+                                </div>
+                                <div class="hourglass-center"></div>
+                                <div class="hourglass-bottom">
+                                    <div class="sand-bottom"></div>
+                                </div>
+                                <div class="sand-stream"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="half-life-labels">
+                            <div class="half-life-label">
+                                <strong>Vida media corta</strong>
+                                <span>Efecto rápido, mayor riesgo de síndrome de abstinencia</span>
+                            </div>
+                            <div class="half-life-label">
+                                <strong>Vida media larga</strong>
+                                <span>Efecto prolongado, mayor riesgo de acumulación</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h2>Efectos y Riesgos</h2>
+                    
+                    <h3>Efectos en el organismo</h3>
+                    <div class="effect-cards">
+                        <div class="effect-card">
+                            <h4><span>🧠</span> Efectos terapéuticos</h4>
+                            <p>Reducción de ansiedad, inducción del sueño, relajación muscular, efecto anticonvulsivo, sedación y amnesia anterógrada (útil en procedimientos médicos).</p>
+                        </div>
+                        <div class="effect-card">
+                            <h4><span>⚠️</span> Efectos adversos</h4>
+                            <p>Somnolencia, confusión, mareo, visión borrosa, disminución de la coordinación, deterioro cognitivo, debilidad muscular, problemas de memoria, cambios de humor.</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Tolerancia, dependencia y abstinencia</h3>
+                    <div class="dependence-graph">
+                        <h4 class="graph-title">Desarrollo de tolerancia y dependencia</h4>
+                        <div class="graph-container">
+                            <div class="graph-line"></div>
+                            <div class="graph-y-axis"></div>
+                            <div class="graph-curve"></div>
+                            
+                            <!-- Marcadores en la gráfica -->
+                            <div class="graph-marker" style="bottom: 80%; left: 20%"></div>
+                            <div class="graph-label" style="bottom: 85%; left: 20%">Tolerancia inicial</div>
+                            
+                            <div class="graph-marker" style="bottom: 65%; left: 40%"></div>
+                            <div class="graph-label" style="bottom: 70%; left: 40%">Necesidad de aumentar dosis</div>
+                            
+                            <div class="graph-marker" style="bottom: 40%; left: 60%"></div>
+                            <div class="graph-label" style="bottom: 45%; left: 60%">Dependencia física</div>
+                            
+                            <div class="graph-marker" style="bottom: 25%; left: 80%"></div>
+                            <div class="graph-label" style="bottom: 30%; left: 80%">Dependencia psicológica</div>
+                            
+                            <!-- Etiquetas de ejes -->
+                            <div class="graph-y-label" style="bottom: 0%">Efecto inicial</div>
+                            <div class="graph-y-label" style="bottom: 50%">Efecto reducido</div>
+                            <div class="graph-y-label" style="bottom: 100%">Sin efecto</div>
+                            
+                            <div class="graph-x-label" style="left: 0%">Inicio</div>
+                            <div class="graph-x-label" style="left: 50%">Semanas/Meses de uso</div>
+                            <div class="graph-x-label" style="left: 100%">Uso prolongado</div>
+                        </div>
+                    </div>
+                    
+                    <div class="warning-panel">
+                        <h3>Síndrome de abstinencia</h3>
+                        <p>El síndrome de abstinencia de benzodiacepinas puede ser grave y potencialmente mortal, especialmente tras un uso prolongado o en dosis altas. <strong>Nunca debe suspenderse su consumo abruptamente sin supervisión médica.</strong></p>
+                        <ul>
+                            <li>Ansiedad extrema y ataques de pánico</li>
+                            <li>Insomnio severo y pesadillas</li>
+                            <li>Irritabilidad y agitación</li>
+                            <li>Temblores y espasmos musculares</li>
+                            <li>Náuseas, vómitos y pérdida de apetito</li>
+                            <li>Hipersensibilidad a la luz y sonidos</li>
+                            <li>Convulsiones (potencialmente mortales)</li>
+                            <li>Psicosis y delirios en casos graves</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>Riesgos específicos</h3>
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Situación de riesgo</th>
+                                    <th>Peligros potenciales</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Uso con alcohol u otros depresores</td>
+                                    <td>Depresión respiratoria grave, pérdida de consciencia, coma, muerte</td>
+                                </tr>
+                                <tr>
+                                    <td>Conducción o uso de maquinaria</td>
+                                    <td>Riesgo de accidentes comparable al de la intoxicación alcohólica</td>
+                                </tr>
+                                <tr>
+                                    <td>Embarazo y lactancia</td>
+                                    <td>Riesgo de malformaciones, síndrome de abstinencia neonatal</td>
+                                </tr>
+                                <tr>
+                                    <td>Adultos mayores</td>
+                                    <td>Mayor sensibilidad, confusión, caídas, fractura de cadera</td>
+                                </tr>
+                                <tr>
+                                    <td>Uso a largo plazo</td>
+                                    <td>Deterioro cognitivo, problemas de memoria, depresión, aislamiento social</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4>Mitos y realidades</h4>
+                        <p>"Las benzodiacepinas son seguras porque son medicamentos" - PARCIALMENTE CIERTO: Son seguros bajo supervisión médica, en dosis adecuadas y por períodos limitados.</p>
+                        <p>"Puedo dejarlas cuando quiera" - FALSO: La dependencia física puede establecerse en tan solo 2-4 semanas de uso regular.</p>
+                        <p>"No son tan adictivas como otras drogas" - FALSO: La dependencia a benzodiacepinas puede ser tan severa como la de opioides, y su síndrome de abstinencia puede ser potencialmente mortal.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="call-to-action">
+                <h2>Uso Responsable y Recursos</h2>
+                <p>Si estás tomando benzodiacepinas por prescripción médica, es crucial seguir exactamente las instrucciones de tu médico. Si crees que puedes tener dependencia o problemas relacionados con su consumo, busca ayuda profesional. <strong>Nunca suspendas su uso abruptamente sin supervisión.</strong></p>
+                <span class="emergency-number">800-911-2000</span>
+                <p>Línea de la Vida - Orientación las 24 horas</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div style="width: 40px; height: 40px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
+                    <span style="font-size: 20px;">🦅</span>
+                </div>
+                <span>GOBIERNO DE MÉXICO</span>
+            </div>
+            <div class="footer-nav">
+                <a href="https://www.gob.mx">Sitio Oficial</a>
+                <a href="https://www.gob.mx/terminos">Términos y Condiciones</a>
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/92883/POLITICA_DE_PRIVACIDAD_INDAABIN.pdf">Política de Privacidad</a>
+                <a href="https://www.gob.mx/salud/acciones-y-programas/centro-de-atencion-ciudadana-contra-las-adicciones">Contacto</a>
+            </div>
+            <p class="copyright">© 2025 - Comisión Nacional de Salud Mental y Adicciones</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle para el menú móvil
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                });
+            }
+            
+            // Crear píldoras para el fondo
+            const background = document.getElementById('background');
+            const numPills = 30;
+            
+            if (background) {
+                for (let i = 0; i < numPills; i++) {
+                    const pill = document.createElement('div');
+                    pill.classList.add('pill');
+                    
+                    // Propiedades aleatorias
+                    const width = 20 + Math.random() * 30;
+                    const height = width / 2;
+                    const left = Math.random() * 100;
+                    const duration = 15 + Math.random() * 25;
+                    const delay = Math.random() * 15;
+                    const rotate = Math.random() * 360;
+                    
+                    pill.style.width = `${width}px`;
+                    pill.style.height = `${height}px`;
+                    pill.style.left = `${left}%`;
+                    pill.style.animation = `float ${duration}s linear infinite`;
+                    pill.style.animationDelay = `${delay}s`;
+                    pill.style.transform = `rotate(${rotate}deg)`;
+                    
+                    // Variedad de colores pastel
+                    const colors = [
+                        'rgba(102, 205, 170, 0.1)',
+                        'rgba(60, 179, 113, 0.1)',
+                        'rgba(46, 139, 87, 0.1)',
+                        'rgba(152, 251, 152, 0.1)'
+                    ];
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    pill.style.backgroundColor = randomColor;
+                    
+                    background.appendChild(pill);
+                }
+            }
+            
+            // Animación para la gráfica de dependencia
+            const graphCurve = document.querySelector('.graph-curve');
+            const graphMarkers = document.querySelectorAll('.graph-marker');
+            
+            if (graphCurve && graphMarkers.length > 0) {
+                setTimeout(() => {
+                    graphCurve.style.transition = 'clip-path 2s ease-out';
+                    graphCurve.style.clipPath = 'polygon(0 100%, 0 80%, 20% 75%, 40% 65%, 60% 40%, 80% 25%, 100% 0, 100% 100%)';
+                    
+                    graphMarkers.forEach((marker, index) => {
+                        setTimeout(() => {
+                            marker.style.transition = 'transform 0.5s ease-out, box-shadow 0.5s ease-out';
+                            marker.style.transform = 'translate(-50%, 50%) scale(1.5)';
+                            marker.style.boxShadow = '0 0 10px rgba(102, 205, 170, 0.7)';
+                            
+                            setTimeout(() => {
+                                marker.style.transform = 'translate(-50%, 50%) scale(1)';
+                                marker.style.boxShadow = 'none';
+                            }, 500);
+                        }, 500 + index * 300);
+                    });
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
