@@ -8,6 +8,7 @@
     { "src": "vapeadores/**/*.html", "use": "@vercel/static" },
     { "src": "alcohol/**/*.html", "use": "@vercel/static" },
     { "src": "inhalables/**/*.html", "use": "@vercel/static" },
+    { "src": "benzodiacepinas/**/*.html", "use": "@vercel/static" },
     { "src": "*.css", "use": "@vercel/static" },
     { "src": "*.js", "use": "@vercel/static" },
     { "src": "*.png", "use": "@vercel/static" },
