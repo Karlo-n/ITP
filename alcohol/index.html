@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información sobre Alcohol - CONASAMA</title>
+    <link rel="icon" type="image/png" href="gob.png">
+    <link rel="shortcut icon" type="image/png" href="gob.png">
+    <link rel="apple-touch-icon" href="gob.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #8B4513; /* Marrón para alcohol */
+            --secondary-color: #D2691E; /* Marrón claro */
+            --dark-color: #333;
+            --light-color: #fff;
+            --accent-color: #FFD700; /* Dorado para aspecto de whisky/cerveza */
+            --alcohol-light: #FFEBCD; /* Bizcocho */
+            --alcohol-dark: #A0522D; /* Siena tostado */
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: #1a1a1a;
+            color: var(--light-color);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Fondo con burbujas animadas */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%);
+        }
+
+        .bubble {
+            position: absolute;
+            background-color: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+            animation: rise linear infinite;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-20vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.8) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        header {
+            padding: 2rem;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-bottom: 3px solid var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--light-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 1rem;
+            border: 3px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: "🦅";
+            font-size: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-text h1 {
+            font-size: 2rem;
+            color: var(--light-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .logo-text p {
+            font-size: 1rem;
+            color: var(--secondary-color);
+            opacity: 0.9;
+        }
+
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .poster {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            overflow: hidden;
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            border: 2px solid rgba(210, 105, 30, 0.2);
+        }
+
+        .poster-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--alcohol-dark) 100%);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid var(--secondary-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poster-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23FFD700' opacity='0.05' d='M0 40 C20 40 20 10 40 10 C60 10 60 40 80 40 C100 40 100 10 120 10 L 120 100 L 0 100 Z'/%3E%3C/svg%3E");
+            background-size: 100px 100px;
+            animation: wave 10s linear infinite;
+        }
+
+        @keyframes wave {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 200px 0;
+            }
+        }
+
+        .poster-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--light-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .poster-subtitle {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--alcohol-light);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .warning-label {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            padding: 0.5rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .poster-content {
+            padding: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .info-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .info-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--secondary-color);
+        }
+
+        .info-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        .info-section p, .info-section li {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        .info-section ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .info-section li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.8rem;
+        }
+
+        .info-section li::before {
+            content: "🥃";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .info-box {
+            background: rgba(210, 105, 30, 0.1);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .info-box h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .info-box p {
+            margin-bottom: 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+
+        .comparison-table th {
+            padding: 1rem;
+            background-color: rgba(139, 69, 19, 0.4);
+            text-align: left;
+            color: var(--light-color);
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(210, 105, 30, 0.2);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: rgba(210, 105, 30, 0.05);
+        }
+
+        .alcohol-types {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .alcohol-type {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(139, 69, 19, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(210, 105, 30, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alcohol-type h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .alcohol-type h4 span {
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .alcohol-type p {
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .alcohol-type::after {
+            content: "";
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .effect-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .effect-card {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(139, 69, 19, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(210, 105, 30, 0.3);
+        }
+
+        .effect-card h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .effect-card h4 span {
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .effect-card p {
+            margin-bottom: 0;
+        }
+
+        .risk-meter {
+            height: 120px;
+            margin: 2rem 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .risk-gauge {
+            width: 200px;
+            height: 100px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 100px 100px 0 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .risk-needle {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            height: 90px;
+            width: 4px;
+            background-color: var(--light-color);
+            transform-origin: bottom center;
+            transform: translateX(-50%) rotate(-60deg);
+            transition: transform 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10;
+        }
+
+        .risk-needle::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+        }
+
+        .risk-levels {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 100px 100px 0 0;
+            overflow: hidden;
+        }
+
+        .risk-level {
+            position: absolute;
+            bottom: 0;
+            width: 33.33%;
+            height: 100%;
+        }
+
+        .risk-low {
+            left: 0;
+            background: linear-gradient(to top, rgba(0, 128, 0, 0.3), rgba(0, 128, 0, 0.1));
+        }
+
+        .risk-medium {
+            left: 33.33%;
+            background: linear-gradient(to top, rgba(255, 165, 0, 0.3), rgba(255, 165, 0, 0.1));
+        }
+
+        .risk-high {
+            left: 66.66%;
+            background: linear-gradient(to top, rgba(255, 0, 0, 0.3), rgba(255, 0, 0, 0.1));
+        }
+
+        .risk-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 220px;
+            margin-top: 10px;
+        }
+
+        .risk-label {
+            text-align: center;
+            font-size: 0.9rem;
+            width: 33.33%;
+        }
+
+        .bac-calculator {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(139, 69, 19, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(210, 105, 30, 0.3);
+        }
+
+        .bac-calculator h3 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .calculator-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .calculator-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .calculator-group input,
+        .calculator-group select {
+            padding: 0.75rem;
+            border-radius: 5px;
+            border: 1px solid rgba(210, 105, 30, 0.3);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--light-color);
+            font-size: 1rem;
+        }
+
+        .calculator-group select option {
+            background-color: var(--dark-color);
+        }
+
+        .calculator-result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: rgba(255, 215, 0, 0.1);
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .call-to-action {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--alcohol-dark) 100%);
+            padding: 2rem;
+            text-align: center;
+            border-top: 3px solid var(--secondary-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .call-to-action::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23FFD700' opacity='0.05' d='M0 40 C20 40 20 10 40 10 C60 10 60 40 80 40 C100 40 100 10 120 10 L 120 100 L 0 100 Z'/%3E%3C/svg%3E");
+            background-size: 100px 100px;
+            animation: wave 10s linear infinite reverse;
+        }
+
+        .call-to-action h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--light-color);
+            position: relative;
+        }
+
+        .call-to-action p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+
+        .emergency-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            display: block;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            text-align: center;
+            border-top: 2px solid var(--secondary-color);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            margin-right: 0.5rem;
+        }
+
+        .footer-nav {
+            margin: 1rem 0;
+        }
+
+        .footer-nav a {
+            color: var(--light-color);
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .footer-nav a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Estilos para el menú de navegación */
+        .main-nav {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .nav-item {
+            position: relative;
+            margin: 0 5px;
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 10px 15px;
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(210, 105, 30, 0.2);
+            color: var(--secondary-color);
+        }
+        
+        .nav-link.active {
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        /* Estilos para el dropdown */
+        .dropdown-toggle {
+            position: relative;
+            padding-right: 25px;
+        }
+        
+        .dropdown-toggle::after {
+            content: "▼";
+            font-size: 10px;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+        }
+        
+        .dropdown:hover .dropdown-toggle::after {
+            transform: translateY(-50%) rotate(180deg);
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.9);
+            min-width: 200px;
+            list-style: none;
+            padding: 10px 0;
+            margin: 0;
+            border-radius: 4px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item {
+            display: block;
+            padding: 8px 15px;
+            color: var(--light-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-item:hover {
+            background-color: rgba(210, 105, 30, 0.1);
+            color: var(--secondary-color);
+            padding-left: 20px;
+        }
+        
+        /* Menú hamburguesa para móviles */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 200;
+        }
+        
+        .menu-toggle span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: var(--light-color);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Animación de la copa de alcohol */
+        .glass-container {
+            position: relative;
+            height: 220px;
+            width: 100%;
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .glass {
+            position: absolute;
+            width: 120px;
+            height: 180px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            overflow: hidden;
+            transform: perspective(500px) rotateX(-5deg);
+        }
+
+        .glass::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0.1) 0%, 
+                rgba(255, 255, 255, 0.2) 20%, 
+                rgba(255, 255, 255, 0.1) 40%);
+            animation: glass-shine 3s linear infinite;
+        }
+
+        .glass-stem {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .glass-base {
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 15px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+
+        .liquid {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(to bottom, rgba(210, 105, 30, 0.4), rgba(139, 69, 19, 0.7));
+        }
+
+        .liquid::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 215, 0, 0.3);
+        }
+
+        @keyframes glass-shine {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        /* Responsividad */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo {
+                margin-bottom: 1rem;
+                flex-direction: column;
+            }
+
+            .logo-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .poster-title {
+                font-size: 2.5rem;
+            }
+            
+            .poster-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .effect-cards {
+                flex-direction: column;
+            }
+            
+            .risk-meter {
+                height: auto;
+                padding-bottom: 3rem;
+            }
+            
+            /* Estilos responsive para el menú */
+            .menu-toggle {
+                display: flex;
+                margin-left: auto;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                padding: 80px 20px 40px;
+                transition: all 0.5s ease;
+                z-index: 100;
+                overflow-y: auto;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .nav-item {
+                margin: 10px 0;
+            }
+            
+            .dropdown-menu {
+                position: static;
+                background-color: transparent;
+                box-shadow: none;
+                visibility: visible;
+                opacity: 1;
+                max-height: 0;
+                overflow: hidden;
+                transform: none;
+                transition: max-height 0.3s ease;
+            }
+            
+            .dropdown.active .dropdown-menu {
+                max-height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo con burbujas animadas -->
+    <div class="background" id="background">
+        <!-- Burbujas se añadirán dinámicamente con JavaScript -->
+    </div>
+    
+    <div class="overlay"></div>
+    
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text">
+                    <h1>CONASAMA</h1>
+                    <p>Centro Nacional de Información sobre Sustancias</p>
+                </div>
+            </div>
+            <!-- Menú de navegación -->
+            <nav class="main-nav">
+                <div class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item"><a href="http://blog.apikarl.com" class="nav-link">Inicio</a></li>
+                    <li class="nav-item"><a href="http://blog.apikarl.com/fentanilo" class="nav-link">Fentanilo</a></li>
+                    <li class="nav-item"><a href="http://blog.apikarl.com/metanfetamina" class="nav-link">Metanfetamina</a></li>
+                    <li class="nav-item"><a href="http://blog.apikarl.com/cannabis" class="nav-link">Cannabis</a></li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle">Más Sustancias</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://blog.apikarl.com/vapeadores" class="dropdown-item">Vapeadores</a></li>
+                            <li><a href="http://blog.apikarl.com/alcohol" class="dropdown-item active">Alcohol</a></li>
+                            <li><a href="http://blog.apikarl.com/inhalables" class="dropdown-item">Inhalables</a></li>
+                            <li><a href="http://blog.apikarl.com/benzodiacepinas" class="dropdown-item">Benzodiacepinas</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <div class="poster">
+            <div class="poster-header">
+                <h1 class="poster-title">ALCOHOL</h1>
+                <h2 class="poster-subtitle">Información basada en evidencia</h2>
+                <div class="warning-label">Información de Salud Pública</div>
+            </div>
+            
+            <div class="poster-content">
+                <div class="info-section">
+                    <h2>¿Qué es el Alcohol?</h2>
+                    <p>El alcohol (etanol) es una sustancia psicoactiva presente en bebidas como cerveza, vino y licores. Se produce mediante la fermentación de levaduras, azúcares y almidones. A nivel químico, el alcohol es un depresor del sistema nervioso central que afecta el pensamiento, la conciencia, la percepción y el comportamiento.</p>
+                    
+                    <div class="glass-container">
+                        <div class="glass">
+                            <div class="liquid"></div>
+                        </div>
+                        <div class="glass-stem"></div>
+                        <div class="glass-base"></div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4>Panorama actual</h4>
+                        <p>En México, el consumo de alcohol está profundamente arraigado en la cultura y las tradiciones sociales. Según la Encuesta Nacional de Consumo de Drogas, Alcohol y Tabaco (ENCODAT), aproximadamente el 71% de la población entre 18 y 65 años ha consumido alcohol alguna vez en su vida, convirtiéndolo en la sustancia psicoactiva más utilizada en el país.</p>
+                    </div>
+                    
+                    <h3>Tipos de bebidas alcohólicas</h3>
+                    <div class="alcohol-types">
+                        <div class="alcohol-type">
+                            <h4><span>🍺</span> Fermentadas</h4>
+                            <p>Contenido alcohólico: 3-15%</p>
+                            <p>Ejemplos: Cerveza, vino, pulque, sidra</p>
+                            <p>Proceso: Fermentación natural de azúcares</p>
+                        </div>
+                        <div class="alcohol-type">
+                            <h4><span>🥃</span> Destiladas</h4>
+                            <p>Contenido alcohólico: 15-55%</p>
+                            <p>Ejemplos: Tequila, mezcal, whisky, ron, vodka</p>
+                            <p>Proceso: Fermentación seguida de destilación</p>
+                        </div>
+                        <div class="alcohol-type">
+                            <h4><span>🍸</span> Licores/Cremas</h4>
+                            <p>Contenido alcohólico: 15-30%</p>
+                            <p>Ejemplos: Licor de café, crema de tequila</p>
+                            <p>Proceso: Destilados con azúcares y saborizantes</p>
+                        </div>
+                    </div>
+                    
+                    <h3>¿Cómo se mide?</h3>
+                    <p>El contenido de alcohol se mide en:</p>
+                    <ul>
+                        <li>Porcentaje de alcohol por volumen (% ABV)</li>
+                        <li>Gramos de alcohol puro (una bebida estándar contiene aproximadamente 14 g de alcohol puro)</li>
+                        <li>Unidades de bebida estándar (UBE): 1 UBE equivale aproximadamente a:</li>
+                    </ul>
+                    
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tipo de bebida</th>
+                                    <th>Cantidad</th>
+                                    <th>Unidades (UBE)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Cerveza (4-5%)</td>
+                                    <td>330 ml (1 lata/botella)</td>
+                                    <td>1 UBE</td>
+                                </tr>
+                                <tr>
+                                    <td>Vino (12%)</td>
+                                    <td>120 ml (1 copa)</td>
+                                    <td>1 UBE</td>
+                                </tr>
+                                <tr>
+                                    <td>Destilados (40%)</td>
+                                    <td>30 ml (1 caballito)</td>
+                                    <td>1 UBE</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h2>Efectos y Riesgos</h2>
+                    
+                    <h3>Efectos en el organismo</h3>
+                    <div class="effect-cards">
+                        <div class="effect-card">
+                            <h4><span>🧠</span> Efectos a corto plazo</h4>
+                            <p>Relajación inicial, desinhibición, alteración del juicio, tiempo de reacción disminuido, coordinación reducida, visión borrosa, habla arrastrada, náuseas, vómitos.</p>
+                        </div>
+                        <div class="effect-card">
+                            <h4><span>⚠️</span> Efectos a largo plazo</h4>
+                            <p>Daño hepático, problemas cardiovasculares, deterioro cognitivo, trastornos digestivos, desnutrición, sistema inmunológico debilitado, problemas neurológicos.</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Nivel de riesgo</h3>
+                    <p>La Concentración de Alcohol en Sangre (CAS) determina los efectos y riesgos:</p>
+                    
+                    <div class="risk-meter">
+                        <div class="risk-gauge">
+                            <div class="risk-levels">
+                                <div class="risk-level risk-low"></div>
+                                <div class="risk-level risk-medium"></div>
+                                <div class="risk-level risk-high"></div>
+                            </div>
+                            <div class="risk-needle" id="risk-needle"></div>
+                        </div>
+                        <div class="risk-labels">
+                            <div class="risk-label">Bajo<br>0.01-0.05%</div>
+                            <div class="risk-label">Moderado<br>0.06-0.15%</div>
+                            <div class="risk-label">Alto<br>0.16%+</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bac-calculator">
+                        <h3>Calculadora de nivel de alcohol estimado</h3>
+                        <div class="calculator-grid">
+                            <div class="calculator-group">
+                                <label for="weight">Peso (kg):</label>
+                                <input type="number" id="weight" min="30" max="200" value="70">
+                            </div>
+                            <div class="calculator-group">
+                                <label for="gender">Género:</label>
+                                <select id="gender">
+                                    <option value="male">Hombre</option>
+                                    <option value="female">Mujer</option>
+                                </select>
+                            </div>
+                            <div class="calculator-group">
+                                <label for="drinks">Número de bebidas:</label>
+                                <input type="number" id="drinks" min="1" max="20" value="2">
+                            </div>
+                            <div class="calculator-group">
+                                <label for="hours">Horas transcurridas:</label>
+                                <input type="number" id="hours" min="0" max="12" value="1">
+                            </div>
+                        </div>
+                        <div class="calculator-result" id="bac-result">
+                            Nivel estimado: 0.05% - Riesgo bajo
+                        </div>
+                    </div>
+                    
+                    <h3>Consideraciones importantes</h3>
+                    <ul>
+                        <li>No hay un nivel de consumo de alcohol que pueda considerarse completamente seguro.</li>
+                        <li>El consumo de alcohol está contraindicado durante el embarazo, en menores de edad, al operar maquinaria o conducir vehículos.</li>
+                        <li>Las personas con ciertas condiciones médicas o que toman medicamentos específicos deben evitar el alcohol completamente.</li>
+                        <li>El patrón de consumo episódico excesivo (más de 4-5 bebidas en una ocasión) es particularmente dañino.</li>
+                    </ul>
+                    
+                    <div class="info-box">
+                        <h4>Mitos y realidades</h4>
+                        <p>"El alcohol te caliente" - FALSO: El alcohol dilata los vasos sanguíneos periféricos, lo que crea una sensación de calor pero en realidad acelera la pérdida de calor corporal.</p>
+                        <p>"Mezclar bebidas emborracha más" - FALSO: Lo que determina el nivel de intoxicación es la cantidad total de alcohol consumido, no los tipos de bebidas.</p>
+                        <p>"El café ayuda a recuperarse de la borrachera" - FALSO: El café puede hacerte sentir más alerta, pero no acelera la eliminación del alcohol del organismo.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="call-to-action">
+                <h2>Información y Recursos</h2>
+                <p>Si estás preocupado por tu consumo de alcohol o buscas ayuda para reducirlo o eliminarlo, existen servicios gratuitos y confidenciales disponibles.</p>
+                <span class="emergency-number">800-911-2000</span>
+                <p>Línea de la Vida - Orientación las 24 horas</p>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div style="width: 40px; height: 40px; background: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
+                    <span style="font-size: 20px;">🦅</span>
+                </div>
+                <span>GOBIERNO DE MÉXICO</span>
+            </div>
+            <div class="footer-nav">
+                <a href="https://www.gob.mx">Sitio Oficial</a>
+                <a href="https://www.gob.mx/terminos">Términos y Condiciones</a>
+                <a href="https://www.gob.mx/cms/uploads/attachment/file/92883/POLITICA_DE_PRIVACIDAD_INDAABIN.pdf">Política de Privacidad</a>
+                <a href="https://www.gob.mx/salud/acciones-y-programas/centro-de-atencion-ciudadana-contra-las-adicciones">Contacto</a>
+            </div>
+            <p class="copyright">© 2025 - Comisión Nacional de Salud Mental y Adicciones</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle para el menú móvil
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const navMenu = document.getElementById('navMenu');
+            
+            if (menuToggle && navMenu) {
+                menuToggle.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                });
+            }
+            
+            // Calculadora de alcohol
+            const weightInput = document.getElementById('weight');
+            const genderSelect = document.getElementById('gender');
+            const drinksInput = document.getElementById('drinks');
+            const hoursInput = document.getElementById('hours');
+            const bacResult = document.getElementById('bac-result');
+            const riskNeedle = document.getElementById('risk-needle');
+            
+            const calculateBAC = function() {
+                if (!weightInput || !genderSelect || !drinksInput || !hoursInput || !bacResult || !riskNeedle) return;
+                
+                const weight = parseFloat(weightInput.value);
+                const gender = genderSelect.value;
+                const drinks = parseFloat(drinksInput.value);
+                const hours = parseFloat(hoursInput.value);
+                
+                // Constantes para el cálculo de alcohol en sangre
+                const alcoholGramsPerDrink = 14; // gramos de alcohol en una bebida estándar
+                const bodyWaterConstant = gender === 'male' ? 0.68 : 0.55; // porcentaje de agua corporal
+                const metabolismConstant = 0.015; // tasa de metabolismo por hora
+                
+                // Cálculo de BAC (concentración de alcohol en sangre)
+                let bac = ((alcoholGramsPerDrink * drinks) / (weight * 1000 * bodyWaterConstant)) * 100;
+                bac = bac - (metabolismConstant * hours);
+                bac = Math.max(0, bac);
+                
+                // Determinar el nivel de riesgo
+                let riskLevel = 'bajo';
+                let color = 'green';
+                let degrees = -60 + (bac * 1000); // Ajustar el ángulo de la aguja
+                
+                if (bac >= 0.16) {
+                    riskLevel = 'alto';
+                    color = 'red';
+                    degrees = 60;
+                } else if (bac >= 0.06) {
+                    riskLevel = 'moderado';
+                    color = 'orange';
+                    degrees = 0;
+                }
+                
+                // Limitar los grados de rotación
+                degrees = Math.max(-60, Math.min(60, degrees));
+                
+                // Actualizar resultado
+                bacResult.innerHTML = `Nivel estimado: ${bac.toFixed(2)}% - Riesgo ${riskLevel}`;
+                bacResult.style.color = color;
+                
+                // Animar la aguja
+                riskNeedle.style.transform = `translateX(-50%) rotate(${degrees}deg)`;
+            };
+            
+            // Eventos para recalcular cuando cambie algún valor
+            if (weightInput) weightInput.addEventListener('input', calculateBAC);
+            if (genderSelect) genderSelect.addEventListener('change', calculateBAC);
+            if (drinksInput) drinksInput.addEventListener('input', calculateBAC);
+            if (hoursInput) hoursInput.addEventListener('input', calculateBAC);
+            
+            // Calcular inicialmente
+            calculateBAC();
+            
+            // Animar la aguja al cargar
+            if (riskNeedle) {
+                setTimeout(() => {
+                    riskNeedle.style.transition = 'transform 2s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                    riskNeedle.style.transform = 'translateX(-50%) rotate(-20deg)';
+                }, 500);
+            }
+            
+            // Crear burbujas para el fondo
+            const background = document.getElementById('background');
+            const numBubbles = 40;
+            
+            if (background) {
+                for (let i = 0; i < numBubbles; i++) {
+                    const bubble = document.createElement('div');
+                    bubble.classList.add('bubble');
+                    
+                    // Propiedades aleatorias
+                    const size = 5 + Math.random() * 20;
+                    const left = Math.random() * 100;
+                    const duration = 10 + Math.random() * 20;
+                    const delay = Math.random() * 10;
+                    
+                    bubble.style.width = `${size}px`;
+                    bubble.style.height = `${size}px`;
+                    bubble.style.left = `${left}%`;
+                    bubble.style.animation = `rise ${duration}s linear infinite`;
+                    bubble.style.animationDelay = `${delay}s`;
+                    bubble.style.opacity = 0.1 + Math.random() * 0.2;
+                    
+                    background.appendChild(bubble);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
