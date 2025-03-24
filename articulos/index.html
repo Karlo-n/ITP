@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cannabis: Efectos y consideraciones de salud - InfoSustancias</title>
-    <link rel="stylesheet" href="../articulos/styles.css">
+    <title>Artículos - InfoSustancias</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Open+Sans:wght@400;500;600&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header class="article-header">
@@ -19,7 +19,7 @@
                 <nav class="article-nav">
                     <ul>
                         <li><a href="/">Inicio</a></li>
-                        <li><a href="/articulos">Artículos</a></li>
+                        <li><a href="/articulos" class="active">Artículos</a></li>
                         <li><a href="/recursos">Recursos</a></li>
                         <li><a href="/ayuda">Ayuda</a></li>
                         <li><a href="/acerca">Acerca de</a></li>
@@ -29,256 +29,541 @@
         </div>
     </header>
 
-    <div class="substance-nav">
+    <section class="article-hero">
         <div class="container">
-            <ul class="substance-menu">
-                <li><a href="/cannabis">Cannabis</a></li>
-                <li><a href="/fentanillo">Fentanilo</a></li>
-                <li><a href="/alcohol">Alcohol</a></li>
-                <li><a href="/inhalables">Inhalables</a></li>
-                <li><a href="/metanfetamina">Metanfetamina</a></li>
-                <li><a href="/vapeadores">Vapeadores/Tabaco</a></li>
-                <li><a href="/benzodiazepinas">Benzodiazepinas</a></li>
-            </ul>
+            <h1>Artículos Informativos</h1>
+            <p>Información basada en evidencia científica sobre diversas sustancias, sus efectos y riesgos asociados</p>
         </div>
-    </div>
+    </section>
 
-    <main class="article-container">
-        <div class="article-banner cannabis-banner">
-            <div class="container">
-                <div class="banner-content">
-                    <span class="article-category">Cannabis</span>
-                    <h1>Cannabis: Efectos y consideraciones de salud</h1>
-                    <div class="article-meta">
-                        <span class="publication-date">Publicado: 20 marzo, 2025</span>
-                        <span class="reading-time">Tiempo de lectura: 12 minutos</span>
-                    </div>
+    <main class="articles-main">
+        <div class="container">
+            <div class="articles-intro">
+                <p>Esta sección presenta información resumida sobre diferentes sustancias psicoactivas, elaborada con fines exclusivamente educativos por estudiantes bajo supervisión académica. Cada artículo destaca los aspectos más relevantes sobre farmacología, efectos, riesgos y consideraciones de salud asociadas a cada sustancia.</p>
+                <div class="student-disclaimer">
+                    <p><strong>Aviso importante:</strong> Esta plataforma no constituye una fuente oficial de información médica. El contenido presentado tiene únicamente propósitos informativos y educativos. Si necesitas ayuda profesional, te recomendamos contactar con servicios de salud especializados.</p>
                 </div>
             </div>
-        </div>
 
-        <div class="container article-content-wrapper">
-            <aside class="table-of-contents">
-                <div class="toc-container">
-                    <h3>Contenido</h3>
-                    <ul>
-                        <li><a href="#introduccion">Introducción</a></li>
-                        <li><a href="#composicion">Composición y principios activos</a></li>
-                        <li><a href="#efectos-corto">Efectos a corto plazo</a></li>
-                        <li><a href="#efectos-largo">Efectos a largo plazo</a></li>
-                        <li><a href="#usos-medicos">Usos médicos</a></li>
-                        <li><a href="#riesgos">Riesgos y consideraciones</a></li>
-                        <li><a href="#conclusion">Conclusión</a></li>
-                        <li><a href="#referencias">Referencias</a></li>
-                    </ul>
-                    <div class="substance-info">
-                        <h4>Datos esenciales</h4>
-                        <ul class="substance-data">
-                            <li><strong>Principios activos:</strong> THC, CBD, entre otros</li>
-                            <li><strong>Categoría:</strong> Cannabinoide</li>
-                            <li><strong>Forma de uso habitual:</strong> Fumada, vaporizada, oral</li>
-                            <li><strong>Nivel de riesgo:</strong> <span class="risk-moderate">Moderado</span></li>
-                            <li><strong>Potencial adictivo:</strong> <span class="addiction-moderate">Moderado</span></li>
-                        </ul>
-                    </div>
+            <div class="comparison-section">
+                <h2>Comparativa de Riesgos y Efectos</h2>
+                <div class="chart-container">
+                    <img src="/api/placeholder/900/500" alt="Gráfico comparativo de potencial adictivo y riesgo de sobredosis de diferentes sustancias" class="comparison-chart">
+                    <p class="chart-caption">Fig. 1: Comparativa del potencial adictivo y riesgo de sobredosis entre las diferentes sustancias analizadas.</p>
                 </div>
-            </aside>
+            </div>
 
-            <article class="article-content">
-                <section id="introduccion" class="article-section">
-                    <p class="article-lead">El cannabis, también conocido como marihuana, es una de las sustancias psicoactivas más utilizadas a nivel mundial, con una historia de uso que se remonta miles de años. Este artículo examina la evidencia científica actual sobre sus efectos, usos potenciales y riesgos asociados.</p>
-                    
-                    <p>A lo largo de las últimas décadas, la investigación sobre el cannabis ha experimentado un crecimiento significativo, especialmente desde el descubrimiento del sistema endocannabinoide en el cuerpo humano. Este sistema desempeña roles importantes en diversos procesos fisiológicos, incluyendo el estado de ánimo, la memoria, el apetito y la percepción del dolor.</p>
-                </section>
-
-                <section id="composicion" class="article-section">
-                    <h2>Composición y principios activos</h2>
-                    
-                    <p>El cannabis contiene más de 100 compuestos químicos diferentes conocidos como cannabinoides, siendo los principales el tetrahidrocannabinol (THC) y el cannabidiol (CBD).</p>
-                    
-                    <div class="info-box">
-                        <h3>Principales cannabinoides</h3>
-                        <p><strong>THC (Tetrahidrocannabinol):</strong> Responsable de los efectos psicoactivos. Se une a los receptores CB1 del sistema endocannabinoide, principalmente en el cerebro, alterando la percepción, el estado de ánimo y la cognición.</p>
-                        <p><strong>CBD (Cannabidiol):</strong> No produce efectos psicoactivos. Tiene propiedades ansiolíticas, antiinflamatorias y antipsicóticas. Interactúa de manera indirecta con los receptores endocannabinoides y modula otros sistemas de neurotransmisores.</p>
+            <div class="substance-grid">
+                <!-- Cannabis -->
+                <article class="substance-card cannabis-card">
+                    <div class="substance-header">
+                        <h2>Cannabis</h2>
+                        <div class="risk-indicator moderate">Riesgo Moderado</div>
                     </div>
-                    
-                    <p>Además de los cannabinoides, el cannabis contiene terpenos, flavonoides y otros compuestos que contribuyen al llamado "efecto séquito", una interacción sinérgica entre sus diversos componentes que modifica los efectos generales de la planta.</p>
-                    
-                    <p>Las distintas variedades o "cepas" de cannabis contienen diferentes proporciones de estos compuestos, lo que explica la variabilidad en sus efectos. En las últimas décadas, el cultivo selectivo ha aumentado significativamente la concentración de THC en muchas variedades, incrementando su potencia y potencialmente sus riesgos.</p>
-                </section>
-
-                <section id="efectos-corto" class="article-section">
-                    <h2>Efectos a corto plazo</h2>
-                    
-                    <p>Los efectos agudos del cannabis dependen de múltiples factores: la dosis, la concentración de THC y CBD, el método de consumo, la experiencia previa del usuario y su predisposición genética e individual.</p>
-                    
-                    <div class="effects-list">
-                        <div class="effect-group">
-                            <h3>Efectos físicos</h3>
+                    <div class="substance-content">
+                        <div class="substance-image">
+                            <img src="/api/placeholder/300/200" alt="Cannabis" class="substance-img">
+                        </div>
+                        <div class="key-facts">
+                            <h3>Datos clave</h3>
                             <ul>
-                                <li>Ojos rojos (debido a la vasodilatación)</li>
-                                <li>Boca seca (xerostomía)</li>
-                                <li>Aumento del apetito ("munchies")</li>
-                                <li>Taquicardia (aumento de la frecuencia cardíaca)</li>
-                                <li>Broncodilatación seguida de irritación bronquial</li>
-                                <li>Deterioro de la coordinación motora</li>
+                                <li><strong>Principios activos:</strong> THC, CBD</li>
+                                <li><strong>Formas de uso:</strong> Fumada, vaporizada, oral</li>
+                                <li><strong>Potencial adictivo:</strong> Moderado (9% de usuarios)</li>
+                                <li><strong>Efectos buscados:</strong> Relajación, euforia, alteración perceptiva</li>
                             </ul>
                         </div>
-                        <div class="effect-group">
-                            <h3>Efectos psicológicos</h3>
-                            <ul>
-                                <li>Euforia y sensación de bienestar</li>
-                                <li>Relajación</li>
-                                <li>Alteración de la percepción sensorial</li>
-                                <li>Distorsión de la percepción del tiempo</li>
-                                <li>Intensificación de experiencias sensoriales</li>
-                                <li>Deterioro de la memoria a corto plazo</li>
-                                <li>Dificultades de concentración</li>
-                                <li>En algunos casos, ansiedad o paranoia</li>
-                            </ul>
+                        <div class="substance-summary">
+                            <p>El cannabis contiene más de 100 cannabinoides que actúan sobre el sistema endocannabinoide humano. El THC es responsable de los efectos psicoactivos, mientras que el CBD posee propiedades ansiolíticas y antiinflamatorias sin efectos psicoactivos significativos.</p>
+                            
+                            <div class="effects-container">
+                                <div class="effects-column">
+                                    <h4>Efectos físicos</h4>
+                                    <ul>
+                                        <li>Ojos rojos</li>
+                                        <li>Taquicardia</li>
+                                        <li>Boca seca</li>
+                                        <li>Broncodilatación</li>
+                                        <li>Aumento del apetito</li>
+                                    </ul>
+                                </div>
+                                <div class="effects-column">
+                                    <h4>Efectos psicológicos</h4>
+                                    <ul>
+                                        <li>Alteración de la percepción</li>
+                                        <li>Deterioro de memoria a corto plazo</li>
+                                        <li>Distorsión temporal</li>
+                                        <li>Posible ansiedad/paranoia</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="medical-uses">
+                                <h4>Aplicaciones médicas</h4>
+                                <ul>
+                                    <li>Dolor crónico</li>
+                                    <li>Náuseas por quimioterapia</li>
+                                    <li>Espasticidad en esclerosis múltiple</li>
+                                    <li>Epilepsia refractaria (CBD)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="risks-section">
+                                <h4>Riesgos principales</h4>
+                                <ul>
+                                    <li>Efectos negativos en desarrollo cerebral durante adolescencia</li>
+                                    <li>Posible desencadenante de psicosis en personas predispuestas</li>
+                                    <li>Síndrome de hiperémesis cannabinoide</li>
+                                    <li>Riesgos respiratorios asociados al consumo fumado</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    
-                    <p>El inicio y duración de estos efectos varía según el método de consumo. Cuando se fuma o vaporiza, los efectos comienzan rápidamente (entre 1-10 minutos) y alcanzan su máxima intensidad en aproximadamente 30 minutos, disminuyendo progresivamente durante 2-3 horas. En contraste, cuando se consume por vía oral, los efectos tardan más en aparecer (30-90 minutos), pero pueden durar hasta 6-8 horas con mayor intensidad.</p>
-                    
-                    <div class="quote-box">
-                        <blockquote>
-                            "Uno de los aspectos más importantes a considerar en la investigación actual es la gran variabilidad en los efectos del cannabis entre distintos individuos, lo que sugiere la importancia de factores genéticos, neurobiológicos y ambientales en determinar la respuesta individual."
-                        </blockquote>
-                        <cite>— Dra. María González, Neurobióloga</cite>
+                </article>
+
+                <!-- Fentanilo -->
+                <article class="substance-card fentanyl-card">
+                    <div class="substance-header">
+                        <h2>Fentanilo</h2>
+                        <div class="risk-indicator high">Riesgo Alto</div>
                     </div>
-                </section>
-
-                <section id="efectos-largo" class="article-section">
-                    <h2>Efectos a largo plazo</h2>
-                    
-                    <p>El uso crónico de cannabis se ha asociado con diversos efectos, aunque la investigación en esta área sigue desarrollándose. Algunos hallazgos significativos incluyen:</p>
-                    
-                    <h3>Sistema respiratorio</h3>
-                    <p>El consumo por inhalación de humo comparte algunos de los riesgos asociados con el tabaquismo, como bronquitis crónica, tos persistente y producción de flema. Sin embargo, la relación entre cannabis y cáncer de pulmón no está tan claramente establecida como con el tabaco.</p>
-                    
-                    <h3>Desarrollo cerebral</h3>
-                    <p>Los estudios indican que el consumo regular durante la adolescencia puede afectar el desarrollo cerebral. La exposición al THC durante este período crítico puede alterar la maduración de regiones cerebrales importantes para funciones cognitivas, especialmente la corteza prefrontal. Investigaciones longitudinales sugieren asociación con disminuciones moderadas en el coeficiente intelectual y alteraciones en la estructura de la materia blanca y gris.</p>
-                    
-                    <h3>Cognición</h3>
-                    <p>El uso prolongado se ha relacionado con déficits sutiles en memoria, atención y funciones ejecutivas. La mayoría de estos efectos parecen reversibles con la abstinencia prolongada, excepto cuando el consumo intenso comenzó en la adolescencia.</p>
-                    
-                    <h3>Salud mental</h3>
-                    <p>La relación entre cannabis y trastornos psiquiátricos es compleja. La evidencia más consistente señala que el consumo frecuente de cannabis alto en THC aumenta el riesgo de desarrollar trastornos psicóticos en personas predispuestas. También puede exacerbar síntomas de trastornos de ansiedad existentes, aunque el CBD ha mostrado efectos contrarios, potencialmente ansiolíticos.</p>
-                    
-                    <div class="warning-box">
-                        <h4>Síndrome de hiperémesis cannabinoide</h4>
-                        <p>Un fenómeno relativamente reciente asociado al uso crónico es el síndrome de hiperémesis cannabinoide, caracterizado por episodios cíclicos de náuseas intensas, vómitos y dolor abdominal. Paradójicamente, mientras que el cannabis tiene propiedades antieméticas, en algunos usuarios crónicos puede desarrollarse este síndrome, que típicamente mejora con baños calientes y se resuelve con la abstinencia prolongada.</p>
+                    <div class="substance-content">
+                        <div class="substance-image">
+                            <img src="/api/placeholder/300/200" alt="Fentanilo" class="substance-img">
+                        </div>
+                        <div class="key-facts">
+                            <h3>Datos clave</h3>
+                            <ul>
+                                <li><strong>Tipo:</strong> Opioide sintético</li>
+                                <li><strong>Potencia vs. morfina:</strong> 50-100 veces mayor</li>
+                                <li><strong>Formas de uso:</strong> Parches, inyectable, polvo</li>
+                                <li><strong>Potencial adictivo:</strong> Alto</li>
+                            </ul>
+                        </div>
+                        <div class="substance-summary">
+                            <p>El fentanilo es un opioide sintético extremadamente potente desarrollado para el manejo médico del dolor. Su alta potencia significa que cantidades minúsculas pueden ser letales. Es un agonista de los receptores opioides μ (mu), produciendo analgesia intensa, euforia, sedación y depresión respiratoria.</p>
+                            
+                            <div class="effects-container">
+                                <div class="effects-column">
+                                    <h4>Efectos físicos</h4>
+                                    <ul>
+                                        <li>Analgesia potente</li>
+                                        <li>Depresión respiratoria</li>
+                                        <li>Miosis (pupilas puntiformes)</li>
+                                        <li>Náuseas/vómitos</li>
+                                        <li>Estreñimiento</li>
+                                    </ul>
+                                </div>
+                                <div class="effects-column">
+                                    <h4>Efectos psicológicos</h4>
+                                    <ul>
+                                        <li>Euforia</li>
+                                        <li>Sedación</li>
+                                        <li>Sensación de bienestar</li>
+                                        <li>Somnolencia</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="medical-uses">
+                                <h4>Aplicaciones médicas</h4>
+                                <ul>
+                                    <li>Dolor severo</li>
+                                    <li>Anestesia quirúrgica</li>
+                                    <li>Dolor oncológico</li>
+                                    <li>Dolor irruptivo</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="risks-section">
+                                <h4>Riesgos principales</h4>
+                                <ul>
+                                    <li>Sobredosis potencialmente fatal</li>
+                                    <li>Alta dependencia física y psicológica</li>
+                                    <li>Adulteración de otras drogas sin conocimiento del usuario</li>
+                                    <li>Depresión respiratoria severa incluso con dosis mínimas</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="warning-box">
+                                <h4>Alerta de sobredosis</h4>
+                                <p>Los signos de sobredosis incluyen: respiración muy lenta o ausente, pupilas puntiformes, piel fría/azulada, pérdida de consciencia. La naloxona puede revertir temporalmente los efectos. Requiere atención médica inmediata.</p>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <h3>Dependencia</h3>
-                    <p>Contrario a algunas creencias populares, aproximadamente el 9% de los usuarios desarrollan dependencia al cannabis, porcentaje que aumenta al 17% en quienes comienzan durante la adolescencia. El síndrome de abstinencia incluye irritabilidad, ansiedad, trastornos del sueño, disminución del apetito y, en algunos casos, síntomas depresivos.</p>
-                </section>
+                </article>
 
-                <section id="usos-medicos" class="article-section">
-                    <h2>Usos médicos</h2>
-                    
-                    <p>La investigación sobre las aplicaciones terapéuticas del cannabis y los cannabinoides ha crecido exponencialmente en las últimas décadas. Algunas aplicaciones con mayor evidencia científica incluyen:</p>
-                    
-                    <div class="data-table">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Condición</th>
-                                    <th>Cannabinoides utilizados</th>
-                                    <th>Nivel de evidencia</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Dolor crónico</td>
-                                    <td>THC, CBD, combinaciones</td>
-                                    <td>Moderado a alto</td>
-                                </tr>
-                                <tr>
-                                    <td>Espasticidad en esclerosis múltiple</td>
-                                    <td>THC:CBD (Nabiximols)</td>
-                                    <td>Alto</td>
-                                </tr>
-                                <tr>
-                                    <td>Náuseas y vómitos por quimioterapia</td>
-                                    <td>THC (Dronabinol)</td>
-                                    <td>Alto</td>
-                                </tr>
-                                <tr>
-                                    <td>Epilepsia refractaria</td>
-                                    <td>CBD (Epidiolex)</td>
-                                    <td>Alto</td>
-                                </tr>
-                                <tr>
-                                    <td>Trastornos de ansiedad</td>
-                                    <td>CBD</td>
-                                    <td>Bajo a moderado</td>
-                                </tr>
-                                <tr>
-                                    <td>Estimulación del apetito en VIH/SIDA</td>
-                                    <td>THC</td>
-                                    <td>Moderado</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <!-- Alcohol -->
+                <article class="substance-card alcohol-card">
+                    <div class="substance-header">
+                        <h2>Alcohol</h2>
+                        <div class="risk-indicator moderate">Riesgo Moderado-Alto</div>
                     </div>
-                    
-                    <p>Es importante destacar que la mayoría de la evidencia se refiere a preparaciones farmacéuticas estandarizadas y no necesariamente al cannabis fumado o vaporizado, cuya composición puede variar significativamente y cuya vía de administración presenta sus propios riesgos.</p>
-                    
-                    <p>Varios países han implementado programas de cannabis medicinal, aunque las regulaciones, indicaciones aprobadas y formas de acceso varían considerablemente entre distintas jurisdicciones.</p>
-                </section>
-
-                <section id="riesgos" class="article-section">
-                    <h2>Riesgos y consideraciones</h2>
-                    
-                    <p>Al evaluar los riesgos del cannabis, es fundamental considerar diversos factores que influyen en el perfil de seguridad:</p>
-                    
-                    <h3>Población vulnerable</h3>
-                    <p>Ciertos grupos presentan mayor vulnerabilidad a los efectos adversos:</p>
-                    <ul>
-                        <li><strong>Adolescentes:</strong> Mayor riesgo de efectos negativos en el desarrollo cerebral y cognitivo</li>
-                        <li><strong>Personas con predisposición a trastornos psicóticos:</strong> Aumento del riesgo de desarrollar psicosis</li>
-                        <li><strong>Mujeres embarazadas:</strong> Posibles efectos en el desarrollo fetal</li>
-                        <li><strong>Personas con enfermedades cardiovasculares:</strong> Mayor riesgo debido a los efectos del THC en el sistema cardiovascular</li>
-                    </ul>
-                    
-                    <h3>Dosis y potencia</h3>
-                    <p>La concentración de THC en productos de cannabis ha aumentado considerablemente en las últimas décadas. En los años 1970, el contenido promedio de THC era de aproximadamente 2-3%, mientras que los productos actuales pueden contener 15-30% o más, incrementando el riesgo de efectos adversos, especialmente en usuarios inexperimentados.</p>
-                    
-                    <h3>Interacciones medicamentosas</h3>
-                    <p>El cannabis puede interactuar con diversos medicamentos al afectar su metabolismo a través del sistema enzimático del citocromo P450. Esto puede alterar la efectividad o seguridad de fármacos como anticoagulantes, antiepilépticos, antidepresivos y otros.</p>
-                    
-                    <h3>Conducción y operación de maquinaria</h3>
-                    <p>El THC deteriora significativamente habilidades psicomotoras esenciales para la conducción segura, incluyendo tiempo de reacción, coordinación, atención dividida y juicio. Estudios indican que el riesgo de accidentes aumenta aproximadamente al doble bajo los efectos del cannabis.</p>
-                </section>
-
-                <section id="conclusion" class="article-section">
-                    <h2>Conclusión</h2>
-                    
-                    <p>La evidencia científica actual sobre el cannabis presenta un panorama complejo. Por un lado, se han identificado aplicaciones terapéuticas legítimas para componentes específicos en condiciones médicas determinadas. Por otro lado, el uso recreativo no está exento de riesgos, especialmente para poblaciones vulnerables como adolescentes o personas con predisposición a trastornos psiquiátricos.</p>
-                    
-                    <p>La investigación sobre cannabis continúa evolucionando rápidamente, y es probable que en los próximos años obtengamos una comprensión más matizada tanto de sus beneficios potenciales como de sus riesgos. Mientras tanto, las políticas públicas y las decisiones individuales deberían basarse en la mejor evidencia científica disponible, reconociendo tanto las promesas como las limitaciones de esta compleja planta.</p>
-                </section>
-
-                <section id="referencias" class="article-section references">
-                    <h2>Referencias</h2>
-                    
-                    <ol>
-                        <li>National Academies of Sciences, Engineering, and Medicine. (2017). The Health Effects of Cannabis and Cannabinoids: The Current State of Evidence and Recommendations for Research.</li>
-                        <li>Volkow, N. D., Baler, R. D., Compton, W. M., & Weiss, S. R. (2014). Adverse health effects of marijuana use. New England Journal of Medicine, 370(23), 2219-2227.</li>
-                        <li>Meier, M. H., Caspi, A., Ambler, A., Harrington, H., Houts, R., Keefe, R. S., ... & Moffitt, T. E. (2012). Persistent cannabis users show neuropsychological decline from childhood to midlife. Proceedings of the National Academy of Sciences, 109(40), E2657-E2664.</li>
-                        <li>Di Forti, M., Quattrone, D., Freeman, T. P., Tripoli, G., Gayer-Anderson, C., Quigley, H., ... & Murray, R. M. (2019). The contribution of cannabis use to variation in the incidence of psychotic disorder across Europe. The Lancet Psychiatry, 6(5), 427-436.</li>
-                        <li>Devinsky, O., Cross, J. H., Laux, L., Marsh, E., Miller, I., Nabbout, R., ... & Wright, S. (2017). Trial of cannabidiol for drug-resistant seizures in the Dravet syndrome. New England Journal of Medicine, 376(21), 2011-2020.</li>
-                    </ol>
-                </section>
-
-                <div class="article-footer">
-                    <div class="student-disclaimer">
-                        <p><strong>Aviso importante:</strong> Este artículo ha sido desarrollado por estudiantes con fines educativos y académicos. La información presentada se basa en investigación científica pero no constituye consejo médico profesional.</p>
+                    <div class="substance-content">
+                        <div class="substance-image">
+                            <img src="/api/placeholder/300/200" alt="Alcohol" class="substance-img">
+                        </div>
+                        <div class="key-facts">
+                            <h3>Datos clave</h3>
+                            <ul>
+                                <li><strong>Principio activo:</strong> Etanol</li>
+                                <li><strong>Tipo:</strong> Depresor del SNC</li>
+                                <li><strong>Legalidad:</strong> Legal con restricciones de edad</li>
+                                <li><strong>Potencial adictivo:</strong> Moderado-Alto</li>
+                            </ul>
+                        </div>
+                        <div class="substance-summary">
+                            <p>El alcohol etílico es una sustancia psicoactiva que actúa principalmente potenciando el efecto del neurotransmisor inhibitorio GABA e inhibiendo al glutamato (excitatorio). Es la droga más aceptada socialmente a pesar de su considerable potencial de daño físico, psicológico y social.</p>
+                            
+                            <div class="chart-container small-chart">
+                                <img src="/api/placeholder/400/250" alt="Gráfico de muertes atribuibles al alcohol por sistema afectado" class="chart-img">
+                                <p class="chart-caption">Fig. 2: Distribución de muertes atribuibles al alcohol por sistema afectado</p>
+                            </div>
+                            
+                            <div class="effects-container">
+                                <div class="effects-column">
+                                    <h4>Efectos agudos</h4>
+                                    <ul>
+                                        <li>Desinhibición</li>
+                                        <li>Deterioro de coordinación y juicio</li>
+                                        <li>Problemas de equilibrio</li>
+                                        <li>Náuseas/vómitos (dosis altas)</li>
+                                        <li>Amnesia ("lagunas")</li>
+                                    </ul>
+                                </div>
+                                <div class="effects-column">
+                                    <h4>Efectos crónicos</h4>
+                                    <ul>
+                                        <li>Daño hepático (esteatosis, hepatitis, cirrosis)</li>
+                                        <li>Cardiopatía alcohólica</li>
+                                        <li>Pancreatitis</li>
+                                        <li>Daño neurológico</li>
+                                        <li>Aumento de riesgo de cáncer</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="risks-section">
+                                <h4>Riesgos principales</h4>
+                                <ul>
+                                    <li>Dependencia física y psicológica</li>
+                                    <li>Síndrome de abstinencia potencialmente fatal</li>
+                                    <li>Daño multiorgánico</li>
+                                    <li>Deterioro cognitivo</li>
+                                    <li>Problemas psicosociales</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </article>
+                </article>
+
+                <!-- Inhalables -->
+                <article class="substance-card inhalants-card">
+                    <div class="substance-header">
+                        <h2>Inhalables</h2>
+                        <div class="risk-indicator high">Riesgo Alto</div>
+                    </div>
+                    <div class="substance-content">
+                        <div class="substance-image">
+                            <img src="/api/placeholder/300/200" alt="Inhalables" class="substance-img">
+                        </div>
+                        <div class="key-facts">
+                            <h3>Datos clave</h3>
+                            <ul>
+                                <li><strong>Tipos:</strong> Solventes, aerosoles, gases, nitritos</li>
+                                <li><strong>Efectos:</strong> Euforia breve, desorientación</li>
+                                <li><strong>Duración:</strong> 15-45 minutos</li>
+                                <li><strong>Potencial de daño:</strong> Muy alto</li>
+                            </ul>
+                        </div>
+                        <div class="substance-summary">
+                            <p>Los inhalables comprenden un grupo heterogéneo de sustancias volátiles que producen vapores químicos con efectos psicoactivos cuando se inhalan. Incluyen solventes (diluyentes, pegamentos), aerosoles, gases (óxido nitroso) y nitritos. Actúan principalmente como depresores del sistema nervioso central.</p>
+                            
+                            <div class="effects-container">
+                                <div class="effects-column">
+                                    <h4>Efectos inmediatos</h4>
+                                    <ul>
+                                        <li>Euforia inicial</li>
+                                        <li>Desinhibición</li>
+                                        <li>Mareos y aturdimiento</li>
+                                        <li>Habla confusa</li>
+                                        <li>Náuseas</li>
+                                        <li>Alucinaciones</li>
+                                    </ul>
+                                </div>
+                                <div class="effects-column">
+                                    <h4>Efectos a largo plazo</h4>
+                                    <ul>
+                                        <li>Daño cerebral permanente</li>
+                                        <li>Neuropatía periférica</li>
+                                        <li>Daño renal y hepático</li>
+                                        <li>Atrofia cerebral</li>
+                                        <li>Deterioro cognitivo</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="risks-section">
+                                <h4>Riesgos principales</h4>
+                                <ul>
+                                    <li>Síndrome de muerte súbita por inhalación</li>
+                                    <li>Asfixia</li>
+                                    <li>Arritmias cardíacas fatales</li>
+                                    <li>Neurotoxicidad severa</li>
+                                    <li>Daño multiorgánico</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="warning-box">
+                                <h4>Alerta especial: Sensibilización cardíaca</h4>
+                                <p>Los inhalables pueden causar "sensibilización cardíaca", haciendo que el corazón sea anormalmente susceptible a las arritmias. Actividad física, susto o estrés durante el uso pueden desencadenar muerte súbita cardíaca.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Metanfetamina -->
+                <article class="substance-card methamphetamine-card">
+                    <div class="substance-header">
+                        <h2>Metanfetamina</h2>
+                        <div class="risk-indicator high">Riesgo Alto</div>
+                    </div>
+                    <div class="substance-content">
+                        <div class="substance-image">
+                            <img src="/api/placeholder/300/200" alt="Metanfetamina" class="substance-img">
+                        </div>
+                        <div class="key-facts">
+                            <h3>Datos clave</h3>
+                            <ul>
+                                <li><strong>Tipo:</strong> Estimulante</li>
+                                <li><strong>Formas:</strong> Cristales, polvo, pastillas</li>
+                                <li><strong>Mecanismo:</strong> Liberación de monoaminas</li>
+                                <li><strong>Potencial adictivo:</strong> Muy alto</li>
+                            </ul>
+                        </div>
+                        <div class="substance-summary">
+                            <p>La metanfetamina es un potente estimulante del sistema nervioso central que actúa principalmente aumentando la liberación y bloqueando la recaptación de dopamina, norepinefrina y serotonina. Produce una liberación de dopamina aproximadamente 10 veces mayor que la cocaína, lo que explica su alto potencial adictivo.</p>
+                            
+                            <div class="chart-container small-chart">
+                                <img src="/api/placeholder/400/250" alt="Gráfico de cambios en volumen cerebral por uso de metanfetamina" class="chart-img">
+                                <p class="chart-caption">Fig. 3: Cambios en volumen cerebral asociados al uso crónico de metanfetamina</p>
+                            </div>
+                            
+                            <div class="effects-container">
+                                <div class="effects-column">
+                                    <h4>Efectos agudos</h4>
+                                    <ul>
+                                        <li>Euforia intensa</li>
+                                        <li>Aumento de energía y vigilia</li>
+                                        <li>Disminución del apetito</li>
+                                        <li>Hipertermia</li>
+                                        <li>Taquicardia e hipertensión</li>
+                                        <li>Comportamiento repetitivo</li>
+                                    </ul>
+                                </div>
+                                <div class="effects-column">
+                                    <h4>Efectos crónicos</h4>
+                                    <ul>
+                                        <li>Neurotoxicidad severa</li>
+                                        <li>Psicosis tóxica</li>
+                                        <li>Deterioro cognitivo</li>
+                                        <li>Problemas dentales ("boca de metanfetamina")</li>
+                                        <li>Cambios estructurales cerebrales</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="risks-section">
+                                <h4>Riesgos principales</h4>
+                                <ul>
+                                    <li>Dependencia intensa y rápida</li>
+                                    <li>Daño cerebral permanente</li>
+                                    <li>Deterioro cognitivo persistente</li>
+                                    <li>Psicosis persistente</li>
+                                    <li>Complicaciones cardiovasculares</li>
+                                    <li>Desnutrición y deterioro físico</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Vapeadores y Tabaco -->
+                <article class="substance-card vaping-card">
+                    <div class="substance-header">
+                        <h2>Vapeadores y Tabaco</h2>
+                        <div class="risk-indicator moderate">Riesgo Moderado-Alto</div>
+                    </div>
+                    <div class="substance-content">
+                        <div class="substance-image">
+                            <img src="/api/placeholder/300/200" alt="Vapeadores y Tabaco" class="substance-img">
+                        </div>
+                        <div class="key-facts">
+                            <h3>Datos clave</h3>
+                            <ul>
+                                <li><strong>Principio activo:</strong> Nicotina</li>
+                                <li><strong>Tipo:</strong> Estimulante</li>
+                                <li><strong>Compuestos del humo:</strong> >7000 (tabaco)</li>
+                                <li><strong>Potencial adictivo:</strong> Alto</li>
+                            </ul>
+                        </div>
+                        <div class="substance-summary">
+                            <p>La nicotina es el principal componente adictivo tanto en cigarrillos convencionales como en vapeadores. Actúa sobre receptores nicotínicos de acetilcolina, estimulando la liberación de neurotransmisores como dopamina, norepinefrina y serotonina. El tabaco contiene miles de compuestos tóxicos generados por combustión, mientras que los vapeadores calientan un líquido generando un aerosol con menos compuestos pero todavía con riesgos.</p>
+                            
+                            <div class="comparison-table">
+                                <h4>Comparativa Cigarrillos vs. Vapeadores</h4>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Característica</th>
+                                            <th>Cigarrillos</th>
+                                            <th>Vapeadores</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Temperatura</td>
+                                            <td>900°C (combustión)</td>
+                                            <td>100-250°C (calentamiento)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Compuestos tóxicos</td>
+                                            <td>Miles (incluyendo alquitrán)</td>
+                                            <td>Significativamente menos</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Carcinógenos</td>
+                                            <td>>70 confirmados</td>
+                                            <td>Menos, pero presentes</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Riesgo cardiovascular</td>
+                                            <td>Alto</td>
+                                            <td>Presente pero posiblemente menor</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="effects-container">
+                                <div class="effects-column">
+                                    <h4>Efectos de la nicotina</h4>
+                                    <ul>
+                                        <li>Estimulación transitoria</li>
+                                        <li>Aumento de frecuencia cardíaca</li>
+                                        <li>Vasoconstricción</li>
+                                        <li>Aumento de presión arterial</li>
+                                        <li>Liberación de glucosa</li>
+                                        <li>Supresión del apetito</li>
+                                    </ul>
+                                </div>
+                                <div class="effects-column">
+                                    <h4>Riesgos a largo plazo</h4>
+                                    <ul>
+                                        <li>Enfermedad cardiovascular</li>
+                                        <li>Enfermedades respiratorias</li>
+                                        <li>Múltiples tipos de cáncer (tabaco)</li>
+                                        <li>Daño pulmonar asociado al vapeo (EVALI)</li>
+                                        <li>Dependencia intensa a nicotina</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="warning-box">
+                                <h4>Adolescentes: Población vulnerable</h4>
+                                <p>La exposición a la nicotina durante la adolescencia puede afectar negativamente el desarrollo cerebral, específicamente en áreas relacionadas con la atención, aprendizaje y control de impulsos, además de potencialmente servir como puerta de entrada al uso de otras sustancias.</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Benzodiazepinas -->
+                <article class="substance-card benzos-card">
+                    <div class="substance-header">
+                        <h2>Benzodiazepinas</h2>
+                        <div class="risk-indicator moderate">Riesgo Moderado-Alto</div>
+                    </div>
+                    <div class="substance-content">
+                        <div class="substance-image">
+                            <img src="/api/placeholder/300/200" alt="Benzodiazepinas" class="substance-img">
+                        </div>
+                        <div class="key-facts">
+                            <h3>Datos clave</h3>
+                            <ul>
+                                <li><strong>Tipo:</strong> Depresor del SNC</li>
+                                <li><strong>Ejemplos:</strong> Diazepam, alprazolam, clonazepam</li>
+                                <li><strong>Mecanismo:</strong> Potenciación de GABA</li>
+                                <li><strong>Potencial adictivo:</strong> Moderado-Alto</li>
+                            </ul>
+                        </div>
+                        <div class="substance-summary">
+                            <p>Las benzodiazepinas son medicamentos psicotrópicos con propiedades ansiolíticas, hipnóticas, anticonvulsivantes, miorrelajantes y amnésicas. Actúan potenciando el efecto del neurotransmisor inhibitorio GABA al unirse a un sitio específico en el receptor GABA-A, aumentando la frecuencia de apertura del canal de cloruro.</p>
+                            
+                            <div class="chart-container small-chart">
+                                <img src="/api/placeholder/400/250" alt="Gráfico de clasificación de benzodiazepinas por vida media" class="chart-img">
+                                <p class="chart-caption">Fig. 4: Clasificación de benzodiazepinas según su vida media de eliminación</p>
+                            </div>
+                            
+                            <div class="effects-container">
+                                <div class="effects-column">
+                                    <h4>Efectos terapéuticos</h4>
+                                    <ul>
+                                        <li>Reducción de ansiedad</li>
+                                        <li>Inducción del sueño</li>
+                                        <li>Efecto anticonvulsivante</li>
+                                        <li>Relajación muscular</li>
+                                        <li>Sedación</li>
+                                    </ul>
+                                </div>
+                                <div class="effects-column">
+                                    <h4>Efectos adversos</h4>
+                                    <ul>
+                                        <li>Somnolencia diurna</li>
+                                        <li>Deterioro cognitivo y psicomotor</li>
+                                        <li>Amnesia anterógrada</li>
+                                        <li>Tolerancia farmacológica</li>
+                                        <li>Reacciones paradójicas</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="medical-uses">
+                                <h4>Aplicaciones médicas</h4>
+                                <ul>
+                                    <li>Trastornos de ansiedad</li>
+                                    <li>Insomnio a corto plazo</li>
+                                    <li>Convulsiones/epilepsia</li>
+                                    <li>Abstinencia alcohólica</li>
+                                    <li>Sedación pre-procedimientos</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="risks-section">
+                                <h4>Riesgos principales</h4>
+                                <ul>
+                                    <li>Dependencia física y psicológica (uso >2-4 semanas)</li>
+                                    <li>Síndrome de abstinencia potencialmente grave</li>
+                                    <li>Deterioro cognitivo persistente</li>
+                                    <li>Riesgo de sobredosis (especialmente con alcohol u otros depresores)</li>
+                                    <li>Posible asociación con demencia (uso prolongado)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="warning-box">
+                                <h4>Abstinencia: Requiere reducción gradual</h4>
+                                <p>La discontinuación abrupta tras uso prolongado puede causar un síndrome de abstinencia severo que incluye ansiedad intensa, insomnio, irritabilidad y potencialmente convulsiones y psicosis. La reducción debe ser gradual (10-25% cada 1-2 semanas).</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="student-disclaimer big-disclaimer">
+                <h3>Proyecto Educativo Estudiantil</h3>
+                <p>InfoSustancias es un proyecto educativo desarrollado por estudiantes con fines exclusivamente informativos y académicos. Esta plataforma no constituye una fuente oficial de información médica y no está afiliada a ninguna institución gubernamental o de salud.</p>
+                <p>Nuestro objetivo es proporcionar información basada en evidencia científica sobre diferentes sustancias, sus efectos y riesgos asociados. Todo el contenido ha sido investigado por estudiantes bajo supervisión académica como parte de un proyecto educativo.</p>
+                <p>Si necesitas ayuda profesional o información oficial, te recomendamos contactar con servicios de salud especializados o líneas de atención nacionales.</p>
+            </div>
         </div>
     </main>
 
