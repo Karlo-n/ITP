@@ -3,10 +3,27 @@
   "builds": [
     { "src": "index.html", "use": "@vercel/static" },
     { "src": "public/404.html", "use": "@vercel/static" },
-    { "src": "**/*.mp3", "use": "@vercel/static" }
+    { "src": "css/**/*.css", "use": "@vercel/static" },
+    { "src": "js/**/*.js", "use": "@vercel/static" },
+    { "src": "images/**/*.(png|jpg|jpeg|gif|svg|webp)", "use": "@vercel/static" },
+    { "src": "**/*.mp3", "use": "@vercel/static" },
+    { "src": "cannabis/**/*.html", "use": "@vercel/static" },
+    { "src": "fentanillo/**/*.html", "use": "@vercel/static" },
+    { "src": "alcohol/**/*.html", "use": "@vercel/static" },
+    { "src": "inhalables/**/*.html", "use": "@vercel/static" },
+    { "src": "metanfetamina/**/*.html", "use": "@vercel/static" },
+    { "src": "vapeadores/**/*.html", "use": "@vercel/static" },
+    { "src": "benzodiazepinas/**/*.html", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/", "dest": "/index.html" },
+    { "src": "/cannabis", "dest": "/cannabis/index.html" },
+    { "src": "/fentanillo", "dest": "/fentanillo/index.html" },
+    { "src": "/alcohol", "dest": "/alcohol/index.html" },
+    { "src": "/inhalables", "dest": "/inhalables/index.html" },
+    { "src": "/metanfetamina", "dest": "/metanfetamina/index.html" },
+    { "src": "/vapeadores", "dest": "/vapeadores/index.html" },
+    { "src": "/benzodiazepinas", "dest": "/benzodiazepinas/index.html" },
     { "handle": "filesystem" },
     { "src": "/(.*)", "status": 404, "dest": "/public/404.html" }
   ]
