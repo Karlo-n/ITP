@@ -1,24 +1,18 @@
 {
   "version": 2,
   "builds": [
-    { "src": "*.html", "use": "@vercel/static" },
-    { "src": "fentanilo/**/*.html", "use": "@vercel/static" },
-    { "src": "metanfetamina/**/*.html", "use": "@vercel/static" },
-    { "src": "cannabis/**/*.html", "use": "@vercel/static" },
-    { "src": "vapeadores/**/*.html", "use": "@vercel/static" },
-    { "src": "alcohol/**/*.html", "use": "@vercel/static" },
-    { "src": "inhalables/**/*.html", "use": "@vercel/static" },
-    { "src": "benzodiacepinas/**/*.html", "use": "@vercel/static" },
-    { "src": "*.css", "use": "@vercel/static" },
-    { "src": "*.js", "use": "@vercel/static" },
-    { "src": "*.png", "use": "@vercel/static" },
-    { "src": "*.jpg", "use": "@vercel/static" },
-    { "src": "*.svg", "use": "@vercel/static" },
-    { "src": "*.json", "use": "@vercel/static" }
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "404.html", "use": "@vercel/static" },
+    { "src": "public/**/*", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/index.html" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "status": 404, "dest": "/404.html" }
   ],
   "headers": [
     {
-      "source": "/(.*)\\.js",
+      "source": "/public/(.*)\\.js",
       "headers": [
         {
           "key": "Cache-Control",
@@ -27,7 +21,7 @@
       ]
     },
     {
-      "source": "/(.*)\\.css",
+      "source": "/public/(.*)\\.css",
       "headers": [
         {
           "key": "Cache-Control",
@@ -36,7 +30,7 @@
       ]
     },
     {
-      "source": "/(.*)\\.png|jpg|svg|webp",
+      "source": "/public/(.*)\\.(?:png|jpg|svg|webp|gif|mp3)",
       "headers": [
         {
           "key": "Cache-Control",
