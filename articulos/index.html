@@ -7,559 +7,274 @@
     <link rel="stylesheet" href="../articulos/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="article-header">
+    <header class="site-header">
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <a href="/">InfoSustancias</a>
-                </div>
-                <nav class="article-nav">
-                    <ul>
-                        <li><a href="/">Inicio</a></li>
-                        <li><a href="/articulos" class="active">Artículos</a></li>
-                        <li><a href="/recursos">Recursos</a></li>
-                        <li><a href="/ayuda">Ayuda</a></li>
-                        <li><a href="/acerca">Acerca de</a></li>
-                    </ul>
-                </nav>
+            <div class="logo">
+                <h1>InfoSustancias</h1>
+                <p class="tagline">Información y Educación sobre Sustancias</p>
             </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="/articulos" class="active">Artículos</a></li>
+                    <li><a href="/recursos">Recursos</a></li>
+                    <li><a href="/ayuda">Ayuda</a></li>
+                    <li><a href="/acerca">Acerca de</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
-    <section class="article-hero">
+    <section class="substance-buttons">
         <div class="container">
-            <h1>Artículos Informativos</h1>
-            <p>Información basada en evidencia científica sobre diversas sustancias, sus efectos y riesgos asociados</p>
+            <div class="buttons-container">
+                <a href="https://blog.apikarl.com/cannabis" class="substance-button cannabis-btn">Cannabis</a>
+                <a href="https://blog.apikarl.com/fentanillo" class="substance-button fentanyl-btn">Fentanilo</a>
+                <a href="https://blog.apikarl.com/alcohol" class="substance-button alcohol-btn">Alcohol</a>
+                <a href="https://blog.apikarl.com/inhalables" class="substance-button inhalants-btn">Inhalables</a>
+                <a href="https://blog.apikarl.com/metanfetamina" class="substance-button methamphetamine-btn">Metanfetamina</a>
+                <a href="https://blog.apikarl.com/vapeadores" class="substance-button vaping-btn">Vapeadores/Tabaco</a>
+                <a href="https://blog.apikarl.com/benzodiazepinas" class="substance-button benzos-btn">Benzodiazepinas</a>
+            </div>
         </div>
     </section>
 
-    <main class="articles-main">
+    <section class="article-hero">
+        <div class="container">
+            <h1>Información sobre Sustancias</h1>
+            <p>Datos científicos y educativos sobre diversas sustancias psicoactivas</p>
+        </div>
+    </section>
+
+    <main class="articles-container">
         <div class="container">
             <div class="articles-intro">
-                <p>Esta sección presenta información resumida sobre diferentes sustancias psicoactivas, elaborada con fines exclusivamente educativos por estudiantes bajo supervisión académica. Cada artículo destaca los aspectos más relevantes sobre farmacología, efectos, riesgos y consideraciones de salud asociadas a cada sustancia.</p>
+                <p>En esta sección presentamos información basada en evidencia científica sobre siete sustancias psicoactivas y sus efectos en el organismo. Todo el contenido ha sido desarrollado por estudiantes con fines exclusivamente educativos y académicos.</p>
                 <div class="student-disclaimer">
-                    <p><strong>Aviso importante:</strong> Esta plataforma no constituye una fuente oficial de información médica. El contenido presentado tiene únicamente propósitos informativos y educativos. Si necesitas ayuda profesional, te recomendamos contactar con servicios de salud especializados.</p>
-                </div>
-            </div>
-
-            <div class="comparison-section">
-                <h2>Comparativa de Riesgos y Efectos</h2>
-                <div class="chart-container">
-                    <img src="/api/placeholder/900/500" alt="Gráfico comparativo de potencial adictivo y riesgo de sobredosis de diferentes sustancias" class="comparison-chart">
-                    <p class="chart-caption">Fig. 1: Comparativa del potencial adictivo y riesgo de sobredosis entre las diferentes sustancias analizadas.</p>
+                    <p><strong>Aviso importante:</strong> Esta plataforma no constituye una fuente oficial de información médica. Si necesitas ayuda profesional, te recomendamos contactar con servicios de salud especializados.</p>
                 </div>
             </div>
 
             <div class="substance-grid">
                 <!-- Cannabis -->
-                <article class="substance-card cannabis-card">
+                <div class="substance-card cannabis-card">
                     <div class="substance-header">
                         <h2>Cannabis</h2>
                         <div class="risk-indicator moderate">Riesgo Moderado</div>
                     </div>
                     <div class="substance-content">
-                        <div class="substance-image">
-                            <img src="/api/placeholder/300/200" alt="Cannabis" class="substance-img">
-                        </div>
-                        <div class="key-facts">
-                            <h3>Datos clave</h3>
-                            <ul>
-                                <li><strong>Principios activos:</strong> THC, CBD</li>
-                                <li><strong>Formas de uso:</strong> Fumada, vaporizada, oral</li>
-                                <li><strong>Potencial adictivo:</strong> Moderado (9% de usuarios)</li>
-                                <li><strong>Efectos buscados:</strong> Relajación, euforia, alteración perceptiva</li>
-                            </ul>
-                        </div>
-                        <div class="substance-summary">
-                            <p>El cannabis contiene más de 100 cannabinoides que actúan sobre el sistema endocannabinoide humano. El THC es responsable de los efectos psicoactivos, mientras que el CBD posee propiedades ansiolíticas y antiinflamatorias sin efectos psicoactivos significativos.</p>
-                            
-                            <div class="effects-container">
-                                <div class="effects-column">
-                                    <h4>Efectos físicos</h4>
-                                    <ul>
-                                        <li>Ojos rojos</li>
-                                        <li>Taquicardia</li>
-                                        <li>Boca seca</li>
-                                        <li>Broncodilatación</li>
-                                        <li>Aumento del apetito</li>
-                                    </ul>
-                                </div>
-                                <div class="effects-column">
-                                    <h4>Efectos psicológicos</h4>
-                                    <ul>
-                                        <li>Alteración de la percepción</li>
-                                        <li>Deterioro de memoria a corto plazo</li>
-                                        <li>Distorsión temporal</li>
-                                        <li>Posible ansiedad/paranoia</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div class="medical-uses">
-                                <h4>Aplicaciones médicas</h4>
+                        <p>El cannabis contiene cannabinoides (principalmente THC y CBD) que actúan sobre el sistema endocannabinoide. El THC produce efectos psicoactivos mientras que el CBD tiene propiedades no-psicoactivas con potencial terapéutico.</p>
+                        <div class="substance-details">
+                            <div class="detail-column">
+                                <h3>Efectos principales</h3>
                                 <ul>
-                                    <li>Dolor crónico</li>
-                                    <li>Náuseas por quimioterapia</li>
-                                    <li>Espasticidad en esclerosis múltiple</li>
-                                    <li>Epilepsia refractaria (CBD)</li>
+                                    <li>Alteración de la percepción</li>
+                                    <li>Modificación del estado de ánimo</li>
+                                    <li>Afectación de memoria a corto plazo</li>
                                 </ul>
                             </div>
-                            
-                            <div class="risks-section">
-                                <h4>Riesgos principales</h4>
+                            <div class="detail-column">
+                                <h3>Riesgos asociados</h3>
                                 <ul>
-                                    <li>Efectos negativos en desarrollo cerebral durante adolescencia</li>
-                                    <li>Posible desencadenante de psicosis en personas predispuestas</li>
-                                    <li>Síndrome de hiperémesis cannabinoide</li>
-                                    <li>Riesgos respiratorios asociados al consumo fumado</li>
+                                    <li>Desarrollo cerebral (adolescentes)</li>
+                                    <li>Posible desencadenante de psicosis</li>
                                 </ul>
                             </div>
                         </div>
+                        <a href="https://blog.apikarl.com/cannabis" class="learn-more">Leer artículo completo</a>
                     </div>
-                </article>
+                </div>
 
                 <!-- Fentanilo -->
-                <article class="substance-card fentanyl-card">
+                <div class="substance-card fentanyl-card">
                     <div class="substance-header">
                         <h2>Fentanilo</h2>
                         <div class="risk-indicator high">Riesgo Alto</div>
                     </div>
                     <div class="substance-content">
-                        <div class="substance-image">
-                            <img src="/api/placeholder/300/200" alt="Fentanilo" class="substance-img">
-                        </div>
-                        <div class="key-facts">
-                            <h3>Datos clave</h3>
-                            <ul>
-                                <li><strong>Tipo:</strong> Opioide sintético</li>
-                                <li><strong>Potencia vs. morfina:</strong> 50-100 veces mayor</li>
-                                <li><strong>Formas de uso:</strong> Parches, inyectable, polvo</li>
-                                <li><strong>Potencial adictivo:</strong> Alto</li>
-                            </ul>
-                        </div>
-                        <div class="substance-summary">
-                            <p>El fentanilo es un opioide sintético extremadamente potente desarrollado para el manejo médico del dolor. Su alta potencia significa que cantidades minúsculas pueden ser letales. Es un agonista de los receptores opioides μ (mu), produciendo analgesia intensa, euforia, sedación y depresión respiratoria.</p>
-                            
-                            <div class="effects-container">
-                                <div class="effects-column">
-                                    <h4>Efectos físicos</h4>
-                                    <ul>
-                                        <li>Analgesia potente</li>
-                                        <li>Depresión respiratoria</li>
-                                        <li>Miosis (pupilas puntiformes)</li>
-                                        <li>Náuseas/vómitos</li>
-                                        <li>Estreñimiento</li>
-                                    </ul>
-                                </div>
-                                <div class="effects-column">
-                                    <h4>Efectos psicológicos</h4>
-                                    <ul>
-                                        <li>Euforia</li>
-                                        <li>Sedación</li>
-                                        <li>Sensación de bienestar</li>
-                                        <li>Somnolencia</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div class="medical-uses">
-                                <h4>Aplicaciones médicas</h4>
+                        <p>Opioide sintético extremadamente potente (50-100 veces más que la morfina) desarrollado para el manejo del dolor severo. Su alta potencia significa que cantidades ínfimas pueden ser letales, especialmente en uso no médico.</p>
+                        <div class="substance-details">
+                            <div class="detail-column">
+                                <h3>Efectos principales</h3>
                                 <ul>
-                                    <li>Dolor severo</li>
-                                    <li>Anestesia quirúrgica</li>
-                                    <li>Dolor oncológico</li>
-                                    <li>Dolor irruptivo</li>
+                                    <li>Analgesia profunda</li>
+                                    <li>Euforia</li>
+                                    <li>Sedación</li>
+                                    <li>Depresión respiratoria</li>
                                 </ul>
                             </div>
-                            
-                            <div class="risks-section">
-                                <h4>Riesgos principales</h4>
+                            <div class="detail-column">
+                                <h3>Riesgos asociados</h3>
                                 <ul>
-                                    <li>Sobredosis potencialmente fatal</li>
-                                    <li>Alta dependencia física y psicológica</li>
-                                    <li>Adulteración de otras drogas sin conocimiento del usuario</li>
-                                    <li>Depresión respiratoria severa incluso con dosis mínimas</li>
+                                    <li>Sobredosis fatal</li>
+                                    <li>Alta dependencia</li>
+                                    <li>Adulteración de otras drogas</li>
                                 </ul>
                             </div>
-                            
-                            <div class="warning-box">
-                                <h4>Alerta de sobredosis</h4>
-                                <p>Los signos de sobredosis incluyen: respiración muy lenta o ausente, pupilas puntiformes, piel fría/azulada, pérdida de consciencia. La naloxona puede revertir temporalmente los efectos. Requiere atención médica inmediata.</p>
-                            </div>
                         </div>
+                        <a href="https://blog.apikarl.com/fentanillo" class="learn-more">Leer artículo completo</a>
                     </div>
-                </article>
+                </div>
 
                 <!-- Alcohol -->
-                <article class="substance-card alcohol-card">
+                <div class="substance-card alcohol-card">
                     <div class="substance-header">
                         <h2>Alcohol</h2>
                         <div class="risk-indicator moderate">Riesgo Moderado-Alto</div>
                     </div>
                     <div class="substance-content">
-                        <div class="substance-image">
-                            <img src="/api/placeholder/300/200" alt="Alcohol" class="substance-img">
-                        </div>
-                        <div class="key-facts">
-                            <h3>Datos clave</h3>
-                            <ul>
-                                <li><strong>Principio activo:</strong> Etanol</li>
-                                <li><strong>Tipo:</strong> Depresor del SNC</li>
-                                <li><strong>Legalidad:</strong> Legal con restricciones de edad</li>
-                                <li><strong>Potencial adictivo:</strong> Moderado-Alto</li>
-                            </ul>
-                        </div>
-                        <div class="substance-summary">
-                            <p>El alcohol etílico es una sustancia psicoactiva que actúa principalmente potenciando el efecto del neurotransmisor inhibitorio GABA e inhibiendo al glutamato (excitatorio). Es la droga más aceptada socialmente a pesar de su considerable potencial de daño físico, psicológico y social.</p>
-                            
-                            <div class="chart-container small-chart">
-                                <img src="/api/placeholder/400/250" alt="Gráfico de muertes atribuibles al alcohol por sistema afectado" class="chart-img">
-                                <p class="chart-caption">Fig. 2: Distribución de muertes atribuibles al alcohol por sistema afectado</p>
-                            </div>
-                            
-                            <div class="effects-container">
-                                <div class="effects-column">
-                                    <h4>Efectos agudos</h4>
-                                    <ul>
-                                        <li>Desinhibición</li>
-                                        <li>Deterioro de coordinación y juicio</li>
-                                        <li>Problemas de equilibrio</li>
-                                        <li>Náuseas/vómitos (dosis altas)</li>
-                                        <li>Amnesia ("lagunas")</li>
-                                    </ul>
-                                </div>
-                                <div class="effects-column">
-                                    <h4>Efectos crónicos</h4>
-                                    <ul>
-                                        <li>Daño hepático (esteatosis, hepatitis, cirrosis)</li>
-                                        <li>Cardiopatía alcohólica</li>
-                                        <li>Pancreatitis</li>
-                                        <li>Daño neurológico</li>
-                                        <li>Aumento de riesgo de cáncer</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div class="risks-section">
-                                <h4>Riesgos principales</h4>
+                        <p>El alcohol (etanol) es un depresor del sistema nervioso central que actúa principalmente sobre los receptores GABA (aumentando inhibición) y NMDA (disminuyendo excitación), siendo una de las sustancias psicoactivas más consumidas mundialmente.</p>
+                        <div class="substance-details">
+                            <div class="detail-column">
+                                <h3>Efectos principales</h3>
                                 <ul>
-                                    <li>Dependencia física y psicológica</li>
-                                    <li>Síndrome de abstinencia potencialmente fatal</li>
+                                    <li>Desinhibición</li>
+                                    <li>Deterioro psicomotor</li>
+                                    <li>Sedación en dosis altas</li>
+                                </ul>
+                            </div>
+                            <div class="detail-column">
+                                <h3>Riesgos asociados</h3>
+                                <ul>
                                     <li>Daño multiorgánico</li>
-                                    <li>Deterioro cognitivo</li>
-                                    <li>Problemas psicosociales</li>
+                                    <li>Dependencia severa</li>
+                                    <li>Abstinencia potencialmente fatal</li>
                                 </ul>
                             </div>
                         </div>
+                        <a href="https://blog.apikarl.com/alcohol" class="learn-more">Leer artículo completo</a>
                     </div>
-                </article>
+                </div>
 
                 <!-- Inhalables -->
-                <article class="substance-card inhalants-card">
+                <div class="substance-card inhalants-card">
                     <div class="substance-header">
                         <h2>Inhalables</h2>
                         <div class="risk-indicator high">Riesgo Alto</div>
                     </div>
                     <div class="substance-content">
-                        <div class="substance-image">
-                            <img src="/api/placeholder/300/200" alt="Inhalables" class="substance-img">
-                        </div>
-                        <div class="key-facts">
-                            <h3>Datos clave</h3>
-                            <ul>
-                                <li><strong>Tipos:</strong> Solventes, aerosoles, gases, nitritos</li>
-                                <li><strong>Efectos:</strong> Euforia breve, desorientación</li>
-                                <li><strong>Duración:</strong> 15-45 minutos</li>
-                                <li><strong>Potencial de daño:</strong> Muy alto</li>
-                            </ul>
-                        </div>
-                        <div class="substance-summary">
-                            <p>Los inhalables comprenden un grupo heterogéneo de sustancias volátiles que producen vapores químicos con efectos psicoactivos cuando se inhalan. Incluyen solventes (diluyentes, pegamentos), aerosoles, gases (óxido nitroso) y nitritos. Actúan principalmente como depresores del sistema nervioso central.</p>
-                            
-                            <div class="effects-container">
-                                <div class="effects-column">
-                                    <h4>Efectos inmediatos</h4>
-                                    <ul>
-                                        <li>Euforia inicial</li>
-                                        <li>Desinhibición</li>
-                                        <li>Mareos y aturdimiento</li>
-                                        <li>Habla confusa</li>
-                                        <li>Náuseas</li>
-                                        <li>Alucinaciones</li>
-                                    </ul>
-                                </div>
-                                <div class="effects-column">
-                                    <h4>Efectos a largo plazo</h4>
-                                    <ul>
-                                        <li>Daño cerebral permanente</li>
-                                        <li>Neuropatía periférica</li>
-                                        <li>Daño renal y hepático</li>
-                                        <li>Atrofia cerebral</li>
-                                        <li>Deterioro cognitivo</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div class="risks-section">
-                                <h4>Riesgos principales</h4>
+                        <p>Grupo heterogéneo de sustancias volátiles que incluyen solventes, aerosoles, gases y nitritos, cuyos vapores producen efectos psicoactivos por inhalación. Actúan principalmente como depresores del sistema nervioso central.</p>
+                        <div class="substance-details">
+                            <div class="detail-column">
+                                <h3>Efectos principales</h3>
                                 <ul>
-                                    <li>Síndrome de muerte súbita por inhalación</li>
-                                    <li>Asfixia</li>
-                                    <li>Arritmias cardíacas fatales</li>
-                                    <li>Neurotoxicidad severa</li>
-                                    <li>Daño multiorgánico</li>
+                                    <li>Euforia rápida y breve</li>
+                                    <li>Mareo y desorientación</li>
+                                    <li>Alteraciones sensoriales</li>
                                 </ul>
                             </div>
-                            
-                            <div class="warning-box">
-                                <h4>Alerta especial: Sensibilización cardíaca</h4>
-                                <p>Los inhalables pueden causar "sensibilización cardíaca", haciendo que el corazón sea anormalmente susceptible a las arritmias. Actividad física, susto o estrés durante el uso pueden desencadenar muerte súbita cardíaca.</p>
+                            <div class="detail-column">
+                                <h3>Riesgos asociados</h3>
+                                <ul>
+                                    <li>Muerte súbita por inhalación</li>
+                                    <li>Neurotoxicidad severa</li>
+                                    <li>Daño cardíaco y multiorgánico</li>
+                                </ul>
                             </div>
                         </div>
+                        <a href="https://blog.apikarl.com/inhalables" class="learn-more">Leer artículo completo</a>
                     </div>
-                </article>
+                </div>
 
                 <!-- Metanfetamina -->
-                <article class="substance-card methamphetamine-card">
+                <div class="substance-card methamphetamine-card">
                     <div class="substance-header">
                         <h2>Metanfetamina</h2>
                         <div class="risk-indicator high">Riesgo Alto</div>
                     </div>
                     <div class="substance-content">
-                        <div class="substance-image">
-                            <img src="/api/placeholder/300/200" alt="Metanfetamina" class="substance-img">
-                        </div>
-                        <div class="key-facts">
-                            <h3>Datos clave</h3>
-                            <ul>
-                                <li><strong>Tipo:</strong> Estimulante</li>
-                                <li><strong>Formas:</strong> Cristales, polvo, pastillas</li>
-                                <li><strong>Mecanismo:</strong> Liberación de monoaminas</li>
-                                <li><strong>Potencial adictivo:</strong> Muy alto</li>
-                            </ul>
-                        </div>
-                        <div class="substance-summary">
-                            <p>La metanfetamina es un potente estimulante del sistema nervioso central que actúa principalmente aumentando la liberación y bloqueando la recaptación de dopamina, norepinefrina y serotonina. Produce una liberación de dopamina aproximadamente 10 veces mayor que la cocaína, lo que explica su alto potencial adictivo.</p>
-                            
-                            <div class="chart-container small-chart">
-                                <img src="/api/placeholder/400/250" alt="Gráfico de cambios en volumen cerebral por uso de metanfetamina" class="chart-img">
-                                <p class="chart-caption">Fig. 3: Cambios en volumen cerebral asociados al uso crónico de metanfetamina</p>
-                            </div>
-                            
-                            <div class="effects-container">
-                                <div class="effects-column">
-                                    <h4>Efectos agudos</h4>
-                                    <ul>
-                                        <li>Euforia intensa</li>
-                                        <li>Aumento de energía y vigilia</li>
-                                        <li>Disminución del apetito</li>
-                                        <li>Hipertermia</li>
-                                        <li>Taquicardia e hipertensión</li>
-                                        <li>Comportamiento repetitivo</li>
-                                    </ul>
-                                </div>
-                                <div class="effects-column">
-                                    <h4>Efectos crónicos</h4>
-                                    <ul>
-                                        <li>Neurotoxicidad severa</li>
-                                        <li>Psicosis tóxica</li>
-                                        <li>Deterioro cognitivo</li>
-                                        <li>Problemas dentales ("boca de metanfetamina")</li>
-                                        <li>Cambios estructurales cerebrales</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div class="risks-section">
-                                <h4>Riesgos principales</h4>
+                        <p>Potente estimulante del sistema nervioso central que aumenta la liberación y bloquea la recaptación de monoaminas (dopamina, norepinefrina y serotonina), con especial afinidad por el sistema dopaminérgico, generando una liberación hasta 10 veces mayor que la cocaína.</p>
+                        <div class="substance-details">
+                            <div class="detail-column">
+                                <h3>Efectos principales</h3>
                                 <ul>
-                                    <li>Dependencia intensa y rápida</li>
-                                    <li>Daño cerebral permanente</li>
-                                    <li>Deterioro cognitivo persistente</li>
-                                    <li>Psicosis persistente</li>
-                                    <li>Complicaciones cardiovasculares</li>
-                                    <li>Desnutrición y deterioro físico</li>
+                                    <li>Euforia intensa</li>
+                                    <li>Incremento de energía</li>
+                                    <li>Disminución de apetito</li>
+                                    <li>Hipervigilancia</li>
+                                </ul>
+                            </div>
+                            <div class="detail-column">
+                                <h3>Riesgos asociados</h3>
+                                <ul>
+                                    <li>Neurotoxicidad severa</li>
+                                    <li>Psicosis tóxica</li>
+                                    <li>Alta adicción</li>
+                                    <li>Daño físico general</li>
                                 </ul>
                             </div>
                         </div>
+                        <a href="https://blog.apikarl.com/metanfetamina" class="learn-more">Leer artículo completo</a>
                     </div>
-                </article>
+                </div>
 
-                <!-- Vapeadores y Tabaco -->
-                <article class="substance-card vaping-card">
+                <!-- Vapeadores/Tabaco -->
+                <div class="substance-card vaping-card">
                     <div class="substance-header">
-                        <h2>Vapeadores y Tabaco</h2>
+                        <h2>Vapeadores/Tabaco</h2>
                         <div class="risk-indicator moderate">Riesgo Moderado-Alto</div>
                     </div>
                     <div class="substance-content">
-                        <div class="substance-image">
-                            <img src="/api/placeholder/300/200" alt="Vapeadores y Tabaco" class="substance-img">
-                        </div>
-                        <div class="key-facts">
-                            <h3>Datos clave</h3>
-                            <ul>
-                                <li><strong>Principio activo:</strong> Nicotina</li>
-                                <li><strong>Tipo:</strong> Estimulante</li>
-                                <li><strong>Compuestos del humo:</strong> >7000 (tabaco)</li>
-                                <li><strong>Potencial adictivo:</strong> Alto</li>
-                            </ul>
-                        </div>
-                        <div class="substance-summary">
-                            <p>La nicotina es el principal componente adictivo tanto en cigarrillos convencionales como en vapeadores. Actúa sobre receptores nicotínicos de acetilcolina, estimulando la liberación de neurotransmisores como dopamina, norepinefrina y serotonina. El tabaco contiene miles de compuestos tóxicos generados por combustión, mientras que los vapeadores calientan un líquido generando un aerosol con menos compuestos pero todavía con riesgos.</p>
-                            
-                            <div class="comparison-table">
-                                <h4>Comparativa Cigarrillos vs. Vapeadores</h4>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Característica</th>
-                                            <th>Cigarrillos</th>
-                                            <th>Vapeadores</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Temperatura</td>
-                                            <td>900°C (combustión)</td>
-                                            <td>100-250°C (calentamiento)</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Compuestos tóxicos</td>
-                                            <td>Miles (incluyendo alquitrán)</td>
-                                            <td>Significativamente menos</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Carcinógenos</td>
-                                            <td>>70 confirmados</td>
-                                            <td>Menos, pero presentes</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Riesgo cardiovascular</td>
-                                            <td>Alto</td>
-                                            <td>Presente pero posiblemente menor</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <p>La nicotina, principal componente adictivo tanto en cigarrillos como vapeadores, actúa sobre receptores nicotínicos de acetilcolina. El tabaco contiene miles de compuestos tóxicos por combustión, mientras los vapeadores calientan líquidos generando menos compuestos pero manteniendo riesgos.</p>
+                        <div class="substance-details">
+                            <div class="detail-column">
+                                <h3>Efectos principales</h3>
+                                <ul>
+                                    <li>Estimulación transitoria</li>
+                                    <li>Aumento de frecuencia cardíaca</li>
+                                    <li>Reducción de ansiedad (paradójico)</li>
+                                </ul>
                             </div>
-                            
-                            <div class="effects-container">
-                                <div class="effects-column">
-                                    <h4>Efectos de la nicotina</h4>
-                                    <ul>
-                                        <li>Estimulación transitoria</li>
-                                        <li>Aumento de frecuencia cardíaca</li>
-                                        <li>Vasoconstricción</li>
-                                        <li>Aumento de presión arterial</li>
-                                        <li>Liberación de glucosa</li>
-                                        <li>Supresión del apetito</li>
-                                    </ul>
-                                </div>
-                                <div class="effects-column">
-                                    <h4>Riesgos a largo plazo</h4>
-                                    <ul>
-                                        <li>Enfermedad cardiovascular</li>
-                                        <li>Enfermedades respiratorias</li>
-                                        <li>Múltiples tipos de cáncer (tabaco)</li>
-                                        <li>Daño pulmonar asociado al vapeo (EVALI)</li>
-                                        <li>Dependencia intensa a nicotina</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div class="warning-box">
-                                <h4>Adolescentes: Población vulnerable</h4>
-                                <p>La exposición a la nicotina durante la adolescencia puede afectar negativamente el desarrollo cerebral, específicamente en áreas relacionadas con la atención, aprendizaje y control de impulsos, además de potencialmente servir como puerta de entrada al uso de otras sustancias.</p>
+                            <div class="detail-column">
+                                <h3>Riesgos asociados</h3>
+                                <ul>
+                                    <li>Enfermedad cardiovascular</li>
+                                    <li>Enfermedades respiratorias</li>
+                                    <li>Alta dependencia a nicotina</li>
+                                </ul>
                             </div>
                         </div>
+                        <a href="https://blog.apikarl.com/vapeadores" class="learn-more">Leer artículo completo</a>
                     </div>
-                </article>
+                </div>
 
                 <!-- Benzodiazepinas -->
-                <article class="substance-card benzos-card">
+                <div class="substance-card benzos-card">
                     <div class="substance-header">
                         <h2>Benzodiazepinas</h2>
                         <div class="risk-indicator moderate">Riesgo Moderado-Alto</div>
                     </div>
                     <div class="substance-content">
-                        <div class="substance-image">
-                            <img src="/api/placeholder/300/200" alt="Benzodiazepinas" class="substance-img">
-                        </div>
-                        <div class="key-facts">
-                            <h3>Datos clave</h3>
-                            <ul>
-                                <li><strong>Tipo:</strong> Depresor del SNC</li>
-                                <li><strong>Ejemplos:</strong> Diazepam, alprazolam, clonazepam</li>
-                                <li><strong>Mecanismo:</strong> Potenciación de GABA</li>
-                                <li><strong>Potencial adictivo:</strong> Moderado-Alto</li>
-                            </ul>
-                        </div>
-                        <div class="substance-summary">
-                            <p>Las benzodiazepinas son medicamentos psicotrópicos con propiedades ansiolíticas, hipnóticas, anticonvulsivantes, miorrelajantes y amnésicas. Actúan potenciando el efecto del neurotransmisor inhibitorio GABA al unirse a un sitio específico en el receptor GABA-A, aumentando la frecuencia de apertura del canal de cloruro.</p>
-                            
-                            <div class="chart-container small-chart">
-                                <img src="/api/placeholder/400/250" alt="Gráfico de clasificación de benzodiazepinas por vida media" class="chart-img">
-                                <p class="chart-caption">Fig. 4: Clasificación de benzodiazepinas según su vida media de eliminación</p>
-                            </div>
-                            
-                            <div class="effects-container">
-                                <div class="effects-column">
-                                    <h4>Efectos terapéuticos</h4>
-                                    <ul>
-                                        <li>Reducción de ansiedad</li>
-                                        <li>Inducción del sueño</li>
-                                        <li>Efecto anticonvulsivante</li>
-                                        <li>Relajación muscular</li>
-                                        <li>Sedación</li>
-                                    </ul>
-                                </div>
-                                <div class="effects-column">
-                                    <h4>Efectos adversos</h4>
-                                    <ul>
-                                        <li>Somnolencia diurna</li>
-                                        <li>Deterioro cognitivo y psicomotor</li>
-                                        <li>Amnesia anterógrada</li>
-                                        <li>Tolerancia farmacológica</li>
-                                        <li>Reacciones paradójicas</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div class="medical-uses">
-                                <h4>Aplicaciones médicas</h4>
+                        <p>Medicamentos con propiedades ansiolíticas, hipnóticas, anticonvulsivantes y miorrelajantes que actúan potenciando el efecto del neurotransmisor inhibitorio GABA al unirse a un sitio específico en el receptor GABA-A, aumentando la frecuencia de apertura del canal de cloruro.</p>
+                        <div class="substance-details">
+                            <div class="detail-column">
+                                <h3>Efectos principales</h3>
                                 <ul>
-                                    <li>Trastornos de ansiedad</li>
-                                    <li>Insomnio a corto plazo</li>
-                                    <li>Convulsiones/epilepsia</li>
-                                    <li>Abstinencia alcohólica</li>
-                                    <li>Sedación pre-procedimientos</li>
+                                    <li>Reducción de ansiedad</li>
+                                    <li>Inducción del sueño</li>
+                                    <li>Relajación muscular</li>
+                                    <li>Amnesia anterógrada</li>
                                 </ul>
                             </div>
-                            
-                            <div class="risks-section">
-                                <h4>Riesgos principales</h4>
+                            <div class="detail-column">
+                                <h3>Riesgos asociados</h3>
                                 <ul>
-                                    <li>Dependencia física y psicológica (uso >2-4 semanas)</li>
-                                    <li>Síndrome de abstinencia potencialmente grave</li>
-                                    <li>Deterioro cognitivo persistente</li>
-                                    <li>Riesgo de sobredosis (especialmente con alcohol u otros depresores)</li>
-                                    <li>Posible asociación con demencia (uso prolongado)</li>
+                                    <li>Dependencia con uso prolongado</li>
+                                    <li>Abstinencia potencialmente severa</li>
+                                    <li>Deterioro cognitivo</li>
                                 </ul>
                             </div>
-                            
-                            <div class="warning-box">
-                                <h4>Abstinencia: Requiere reducción gradual</h4>
-                                <p>La discontinuación abrupta tras uso prolongado puede causar un síndrome de abstinencia severo que incluye ansiedad intensa, insomnio, irritabilidad y potencialmente convulsiones y psicosis. La reducción debe ser gradual (10-25% cada 1-2 semanas).</p>
-                            </div>
                         </div>
+                        <a href="https://blog.apikarl.com/benzodiazepinas" class="learn-more">Leer artículo completo</a>
                     </div>
-                </article>
+                </div>
             </div>
 
-            <div class="student-disclaimer big-disclaimer">
-                <h3>Proyecto Educativo Estudiantil</h3>
+            <div class="disclaimer-section">
+                <h2>Proyecto Educativo Estudiantil</h2>
                 <p>InfoSustancias es un proyecto educativo desarrollado por estudiantes con fines exclusivamente informativos y académicos. Esta plataforma no constituye una fuente oficial de información médica y no está afiliada a ninguna institución gubernamental o de salud.</p>
                 <p>Nuestro objetivo es proporcionar información basada en evidencia científica sobre diferentes sustancias, sus efectos y riesgos asociados. Todo el contenido ha sido investigado por estudiantes bajo supervisión académica como parte de un proyecto educativo.</p>
                 <p>Si necesitas ayuda profesional o información oficial, te recomendamos contactar con servicios de salud especializados o líneas de atención nacionales.</p>
@@ -567,7 +282,7 @@
         </div>
     </main>
 
-    <footer class="article-footer-section">
+    <footer class="site-footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
@@ -585,16 +300,8 @@
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h4>Sustancias</h4>
-                    <ul>
-                        <li><a href="/cannabis">Cannabis</a></li>
-                        <li><a href="/fentanillo">Fentanilo</a></li>
-                        <li><a href="/alcohol">Alcohol</a></li>
-                        <li><a href="/inhalables">Inhalables</a></li>
-                        <li><a href="/metanfetamina">Metanfetamina</a></li>
-                        <li><a href="/vapeadores">Vapeadores/Tabaco</a></li>
-                        <li><a href="/benzodiazepinas">Benzodiazepinas</a></li>
-                    </ul>
+                    <h4>Aviso legal</h4>
+                    <p>Este sitio proporciona información educativa desarrollada por estudiantes con fines académicos y no sustituye el consejo médico profesional. La información presentada tiene únicamente propósitos informativos.</p>
                 </div>
             </div>
             <div class="copyright">
