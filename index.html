@@ -3,707 +3,198 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Declaración de Amor</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;700&display=swap');
-        
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #ffcde1 0%, #ffffff 100%);
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .container {
-            text-align: center;
-            z-index: 10;
-            background-color: rgba(255, 255, 255, 0.85);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 0 15px rgba(255, 51, 102, 0.3);
-            transition: all 0.7s ease;
-            max-width: 500px;
-            animation: float-container 6s ease-in-out infinite;
-            backdrop-filter: blur(5px);
-        }
-        
-        @keyframes float-container {
-            0% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(0.5deg); }
-            100% { transform: translateY(0px) rotate(0deg); }
-        }
-
-        .initial-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .accepted-state {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .gif-container {
-            margin: 20px 0;
-            background-color: white;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .gif-container:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15), 0 0 20px rgba(255, 51, 102, 0.4);
-        }
-        
-        .gif-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0.3) 50%,
-                rgba(255, 255, 255, 0) 100%
-            );
-            transform: rotate(45deg);
-            animation: shine 3s infinite;
-            pointer-events: none;
-        }
-        
-        @keyframes shine {
-            0% { transform: translateX(-100%) rotate(45deg); }
-            20%, 100% { transform: translateX(100%) rotate(45deg); }
-        }
-
-        .title {
-            font-size: 28px;
-            font-family: 'Dancing Script', cursive;
-            color: #ff3366;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1), 0 0 10px rgba(255, 51, 102, 0.3);
-            font-weight: bold;
-            animation: text-glow 2s ease-in-out infinite alternate;
-        }
-
-        .subtitle {
-            font-size: 18px;
-            color: #ff669a;
-            margin-bottom: 25px;
-            font-style: italic;
-            animation: text-shimmer 3s ease-in-out infinite;
-            background: linear-gradient(90deg, #ff669a, #ff3366, #ff669a);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        @keyframes text-glow {
-            0% { text-shadow: 0 0 5px rgba(255, 51, 102, 0.5); }
-            100% { text-shadow: 0 0 15px rgba(255, 51, 102, 0.8), 0 0 20px rgba(255, 102, 154, 0.5); }
-        }
-        
-        @keyframes text-shimmer {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
-        }
-
-        .buttons {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            outline: none;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-            z-index: -1;
-        }
-        
-        .btn:hover::before {
-            transform: translateX(0);
-        }
-
-        .accept {
-            background: linear-gradient(45deg, #4CAF50, #45a049);
-            color: white;
-        }
-        
-        .accept::after {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.3);
-            pointer-events: none;
-            opacity: 0;
-        }
-        
-        .accept:active::after {
-            animation: ripple 0.6s ease-out;
-        }
-        
-        @keyframes ripple {
-            0% {
-                transform: scale(0);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(10);
-                opacity: 0;
-            }
-        }
-
-        .reject {
-            background: linear-gradient(45deg, #f44336, #e53935);
-            color: white;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 0 10px rgba(255, 255, 255, 0.4);
-        }
-        
-        .btn:active {
-            transform: translateY(0) scale(0.95);
-        }
-
-        .celebration-text {
-            font-size: 32px;
-            font-family: 'Dancing Script', cursive;
-            color: #ff3366;
-            font-weight: bold;
-            margin: 20px 0;
-            animation: celebrate 2s infinite;
-            background: linear-gradient(90deg, #ff3366, #ff9999, #ff3366);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 10px rgba(255, 51, 102, 0.3);
-            letter-spacing: 1px;
-            position: relative;
-        }
-        
-        .celebration-text::before, .celebration-text::after {
-            content: '❤️';
-            position: absolute;
-            opacity: 0;
-            transition: all 0.5s ease;
-        }
-        
-        .celebration-text::before {
-            left: -30px;
-            animation: heart-beat 2s ease infinite;
-        }
-        
-        .celebration-text::after {
-            right: -30px;
-            animation: heart-beat 2s ease infinite 0.5s;
-        }
-        
-        @keyframes heart-beat {
-            0% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 1; transform: scale(1.2); }
-            100% { opacity: 0; transform: scale(0.5); }
-        }
-
-        @keyframes celebrate {
-            0% { transform: scale(1) rotate(-2deg); background-position: 0% center; }
-            25% { transform: scale(1.1) rotate(0deg); }
-            50% { transform: scale(1) rotate(2deg); background-position: 100% center; }
-            75% { transform: scale(1.1) rotate(0deg); }
-            100% { transform: scale(1) rotate(-2deg); background-position: 0% center; }
-        }
-
-        /* SVG Hearts Background */
-        .hearts-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            overflow: hidden;
-            z-index: -1;
-        }
-
-        .heart {
-            position: absolute;
-            fill: rgba(255, 102, 154, 0.5);
-            animation: float linear infinite;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-1000%) rotate(360deg);
-                opacity: 0;
-            }
-        }
-    </style>
+    <title>InfoSustancias: Blog Educativo</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Hearts SVG Background -->
-    <div class="hearts-container" id="hearts-container">
-        <!-- SVG hearts will be added dynamically via JavaScript -->
-    </div>
-
-    <div class="container" id="container">
-        <div class="initial-state" id="initial-state">
-            <h1 class="title">¿Quieres ser mi amor?</h1>
-            <p class="subtitle">Eres la persona más especial del mundo para mí</p>
-            
-            <div class="gif-container">
-                <img src="https://media.tenor.com/CjvaLXL53bwAAAAM/shame-shy.gif" alt="Shy girl" id="initial-gif">
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                <h1>InfoSustancias</h1>
+                <p class="tagline">Información y Educación sobre Sustancias</p>
             </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#articulos">Artículos</a></li>
+                    <li><a href="#recursos">Recursos</a></li>
+                    <li><a href="#ayuda">Buscar Ayuda</a></li>
+                    <li><a href="#acerca">Acerca de</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Información basada en evidencia</h2>
+            <p>Un espacio educativo para entender los efectos, riesgos y consecuencias del uso de diversas sustancias.</p>
+        </div>
+    </section>
+
+    <main class="container main-content">
+        <section id="articulos" class="articles-section">
+            <h2 class="section-title">Artículos Recientes</h2>
             
-            <div class="buttons">
-                <button class="btn reject" id="reject-btn">Rechazar</button>
-                <button class="btn accept" id="accept-btn">Aceptar</button>
+            <article class="article-card">
+                <div class="article-image cannabis"></div>
+                <div class="article-content">
+                    <h3>Cannabis: Efectos y consideraciones de salud</h3>
+                    <div class="article-meta">
+                        <span class="category">Cannabis</span>
+                        <span class="date">20 marzo, 2025</span>
+                    </div>
+                    <p>El cannabis contiene compuestos como el THC y CBD que afectan el cerebro de diferentes maneras. Este artículo analiza la investigación actual sobre sus efectos a corto y largo plazo.</p>
+                    <a href="#" class="read-more">Leer más</a>
+                </div>
+            </article>
+            
+            <article class="article-card">
+                <div class="article-image fentanyl"></div>
+                <div class="article-content">
+                    <h3>Fentanilo: La crisis de los opioides sintéticos</h3>
+                    <div class="article-meta">
+                        <span class="category">Opioides</span>
+                        <span class="date">18 marzo, 2025</span>
+                    </div>
+                    <p>El fentanilo es un opioide sintético extremadamente potente con alto riesgo de sobredosis. Exploramos su impacto en la salud pública y las estrategias de prevención.</p>
+                    <a href="#" class="read-more">Leer más</a>
+                </div>
+            </article>
+
+            <article class="article-card">
+                <div class="article-image alcohol"></div>
+                <div class="article-content">
+                    <h3>Alcohol: Impacto en el organismo y la sociedad</h3>
+                    <div class="article-meta">
+                        <span class="category">Alcohol</span>
+                        <span class="date">15 marzo, 2025</span>
+                    </div>
+                    <p>A pesar de su aceptación social, el alcohol genera numerosos efectos en la salud. Analizamos sus riesgos desde una perspectiva científica y social.</p>
+                    <a href="#" class="read-more">Leer más</a>
+                </div>
+            </article>
+
+            <article class="article-card">
+                <div class="article-image inhalants"></div>
+                <div class="article-content">
+                    <h3>Inhalables: Daños neurológicos y cardíacos</h3>
+                    <div class="article-meta">
+                        <span class="category">Inhalables</span>
+                        <span class="date">12 marzo, 2025</span>
+                    </div>
+                    <p>Los inhalables incluyen una variedad de productos que pueden causar daños graves al sistema nervioso. Explicamos los riesgos y consecuencias de su uso.</p>
+                    <a href="#" class="read-more">Leer más</a>
+                </div>
+            </article>
+
+            <article class="article-card">
+                <div class="article-image methamphetamine"></div>
+                <div class="article-content">
+                    <h3>Metanfetamina: Efectos en el cerebro y conducta</h3>
+                    <div class="article-meta">
+                        <span class="category">Estimulantes</span>
+                        <span class="date">10 marzo, 2025</span>
+                    </div>
+                    <p>La metanfetamina es un potente estimulante con severos efectos neurotóxicos. Este artículo revisa la investigación sobre sus consecuencias a corto y largo plazo.</p>
+                    <a href="#" class="read-more">Leer más</a>
+                </div>
+            </article>
+
+            <article class="article-card">
+                <div class="article-image vaping"></div>
+                <div class="article-content">
+                    <h3>Vapeadores y tabaco: Mitos y realidades</h3>
+                    <div class="article-meta">
+                        <span class="category">Tabaco</span>
+                        <span class="date">8 marzo, 2025</span>
+                    </div>
+                    <p>Los cigarrillos electrónicos presentan riesgos diferentes al tabaco tradicional. Analizamos la evidencia científica actual sobre ambos productos.</p>
+                    <a href="#" class="read-more">Leer más</a>
+                </div>
+            </article>
+
+            <article class="article-card">
+                <div class="article-image benzodiazepines"></div>
+                <div class="article-content">
+                    <h3>Benzodiazepinas: Uso terapéutico y riesgos</h3>
+                    <div class="article-meta">
+                        <span class="category">Medicamentos</span>
+                        <span class="date">5 marzo, 2025</span>
+                    </div>
+                    <p>Las benzodiazepinas son medicamentos con propiedades sedantes que pueden generar dependencia. Exploramos su uso clínico y los riesgos asociados.</p>
+                    <a href="#" class="read-more">Leer más</a>
+                </div>
+            </article>
+        </section>
+
+        <aside class="sidebar">
+            <div class="widget">
+                <h3>Categorías</h3>
+                <ul class="categories">
+                    <li><a href="#">Cannabis</a></li>
+                    <li><a href="#">Opioides</a></li>
+                    <li><a href="#">Alcohol</a></li>
+                    <li><a href="#">Inhalables</a></li>
+                    <li><a href="#">Estimulantes</a></li>
+                    <li><a href="#">Tabaco</a></li>
+                    <li><a href="#">Medicamentos</a></li>
+                </ul>
+            </div>
+
+            <div class="widget">
+                <h3>Recursos de Ayuda</h3>
+                <div class="help-resources">
+                    <p>Si tú o alguien que conoces necesita ayuda, existen recursos disponibles:</p>
+                    <ul>
+                        <li><strong>Línea de Crisis:</strong> 800-123-4567</li>
+                        <li><strong>Centros de Tratamiento:</strong> <a href="#">Directorio Nacional</a></li>
+                        <li><strong>Grupos de Apoyo:</strong> <a href="#">Encuentra un grupo</a></li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>La información salva vidas</h2>
+            <p>Suscríbete para recibir artículos basados en evidencia y recursos de prevención.</p>
+            <form class="subscribe-form">
+                <input type="email" placeholder="Tu correo electrónico">
+                <button type="submit">Suscribirse</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>InfoSustancias</h3>
+                    <p>Un proyecto dedicado a la educación y prevención basada en evidencia científica.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Enlaces rápidos</h4>
+                    <ul>
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#">Artículos</a></li>
+                        <li><a href="#">Recursos</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Aviso legal</h4>
+                    <p>Este sitio proporciona información educativa y no sustituye el consejo médico profesional.</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 InfoSustancias. Todos los derechos reservados.</p>
             </div>
         </div>
-        
-        <div class="accepted-state" id="accepted-state">
-            <h1 class="celebration-text">¡YEEIIIII ESTAMOS JUNTOS!</h1>
-            <div class="gif-container">
-                <img src="https://media.tenor.com/4yEuW6bbRo0AAAAi/gato.gif" alt="Gato feliz" id="happy-gif">
-            </div>
-            <p class="subtitle">Te quiero muchísimo ❤️</p>
-        </div>
-    </div>
-
-    <!-- Audio elements -->
-    <audio id="initial-audio" loop>
-        <source src="dark-mystery-trailer-taking-our-time-131566.mp3" type="audio/mpeg">
-    </audio>
-    
-    <audio id="accepted-audio">
-        <source src="inmenso-charles-michel-1771.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- Add sparkles/stars CSS -->
-    <style>
-        .sparkles-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            overflow: hidden;
-            z-index: -1;
-            pointer-events: none;
-        }
-        
-        .sparkle {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background-color: #fff;
-            box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff99cc;
-            animation: twinkle linear infinite;
-        }
-        
-        @keyframes twinkle {
-            0% { opacity: 0; transform: translateY(0) scale(0.5); }
-            50% { opacity: 1; transform: translateY(-50vh) scale(1); }
-            100% { opacity: 0; transform: translateY(-100vh) scale(0.5); }
-        }
-        
-        /* Confetti styles */
-        .confetti-container {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 5;
-            display: none;
-        }
-        
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            animation: confetti-fall linear forwards;
-        }
-        
-        @keyframes confetti-fall {
-            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-        }
-    </style>
-    
-    <!-- Add confetti container -->
-    <div class="confetti-container" id="confetti-container"></div>
-    
-    <!-- Add sparkles container -->
-    <div class="sparkles-container" id="sparkles-container"></div>
-    
-    <script>
-        // Create hearts dynamically
-        const heartsContainer = document.getElementById('hearts-container');
-        const sparklesContainer = document.getElementById('sparkles-container');
-        const totalHearts = 30;
-        const totalSparkles = 50;
-        
-        // Create initial hearts
-        for (let i = 0; i < totalHearts; i++) {
-            createHeart();
-        }
-        
-        // Create initial sparkles
-        for (let i = 0; i < totalSparkles; i++) {
-            createSparkle();
-        }
-        
-        function createHeart() {
-            const heart = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            heart.setAttribute("class", "heart");
-            heart.setAttribute("viewBox", "0 0 24 24");
-            heart.setAttribute("width", Math.random() * 30 + 10);
-            heart.setAttribute("height", Math.random() * 30 + 10);
-            
-            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path.setAttribute("d", "M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z");
-            
-            // Random gradient colors for hearts
-            const colors = [
-                '#ff3366', '#ff6699', '#ff99cc', '#ff66b2', '#ff5e94'
-            ];
-            
-            const randomColor1 = colors[Math.floor(Math.random() * colors.length)];
-            const randomColor2 = colors[Math.floor(Math.random() * colors.length)];
-            
-            // Create heart gradient
-            const heartGradient = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
-            heartGradient.setAttribute("id", "heartGradient" + Math.random().toString(36).substr(2, 9));
-            
-            const stop1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-            stop1.setAttribute("offset", "0%");
-            stop1.setAttribute("stop-color", randomColor1);
-            
-            const stop2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
-            stop2.setAttribute("offset", "100%");
-            stop2.setAttribute("stop-color", randomColor2);
-            
-            heartGradient.appendChild(stop1);
-            heartGradient.appendChild(stop2);
-            
-            const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
-            defs.appendChild(heartGradient);
-            heart.appendChild(defs);
-            
-            path.setAttribute("fill", "url(#" + heartGradient.getAttribute("id") + ")");
-            heart.appendChild(path);
-            
-            // Set random position
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.top = Math.random() * 100 + 100 + '%';
-            
-            // Set random opacity
-            heart.style.opacity = Math.random() * 0.5 + 0.3;
-            
-            // Set random animation duration
-            const duration = Math.random() * 20 + 10;
-            heart.style.animationDuration = duration + 's';
-            
-            // Set random delay
-            heart.style.animationDelay = Math.random() * 5 + 's';
-            
-            // Add filter for glow effect
-            if (Math.random() > 0.7) {
-                heart.style.filter = "drop-shadow(0 0 5px rgba(255, 51, 102, 0.7))";
-            }
-            
-            // Add to container
-            heartsContainer.appendChild(heart);
-            
-            // Remove after animation completes
-            setTimeout(() => {
-                heart.remove();
-                createHeart(); // Create a new one
-            }, duration * 1000);
-        }
-        
-        function createSparkle() {
-            const sparkle = document.createElement('div');
-            sparkle.classList.add('sparkle');
-            
-            // Random position
-            sparkle.style.left = Math.random() * 100 + '%';
-            sparkle.style.bottom = '-5px';
-            
-            // Random size
-            const size = Math.random() * 4 + 2;
-            sparkle.style.width = size + 'px';
-            sparkle.style.height = size + 'px';
-            
-            // Random duration
-            const duration = Math.random() * 8 + 3;
-            sparkle.style.animationDuration = duration + 's';
-            
-            // Random delay
-            sparkle.style.animationDelay = Math.random() * 5 + 's';
-            
-            // Random color
-            const hue = Math.random() * 60 + 330; // Pink to purple range
-            sparkle.style.backgroundColor = `hsl(${hue}, 100%, 70%)`;
-            sparkle.style.boxShadow = `0 0 10px hsl(${hue}, 100%, 70%), 0 0 20px hsl(${hue}, 100%, 90%)`;
-            
-            // Add to container
-            sparklesContainer.appendChild(sparkle);
-            
-            // Remove after animation completes
-            setTimeout(() => {
-                sparkle.remove();
-                createSparkle(); // Create a new one
-            }, duration * 1000);
-        }
-        
-        // Confetti creation function
-        function createConfetti() {
-            const confettiContainer = document.getElementById('confetti-container');
-            confettiContainer.style.display = 'block';
-            
-            const colors = ['#ff3366', '#ff66b2', '#ff99cc', '#ffccdd', '#ffffff', '#ffff99', '#99ff99'];
-            const shapes = ['circle', 'square', 'triangle', 'heart'];
-            
-            for (let i = 0; i < 200; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                
-                // Random position
-                confetti.style.left = Math.random() * 100 + '%';
-                
-                // Random color
-                const color = colors[Math.floor(Math.random() * colors.length)];
-                
-                // Random shape
-                const shape = shapes[Math.floor(Math.random() * shapes.length)];
-                if (shape === 'circle') {
-                    confetti.style.borderRadius = '50%';
-                    confetti.style.backgroundColor = color;
-                } else if (shape === 'square') {
-                    confetti.style.backgroundColor = color;
-                } else if (shape === 'triangle') {
-                    confetti.style.width = '0';
-                    confetti.style.height = '0';
-                    confetti.style.backgroundColor = 'transparent';
-                    confetti.style.borderLeft = '5px solid transparent';
-                    confetti.style.borderRight = '5px solid transparent';
-                    confetti.style.borderBottom = '10px solid ' + color;
-                } else if (shape === 'heart') {
-                    confetti.style.backgroundColor = 'transparent';
-                    confetti.style.width = '10px';
-                    confetti.style.height = '10px';
-                    confetti.style.position = 'relative';
-                    confetti.style.transform = 'rotate(45deg)';
-                    
-                    const before = document.createElement('div');
-                    before.style.content = "''";
-                    before.style.position = 'absolute';
-                    before.style.width = '10px';
-                    before.style.height = '10px';
-                    before.style.borderRadius = '50%';
-                    before.style.backgroundColor = color;
-                    before.style.top = '0';
-                    before.style.left = '-5px';
-                    
-                    const after = document.createElement('div');
-                    after.style.content = "''";
-                    after.style.position = 'absolute';
-                    after.style.width = '10px';
-                    after.style.height = '10px';
-                    after.style.borderRadius = '50%';
-                    after.style.backgroundColor = color;
-                    after.style.top = '-5px';
-                    after.style.left = '0';
-                    
-                    confetti.appendChild(before);
-                    confetti.appendChild(after);
-                }
-                
-                // Random size
-                const size = Math.random() * 10 + 5;
-                confetti.style.width = `${size}px`;
-                confetti.style.height = `${size}px`;
-                
-                // Random duration and delay
-                const duration = Math.random() * 3 + 2;
-                confetti.style.animationDuration = `${duration}s`;
-                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
-                
-                // Add to container
-                confettiContainer.appendChild(confetti);
-                
-                // Remove after animation completes
-                setTimeout(() => {
-                    confetti.remove();
-                }, duration * 1000);
-            }
-        }
-        
-        // Button functionality
-        let rejectCount = 0;
-        const rejectBtn = document.getElementById('reject-btn');
-        const acceptBtn = document.getElementById('accept-btn');
-        const initialState = document.getElementById('initial-state');
-        const acceptedState = document.getElementById('accepted-state');
-        const container = document.getElementById('container');
-        const initialAudio = document.getElementById('initial-audio');
-        const acceptedAudio = document.getElementById('accepted-audio');
-        
-        // Start playing the initial audio
-        window.addEventListener('click', function() {
-            initialAudio.play();
-        }, { once: true });
-        
-        rejectBtn.addEventListener('click', function() {
-            rejectCount++;
-            
-            // Shake effect on reject
-            rejectBtn.style.animation = 'none';
-            void rejectBtn.offsetWidth; // Trigger reflow
-            rejectBtn.style.animation = 'shake 0.5s ease';
-            
-            // Make accept button bigger with heart glow
-            const currentSize = parseFloat(window.getComputedStyle(acceptBtn).fontSize);
-            acceptBtn.style.fontSize = (currentSize + 2) + 'px';
-            acceptBtn.style.padding = (12 + rejectCount * 2) + 'px ' + (25 + rejectCount * 3) + 'px';
-            acceptBtn.style.boxShadow = `0 5px 15px rgba(0, 0, 0, 0.1), 0 0 ${10 + rejectCount * 3}px rgba(255, 51, 102, 0.${3 + rejectCount})`;
-            
-            // Shine effect on accept button
-            acceptBtn.style.animation = 'pulse 1s infinite';
-            
-            // Make reject button smaller
-            if (rejectCount > 1) {
-                rejectBtn.style.fontSize = (currentSize - 1) + 'px';
-                rejectBtn.style.padding = Math.max(5, 12 - rejectCount) + 'px ' + Math.max(10, 25 - rejectCount * 2) + 'px';
-                rejectBtn.style.opacity = Math.max(0.5, 1 - rejectCount * 0.1);
-            }
-            
-            // Move the reject button to a random position
-            if (rejectCount > 2) {
-                const containerRect = container.getBoundingClientRect();
-                const btnRect = rejectBtn.getBoundingClientRect();
-                
-                const maxX = containerRect.width - btnRect.width;
-                const maxY = containerRect.height - btnRect.height;
-                
-                const randomX = Math.random() * maxX - maxX / 2;
-                const randomY = Math.random() * maxY - maxY / 2;
-                
-                rejectBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
-            }
-        });
-        
-        acceptBtn.addEventListener('click', function() {
-            // Animate the container
-            container.style.animation = 'scale-up 0.5s forwards';
-            
-            // Stop initial audio and play accepted audio
-            initialAudio.pause();
-            acceptedAudio.play();
-            
-            // Create confetti explosion
-            createConfetti();
-            
-            // Transition effect
-            initialState.style.opacity = 0;
-            initialState.style.transform = 'scale(0.8)';
-            
-            // Show accepted state with delay
-            setTimeout(() => {
-                initialState.style.display = 'none';
-                acceptedState.style.display = 'flex';
-                acceptedState.style.opacity = 0;
-                acceptedState.style.transform = 'scale(0.8)';
-                
-                // Fade in accepted state
-                setTimeout(() => {
-                    acceptedState.style.opacity = 1;
-                    acceptedState.style.transform = 'scale(1)';
-                    
-                    // Add more hearts and sparkles for celebration
-                    for (let i = 0; i < 50; i++) {
-                        createHeart();
-                        createSparkle();
-                    }
-                }, 100);
-            }, 500);
-        });
-    </script>
-    <style>
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes scale-up {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        .initial-state, .accepted-state {
-            transition: all 0.5s ease;
-        }
-    </style>
+    </footer>
 </body>
 </html>
