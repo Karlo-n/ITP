@@ -24,6 +24,7 @@
     { "src": "/vapeadores", "dest": "/vapeadores/index.html" },
     { "src": "/benzodiazepinas", "dest": "/benzodiazepinas/index.html" },
     { "handle": "filesystem" },
+    { "src": "/articulos", "dest": "/articulos/index.html" },
     { "src": "/(.*)", "status": 404, "dest": "/public/404.html" }
   ]
 }
