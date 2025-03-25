@@ -5,15 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cannabis - Galería de Imágenes | InfoSustancias</title>
     <link rel="stylesheet" href="styles.css">
-        <link rel="stylesheet" href="../cannabis/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
     <style>
-        /* Estilos específicos para este archivo */
+        /* Estilos generales */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header */
+        .site-header {
+            background-color: #ffffff;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            padding: 18px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .site-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            color: #3f51b5;
+            margin: 0;
+        }
+        
+        .tagline {
+            font-size: 0.9rem;
+            color: #546e7a;
+            margin-top: 5px;
+        }
+        
+        .main-nav ul {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .main-nav a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .main-nav a:hover {
+            background-color: rgba(63, 81, 181, 0.05);
+            color: #3f51b5;
+        }
+        
+        /* Barra de sustancias */
         .substance-buttons {
             background-color: #5c6bc0;
             padding: 10px 0;
@@ -71,7 +134,39 @@
             color: #00695c;
         }
         
-        /* Estilos mejorados para la galería */
+        /* Galería */
+        .gallery-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #558b2f;
+        }
+        
+        .gallery-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #558b2f;
+            font-size: 2rem;
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .gallery-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: #558b2f;
+            border-radius: 2px;
+        }
+        
         .image-container {
             position: relative;
             width: 100%;
@@ -80,23 +175,22 @@
             border-radius: 8px;
             margin-bottom: 20px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: #000;
         }
         
         .gallery-image {
             position: absolute;
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Cambiado de cover a contain para mostrar imagen completa */
+            object-fit: contain;
             transition: opacity 0.5s ease;
             opacity: 0;
-            background-color: #000; /* Fondo negro para imágenes con transparencia */
         }
         
         .gallery-image.active {
             opacity: 1;
         }
         
-        /* Controles de navegación (flechas) */
         .gallery-controls {
             position: relative;
             width: 100%;
@@ -133,257 +227,144 @@
             left: 20px;
         }
         
-        .nav-btn svg {
-            width: 18px;
-            height: 18px;
+        .gallery-caption {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-size: 0.95rem;
         }
         
-        /* Ocultar botones cuando no hay imágenes */
-        .no-images .nav-btn {
-            display: none;
-        }
-        
-        /* Sección de comentarios */
-        .comments-section {
-            margin-top: 40px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        }
-        
-        .comments-header {
+        .gallery-nav {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #e0e0e0;
-            padding-bottom: 15px;
+            justify-content: center;
+            margin-top: 20px;
         }
         
-        .comments-title {
-            font-size: 1.5rem;
-            color: #2c3e50;
-            margin: 0;
-        }
-        
-        .comments-stats {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .comments-count {
-            font-size: 0.9rem;
-            color: #546e7a;
-        }
-        
-        .average-rating {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .star {
-            color: #ffc107;
-        }
-        
-        .rating-value {
-            font-weight: 600;
-            color: #2c3e50;
-        }
-        
-        .comment-form {
-            background-color: #f5f7fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #2c3e50;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
-            font-family: 'Open Sans', sans-serif;
-            transition: border-color 0.3s ease;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: #558b2f;
-        }
-        
-        /* Nuevo sistema de calificación con botones */
-        .rating-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 5px;
-        }
-        
-        .rating-btn {
-            width: 40px;
-            height: 40px;
+        .nav-dot {
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background-color: #f5f5f5;
-            border: 1px solid #e0e0e0;
-            color: #546e7a;
-            font-weight: bold;
+            background-color: #e0e0e0;
+            margin: 0 6px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
         
-        .rating-btn:hover {
-            background-color: #e0e0e0;
-        }
-        
-        .rating-btn.selected {
+        .nav-dot.active {
             background-color: #558b2f;
-            color: white;
-            border-color: #558b2f;
+            transform: scale(1.2);
         }
         
-        .rating-stars {
-            display: flex;
-            gap: 2px;
-            margin-top: 8px;
-            font-size: 1.2rem;
+        .nav-dot:hover {
+            background-color: #7cb342;
         }
         
-        .rating-stars span {
-            color: #e0e0e0;
+        .gallery-info {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border-left: 3px solid #558b2f;
         }
         
-        .submit-btn {
-            background-color: #558b2f;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-        }
-        
-        .submit-btn:hover {
-            background-color: #33691e;
-        }
-        
-        .top-comments {
-            margin-bottom: 30px;
-        }
-        
-        .comment {
-            padding: 15px;
-            border-bottom: 1px solid #e0e0e0;
+        .gallery-info p {
             margin-bottom: 15px;
+            line-height: 1.6;
         }
         
-        .comment:last-child {
-            border-bottom: none;
+        .gallery-info p:last-child {
             margin-bottom: 0;
         }
         
-        .comment-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
+        /* Footer */
+        .site-footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 60px 0 20px;
+            position: relative;
         }
         
-        .comment-author {
-            font-weight: 600;
-            color: #2c3e50;
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
         }
         
-        .comment-date {
-            font-size: 0.8rem;
-            color: #546e7a;
+        .footer-column h3, .footer-column h4 {
+            color: white;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Montserrat', sans-serif;
         }
         
-        .comment-rating {
-            display: flex;
-            gap: 2px;
-            font-size: 0.9rem;
-            color: #ffc107;
-            margin-bottom: 8px;
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
         }
         
-        .comment-content {
-            line-height: 1.6;
-            color: #2c3e50;
-            margin-bottom: 10px;
+        .footer-column ul li {
+            margin-bottom: 12px;
         }
         
-        /* Sistema de likes/dislikes */
-        .comment-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 10px;
-        }
-        
-        .like-btn, .dislike-btn {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #546e7a;
-            font-size: 0.9rem;
-        }
-        
-        .like-btn:hover {
-            color: #4caf50;
-        }
-        
-        .dislike-btn:hover {
-            color: #f44336;
-        }
-        
-        .like-btn.active {
-            color: #4caf50;
-        }
-        
-        .dislike-btn.active {
-            color: #f44336;
-        }
-        
-        .show-more-btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #f5f7fa;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
-            text-align: center;
-            color: #2c3e50;
-            font-weight: 600;
-            cursor: pointer;
+        .footer-column a {
+            color: #bdc3c7;
+            text-decoration: none;
             transition: all 0.3s ease;
         }
         
-        .show-more-btn:hover {
-            background-color: #e0e0e0;
+        .footer-column a:hover {
+            color: white;
         }
         
-        .all-comments {
-            display: none;
-            margin-top: 30px;
+        .copyright {
+            border-top: 1px solid #34495e;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #95a5a6;
         }
         
-        .all-comments.show {
-            display: block;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .site-header .container {
+                flex-direction: column;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+                text-align: center;
+            }
+            
+            .main-nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .image-container {
+                height: 400px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .image-container {
+                height: 300px;
+            }
+            
+            .nav-dot {
+                width: 10px;
+                height: 10px;
+                margin: 0 5px;
+            }
         }
     </style>
 </head>
@@ -427,7 +408,7 @@
                 <h1 class="gallery-title">Galería de Imágenes: Cannabis</h1>
                 
                 <div class="image-container" id="imageContainer">
-                    <!-- Controles de navegación (solo flechas) -->
+                    <!-- Controles de navegación -->
                     <div class="gallery-controls">
                         <div class="nav-btn left" onclick="changeImage(-1)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -441,7 +422,7 @@
                         </div>
                     </div>
                     
-                    <!-- Imágenes de la galería - PATHS SIMPLIFICADOS AL MÁXIMO -->
+                    <!-- Imágenes de la galería - IMÁGENES SIN RUTAS COMPLEJAS -->
                     <img src="cannabis-1.jpg" alt="Cannabis Imagen 1" class="gallery-image active" data-index="0">
                     <img src="cannabis-2.jpg" alt="Cannabis Imagen 2" class="gallery-image" data-index="1">
                     <img src="cannabis-3.jpg" alt="Cannabis Imagen 3" class="gallery-image" data-index="2">
@@ -464,81 +445,6 @@
                 <div class="gallery-info">
                     <p>Esta galería muestra diferentes aspectos relacionados con el cannabis, desde la planta en sus distintas etapas hasta representaciones de sus efectos y usos medicinales y recreativos.</p>
                     <p>El contenido tiene fines exclusivamente educativos e informativos, como parte de nuestro compromiso con la educación basada en evidencia científica.</p>
-                </div>
-                
-                <!-- Sección de comentarios -->
-                <div class="comments-section">
-                    <div class="comments-header">
-                        <h2 class="comments-title">Comentarios</h2>
-                        <div class="comments-stats">
-                            <span class="comments-count" id="totalComments">0 comentarios</span>
-                            <div class="average-rating">
-                                <span class="star" id="star1">★</span>
-                                <span class="star" id="star2">★</span>
-                                <span class="star" id="star3">★</span>
-                                <span class="star" id="star4">★</span>
-                                <span class="star" id="star5">★</span>
-                                <span class="rating-value" id="avgRating">0.0</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Formulario para añadir comentarios -->
-                    <div class="comment-form">
-                        <h3>Deja tu comentario</h3>
-                        <form id="commentForm">
-                            <div class="form-group">
-                                <label for="commentName">Nombre</label>
-                                <input type="text" id="commentName" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="commentEmail">Email (no será publicado)</label>
-                                <input type="email" id="commentEmail" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Calificación</label>
-                                <div class="rating-buttons">
-                                    <button type="button" class="rating-btn" data-value="1">1</button>
-                                    <button type="button" class="rating-btn" data-value="2">2</button>
-                                    <button type="button" class="rating-btn" data-value="3">3</button>
-                                    <button type="button" class="rating-btn" data-value="4">4</button>
-                                    <button type="button" class="rating-btn" data-value="5">5</button>
-                                </div>
-                                <div class="rating-stars">
-                                    <span id="ratingstar1">★</span>
-                                    <span id="ratingstar2">★</span>
-                                    <span id="ratingstar3">★</span>
-                                    <span id="ratingstar4">★</span>
-                                    <span id="ratingstar5">★</span>
-                                </div>
-                                <input type="hidden" id="ratingValue" name="rating" value="0">
-                            </div>
-                            <div class="form-group">
-                                <label for="commentText">Comentario</label>
-                                <textarea id="commentText" class="form-control" rows="4" required></textarea>
-                            </div>
-                            <button type="submit" class="submit-btn">Publicar comentario</button>
-                        </form>
-                    </div>
-                    
-                    <!-- Mejores comentarios -->
-                    <div class="top-comments">
-                        <h3>Mejores comentarios</h3>
-                        <div id="topCommentsList">
-                            <!-- Los comentarios se cargarán dinámicamente aquí -->
-                        </div>
-                        
-                        <!-- Botón para mostrar todos los comentarios -->
-                        <button class="show-more-btn" id="showMoreBtn">Ver todos los comentarios</button>
-                    </div>
-                    
-                    <!-- Todos los comentarios (inicialmente ocultos) -->
-                    <div class="all-comments" id="allComments">
-                        <h3>Todos los comentarios</h3>
-                        <div id="allCommentsList">
-                            <!-- Los comentarios se cargarán dinámicamente aquí -->
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -573,21 +479,6 @@
     </footer>
 
     <script>
-        // Configuración de Firebase (REEMPLAZA ESTO CON TUS PROPIAS CREDENCIALES)
-        const firebaseConfig = {
-            apiKey: "AIzaSyDa9xnEhh4O9FfWNA3FcYTaFpFOSo_FuVY",
-            authDomain: "infosustancias.firebaseapp.com",
-            projectId: "infosustancias",
-            storageBucket: "infosustancias.appspot.com",
-            messagingSenderId: "123456789012",
-            appId: "1:123456789012:web:a1b2c3d4e5f6g7h8i9j0k1"
-        };
-        
-        // Inicializar Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        const commentsRef = db.collection('comments');
-        
         // JavaScript para el funcionamiento de la galería
         let currentImageIndex = 0;
         const images = document.querySelectorAll('.gallery-image');
@@ -601,19 +492,8 @@
         const captionElement = document.querySelector('.gallery-caption');
         const imageContainer = document.getElementById('imageContainer');
 
-        // Verificar si hay imágenes disponibles
-        function checkImages() {
-            if (images.length === 0) {
-                imageContainer.classList.add('no-images');
-                return false;
-            }
-            return true;
-        }
-
         // Función para mostrar una imagen específica
         function showImage(index) {
-            if (!checkImages()) return;
-            
             if (index < 0) index = images.length - 1;
             if (index >= images.length) index = 0;
             
@@ -633,15 +513,12 @@
 
         // Función para cambiar a la siguiente o anterior imagen
         function changeImage(direction) {
-            if (!checkImages()) return;
             showImage(currentImageIndex + direction);
         }
 
         // Configurar intervalo para cambio automático de imágenes
         let slideInterval = setInterval(() => {
-            if (checkImages()) {
-                changeImage(1);
-            }
+            changeImage(1);
         }, 5000);
 
         // Detener el cambio automático cuando el usuario interactúa con la galería
@@ -652,342 +529,8 @@
         // Reanudar el cambio automático cuando el usuario deja de interactuar
         imageContainer.addEventListener('mouseleave', () => {
             slideInterval = setInterval(() => {
-                if (checkImages()) {
-                    changeImage(1);
-                }
+                changeImage(1);
             }, 5000);
-        });
-
-        // Sistema de comentarios con likes/dislikes
-        const commentForm = document.getElementById('commentForm');
-        const showMoreBtn = document.getElementById('showMoreBtn');
-        const allComments = document.getElementById('allComments');
-        const allCommentsList = document.getElementById('allCommentsList');
-        const topCommentsList = document.getElementById('topCommentsList');
-        const totalCommentsElement = document.getElementById('totalComments');
-        const ratingButtons = document.querySelectorAll('.rating-btn');
-        const ratingInput = document.getElementById('ratingValue');
-        const ratingStars = document.querySelectorAll('.rating-stars span');
-        
-        // Almacenamiento de comentarios
-        let comments = [];
-        
-        // Manejar botones de calificación
-        ratingButtons.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const rating = parseInt(this.dataset.value);
-                ratingInput.value = rating;
-                
-                // Actualizar visualmente los botones
-                ratingButtons.forEach(b => b.classList.remove('selected'));
-                this.classList.add('selected');
-                
-                // Actualizar estrellas
-                ratingStars.forEach((star, index) => {
-                    if (index < rating) {
-                        star.style.color = '#ffc107';
-                    } else {
-                        star.style.color = '#e0e0e0';
-                    }
-                });
-            });
-        });
-        
-        // Función para generar el HTML de un comentario
-        function createCommentHTML(comment) {
-            let starsHTML = '';
-            for (let i = 1; i <= 5; i++) {
-                if (i <= comment.rating) {
-                    starsHTML += '<span>★</span>';
-                } else {
-                    starsHTML += '<span style="color: #e0e0e0;">★</span>';
-                }
-            }
-            
-            const likeActiveClass = comment.likedBy && comment.likedBy.includes(getUserId()) ? 'active' : '';
-            const dislikeActiveClass = comment.dislikedBy && comment.dislikedBy.includes(getUserId()) ? 'active' : '';
-            
-            return `
-                <div class="comment" data-id="${comment.id}">
-                    <div class="comment-header">
-                        <span class="comment-author">${comment.author}</span>
-                        <span class="comment-date">${comment.date}</span>
-                    </div>
-                    <div class="comment-rating">
-                        ${starsHTML}
-                    </div>
-                    <p class="comment-content">${comment.content}</p>
-                    <div class="comment-actions">
-                        <button class="like-btn ${likeActiveClass}" onclick="likeComment('${comment.id}')">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
-                            </svg>
-                            <span class="like-count">${comment.likes || 0}</span>
-                        </button>
-                        <button class="dislike-btn ${dislikeActiveClass}" onclick="dislikeComment('${comment.id}')">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm10-13h2a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"></path>
-                            </svg>
-                            <span class="dislike-count">${comment.dislikes || 0}</span>
-                        </button>
-                    </div>
-                </div>
-            `;
-        }
-        
-        // Función para generar un ID de usuario único
-        function getUserId() {
-            let userId = localStorage.getItem('cannabisUserId');
-            if (!userId) {
-                userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                localStorage.setItem('cannabisUserId', userId);
-            }
-            return userId;
-        }
-        
-        // Funciones para manejar likes y dislikes
-        async function likeComment(commentId) {
-            const userId = getUserId();
-            const commentRef = commentsRef.doc(commentId);
-            const doc = await commentRef.get();
-            
-            if (!doc.exists) return;
-            
-            const comment = doc.data();
-            
-            // Inicializar arrays si no existen
-            if (!comment.likedBy) comment.likedBy = [];
-            if (!comment.dislikedBy) comment.dislikedBy = [];
-            
-            const alreadyLiked = comment.likedBy.includes(userId);
-            
-            if (alreadyLiked) {
-                // Quitar like
-                comment.likedBy = comment.likedBy.filter(id => id !== userId);
-                comment.likes = Math.max(0, (comment.likes || 1) - 1);
-            } else {
-                // Si ya le dio dislike, quitarlo
-                if (comment.dislikedBy.includes(userId)) {
-                    comment.dislikedBy = comment.dislikedBy.filter(id => id !== userId);
-                    comment.dislikes = Math.max(0, (comment.dislikes || 1) - 1);
-                }
-                
-                // Añadir like
-                comment.likedBy.push(userId);
-                comment.likes = (comment.likes || 0) + 1;
-            }
-            
-            // Actualizar en Firestore
-            await commentRef.update(comment);
-            
-            // Actualizar comentarios locales
-            const index = comments.findIndex(c => c.id === commentId);
-            if (index !== -1) {
-                comments[index] = { ...comment, id: commentId };
-                loadTopComments();
-                loadAllComments();
-            }
-        }
-        
-        async function dislikeComment(commentId) {
-            const userId = getUserId();
-            const commentRef = commentsRef.doc(commentId);
-            const doc = await commentRef.get();
-            
-            if (!doc.exists) return;
-            
-            const comment = doc.data();
-            
-            // Inicializar arrays si no existen
-            if (!comment.likedBy) comment.likedBy = [];
-            if (!comment.dislikedBy) comment.dislikedBy = [];
-            
-            const alreadyDisliked = comment.dislikedBy.includes(userId);
-            
-            if (alreadyDisliked) {
-                // Quitar dislike
-                comment.dislikedBy = comment.dislikedBy.filter(id => id !== userId);
-                comment.dislikes = Math.max(0, (comment.dislikes || 1) - 1);
-            } else {
-                // Si ya le dio like, quitarlo
-                if (comment.likedBy.includes(userId)) {
-                    comment.likedBy = comment.likedBy.filter(id => id !== userId);
-                    comment.likes = Math.max(0, (comment.likes || 1) - 1);
-                }
-                
-                // Añadir dislike
-                comment.dislikedBy.push(userId);
-                comment.dislikes = (comment.dislikes || 0) + 1;
-            }
-            
-            // Actualizar en Firestore
-            await commentRef.update(comment);
-            
-            // Actualizar comentarios locales
-            const index = comments.findIndex(c => c.id === commentId);
-            if (index !== -1) {
-                comments[index] = { ...comment, id: commentId };
-                loadTopComments();
-                loadAllComments();
-            }
-        }
-        
-        // Función para cargar todos los comentarios
-        function loadAllComments() {
-            allCommentsList.innerHTML = '';
-            
-            if (comments.length === 0) {
-                allCommentsList.innerHTML = '<p>No hay comentarios aún. ¡Sé el primero en comentar!</p>';
-                return;
-            }
-            
-            comments.forEach(comment => {
-                allCommentsList.innerHTML += createCommentHTML(comment);
-            });
-        }
-        
-        // Función para cargar los mejores comentarios (los 5 con mejor calificación)
-        function loadTopComments() {
-            topCommentsList.innerHTML = '';
-            
-            if (comments.length === 0) {
-                topCommentsList.innerHTML = '<p>No hay comentarios aún. ¡Sé el primero en comentar!</p>';
-                return;
-            }
-            
-            // Ordenar comentarios por calificación (de mayor a menor)
-            const sortedComments = [...comments].sort((a, b) => b.rating - a.rating);
-            const topFive = sortedComments.slice(0, 5);
-            
-            topFive.forEach(comment => {
-                topCommentsList.innerHTML += createCommentHTML(comment);
-            });
-        }
-        
-        // Función para calcular y mostrar la calificación promedio
-        function updateAverageRating() {
-            if (comments.length === 0) {
-                document.querySelector('.rating-value').textContent = '0.0';
-                const stars = document.querySelectorAll('.average-rating .star');
-                stars.forEach(star => star.style.color = '#e0e0e0');
-                return;
-            }
-            
-            const totalRating = comments.reduce((sum, comment) => sum + comment.rating, 0);
-            const averageRating = totalRating / comments.length;
-            
-            document.querySelector('.rating-value').textContent = averageRating.toFixed(1);
-            
-            // Actualizar estrellas visuales
-            const stars = document.querySelectorAll('.average-rating .star');
-            for (let i = 0; i < stars.length; i++) {
-                if (i < Math.floor(averageRating)) {
-                    stars[i].style.color = '#ffc107';
-                } else {
-                    stars[i].style.color = '#e0e0e0';
-                }
-            }
-            
-            // Actualizar contador de comentarios
-            totalCommentsElement.textContent = `${comments.length} comentarios`;
-        }
-        
-        // Cargar comentarios de Firebase al iniciar
-        async function loadCommentsFromFirebase() {
-            try {
-                const snapshot = await commentsRef.where('page', '==', 'cannabis').orderBy('timestamp', 'desc').get();
-                comments = snapshot.docs.map(doc => ({
-                    ...doc.data(),
-                    id: doc.id
-                }));
-                
-                loadTopComments();
-                loadAllComments();
-                updateAverageRating();
-            } catch (error) {
-                console.error('Error loading comments:', error);
-            }
-        }
-        
-        // Manejar el envío del formulario de comentarios
-        commentForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            // Obtener valores del formulario
-            const name = document.getElementById('commentName').value;
-            const email = document.getElementById('commentEmail').value;
-            const content = document.getElementById('commentText').value;
-            const rating = parseInt(ratingInput.value);
-            
-            if (rating === 0 || isNaN(rating)) {
-                alert('Por favor, selecciona una calificación');
-                return;
-            }
-            
-            try {
-                // Crear nuevo comentario en Firebase
-                const newCommentRef = await commentsRef.add({
-                    page: 'cannabis',
-                    author: name,
-                    email: email, // No se mostrará públicamente
-                    date: new Date().toLocaleDateString('es-ES', {day: 'numeric', month: 'long', year: 'numeric'}),
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                    rating: rating,
-                    content: content,
-                    likes: 0,
-                    dislikes: 0,
-                    likedBy: [],
-                    dislikedBy: []
-                });
-                
-                // Obtener el nuevo comentario completo
-                const newCommentDoc = await newCommentRef.get();
-                const newComment = {
-                    ...newCommentDoc.data(),
-                    id: newCommentDoc.id
-                };
-                
-                // Añadir al inicio del array local
-                comments.unshift(newComment);
-                
-                // Actualizar visualización
-                loadTopComments();
-                loadAllComments();
-                updateAverageRating();
-                
-                // Limpiar formulario
-                commentForm.reset();
-                ratingButtons.forEach(btn => btn.classList.remove('selected'));
-                ratingStars.forEach(star => star.style.color = '#e0e0e0');
-                ratingInput.value = 0;
-                
-                // Mostrar mensaje de confirmación
-                alert('¡Gracias por tu comentario!');
-            } catch (error) {
-                console.error('Error adding comment:', error);
-                alert('Lo sentimos, ha ocurrido un error al publicar tu comentario.');
-            }
-        });
-        
-        // Mostrar/ocultar todos los comentarios
-        showMoreBtn.addEventListener('click', function() {
-            allComments.classList.toggle('show');
-            
-            if (allComments.classList.contains('show')) {
-                showMoreBtn.textContent = 'Mostrar menos';
-            } else {
-                showMoreBtn.textContent = 'Ver todos los comentarios';
-            }
-        });
-        
-        // Exponer funciones para likes/dislikes al ámbito global
-        window.likeComment = likeComment;
-        window.dislikeComment = dislikeComment;
-        
-        // Inicializar
-        document.addEventListener('DOMContentLoaded', () => {
-            loadCommentsFromFirebase();
-            checkImages();
         });
     </script>
 </body>
