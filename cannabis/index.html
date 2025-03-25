@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cannabis - Galería de Imágenes | InfoSustancias</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                <h1>InfoSustancias</h1>
+                <p class="tagline">Información y Educación sobre Sustancias</p>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="/">Inicio</a></li>
+                    <li><a href="/articulos">Artículos</a></li>
+                    <li><a href="/recursos">Recursos</a></li>
+                    <li><a href="/ayuda">Ayuda</a></li>
+                    <li><a href="/acerca">Acerca de</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="gallery-container">
+                <h1 class="gallery-title">Galería de Imágenes: Cannabis</h1>
+                
+                <div class="image-container">
+                    <!-- Flechas de navegación -->
+                    <div class="nav-arrows">
+                        <div class="nav-arrow prev" onclick="changeImage(-1)">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                        </div>
+                        <div class="nav-arrow next" onclick="changeImage(1)">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Imágenes de la galería -->
+                    <img src="/api/placeholder/900/500" alt="Cannabis Imagen 1" class="gallery-image active" data-index="0">
+                    <img src="/api/placeholder/900/500" alt="Cannabis Imagen 2" class="gallery-image" data-index="1">
+                    <img src="/api/placeholder/900/500" alt="Cannabis Imagen 3" class="gallery-image" data-index="2">
+                    <img src="/api/placeholder/900/500" alt="Cannabis Imagen 4" class="gallery-image" data-index="3">
+                    
+                    <!-- Descripciones de las imágenes -->
+                    <div class="gallery-caption">
+                        La planta de cannabis contiene más de 100 compuestos únicos llamados cannabinoides, siendo el THC y el CBD los más estudiados.
+                    </div>
+                </div>
+                
+                <!-- Puntos de navegación -->
+                <div class="gallery-nav">
+                    <div class="nav-dot active" onclick="showImage(0)"></div>
+                    <div class="nav-dot" onclick="showImage(1)"></div>
+                    <div class="nav-dot" onclick="showImage(2)"></div>
+                    <div class="nav-dot" onclick="showImage(3)"></div>
+                </div>
+                
+                <div class="gallery-info">
+                    <p>Esta galería muestra diferentes aspectos relacionados con el cannabis, desde la planta en sus distintas etapas hasta representaciones de sus efectos y usos medicinales y recreativos.</p>
+                    <p>El contenido tiene fines exclusivamente educativos e informativos, como parte de nuestro compromiso con la educación basada en evidencia científica.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>InfoSustancias</h3>
+                    <p>Un proyecto educativo desarrollado por estudiantes con fines exclusivamente informativos y académicos.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Enlaces rápidos</h4>
+                    <ul>
+                        <li><a href="/">Inicio</a></li>
+                        <li><a href="/articulos">Artículos</a></li>
+                        <li><a href="/recursos">Recursos</a></li>
+                        <li><a href="/ayuda">Ayuda</a></li>
+                        <li><a href="/acerca">Acerca de</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Aviso legal</h4>
+                    <p>Este sitio proporciona información educativa desarrollada por estudiantes con fines académicos y no sustituye el consejo médico profesional. La información presentada tiene únicamente propósitos informativos.</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 InfoSustancias. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript para el funcionamiento de la galería
+        let currentImageIndex = 0;
+        const images = document.querySelectorAll('.gallery-image');
+        const dots = document.querySelectorAll('.nav-dot');
+        const captions = [
+            "La planta de cannabis contiene más de 100 compuestos únicos llamados cannabinoides, siendo el THC y el CBD los más estudiados.",
+            "El THC (tetrahidrocannabinol) es el principal componente psicoactivo del cannabis que interactúa con el sistema endocannabinoide del cerebro.",
+            "El CBD (cannabidiol) es un componente no psicoactivo del cannabis que ha mostrado potencial terapéutico para varias condiciones médicas.",
+            "Los efectos del cannabis varían significativamente dependiendo de la composición química, dosis, método de consumo y factores individuales."
+        ];
+        const captionElement = document.querySelector('.gallery-caption');
+
+        // Función para mostrar una imagen específica
+        function showImage(index) {
+            if (index < 0) index = images.length - 1;
+            if (index >= images.length) index = 0;
+            
+            // Actualizar imágenes
+            images.forEach(img => img.classList.remove('active'));
+            images[index].classList.add('active');
+            
+            // Actualizar puntos de navegación
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+            
+            // Actualizar leyenda
+            captionElement.textContent = captions[index];
+            
+            currentImageIndex = index;
+        }
+
+        // Función para cambiar a la siguiente o anterior imagen
+        function changeImage(direction) {
+            showImage(currentImageIndex + direction);
+        }
+
+        // Configurar intervalo para cambio automático de imágenes
+        let slideInterval = setInterval(() => {
+            changeImage(1);
+        }, 5000);
+
+        // Detener el cambio automático cuando el usuario interactúa con la galería
+        document.querySelector('.image-container').addEventListener('mouseenter', () => {
+            clearInterval(slideInterval);
+        });
+
+        // Reanudar el cambio automático cuando el usuario deja de interactuar
+        document.querySelector('.image-container').addEventListener('mouseleave', () => {
+            slideInterval = setInterval(() => {
+                changeImage(1);
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
