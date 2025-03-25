@@ -4,369 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cannabis - Galería de Imágenes | InfoSustancias</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../cannabis/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        /* Estilos generales */
-        body {
-            font-family: 'Open Sans', sans-serif;
-            line-height: 1.6;
-            background-color: #f5f7fa;
-            margin: 0;
-            padding: 0;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        /* Header */
-        .site-header {
-            background-color: #ffffff;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            padding: 18px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .site-header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.8rem;
-            color: #3f51b5;
-            margin: 0;
-        }
-        
-        .tagline {
-            font-size: 0.9rem;
-            color: #546e7a;
-            margin-top: 5px;
-        }
-        
-        .main-nav ul {
-            display: flex;
-            gap: 20px;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .main-nav a {
-            text-decoration: none;
-            color: #2c3e50;
-            font-weight: 600;
-            padding: 8px 15px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .main-nav a:hover {
-            background-color: rgba(63, 81, 181, 0.05);
-            color: #3f51b5;
-        }
-        
-        /* Barra de sustancias */
-        .substance-buttons {
-            background-color: #5c6bc0;
-            padding: 10px 0;
-            text-align: center;
-        }
-        
-        .buttons-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .substance-button {
-            padding: 8px 15px;
-            border-radius: 50px;
-            background-color: rgba(255, 255, 255, 0.15);
-            color: white;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            text-decoration: none;
-        }
-        
-        .substance-button:hover {
-            background-color: white;
-            transform: translateY(-3px);
-        }
-        
-        .cannabis-btn:hover {
-            color: #558b2f;
-        }
-        
-        .fentanyl-btn:hover {
-            color: #c62828;
-        }
-        
-        .alcohol-btn:hover {
-            color: #0277bd;
-        }
-        
-        .inhalants-btn:hover {
-            color: #6a1b9a;
-        }
-        
-        .methamphetamine-btn:hover {
-            color: #d84315;
-        }
-        
-        .vaping-btn:hover {
-            color: #546e7a;
-        }
-        
-        .benzos-btn:hover {
-            color: #00695c;
-        }
-        
-        /* Galería */
-        .gallery-container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-            border-top: 4px solid #558b2f;
-        }
-        
-        .gallery-title {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #558b2f;
-            font-size: 2rem;
-            font-family: 'Montserrat', sans-serif;
-            position: relative;
-            padding-bottom: 15px;
-        }
-        
-        .gallery-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
-            background-color: #558b2f;
-            border-radius: 2px;
-        }
-        
-        .image-container {
-            position: relative;
-            width: 100%;
-            height: 500px;
-            overflow: hidden;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            background-color: #000;
-        }
-        
-        .gallery-image {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            transition: opacity 0.5s ease;
-            opacity: 0;
-        }
-        
-        .gallery-image.active {
-            opacity: 1;
-        }
-        
-        .gallery-controls {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .nav-btn {
-            position: absolute;
-            width: 35px;
-            height: 35px;
-            background-color: rgba(255, 255, 255, 0.7);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 10;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        
-        .nav-btn:hover {
-            background-color: #558b2f;
-            color: white;
-        }
-        
-        .nav-btn.right {
-            right: 20px;
-        }
-        
-        .nav-btn.left {
-            left: 20px;
-        }
-        
-        .gallery-caption {
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 15px;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            font-size: 0.95rem;
-        }
-        
-        .gallery-nav {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        
-        .nav-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: #e0e0e0;
-            margin: 0 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-dot.active {
-            background-color: #558b2f;
-            transform: scale(1.2);
-        }
-        
-        .nav-dot:hover {
-            background-color: #7cb342;
-        }
-        
-        .gallery-info {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 30px;
-            border-left: 3px solid #558b2f;
-        }
-        
-        .gallery-info p {
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-        
-        .gallery-info p:last-child {
-            margin-bottom: 0;
-        }
-        
-        /* Footer */
-        .site-footer {
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            padding: 60px 0 20px;
-            position: relative;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-column h3, .footer-column h4 {
-            color: white;
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            font-family: 'Montserrat', sans-serif;
-        }
-        
-        .footer-column ul {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .footer-column ul li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-column a {
-            color: #bdc3c7;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .footer-column a:hover {
-            color: white;
-        }
-        
-        .copyright {
-            border-top: 1px solid #34495e;
-            padding-top: 20px;
-            text-align: center;
-            font-size: 0.9rem;
-            color: #95a5a6;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .site-header .container {
-                flex-direction: column;
-            }
-            
-            .logo {
-                margin-bottom: 15px;
-                text-align: center;
-            }
-            
-            .main-nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .image-container {
-                height: 400px;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .image-container {
-                height: 300px;
-            }
-            
-            .nav-dot {
-                width: 10px;
-                height: 10px;
-                margin: 0 5px;
-            }
-        }
-    </style>
 </head>
 <body>
     <header class="site-header">
@@ -408,7 +50,7 @@
                 <h1 class="gallery-title">Galería de Imágenes: Cannabis</h1>
                 
                 <div class="image-container" id="imageContainer">
-                    <!-- Controles de navegación -->
+                    <!-- Controles de navegación (solo flechas) -->
                     <div class="gallery-controls">
                         <div class="nav-btn left" onclick="changeImage(-1)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -422,7 +64,7 @@
                         </div>
                     </div>
                     
-                    <!-- Imágenes de la galería - IMÁGENES SIN RUTAS COMPLEJAS -->
+                    <!-- Imágenes de la galería -->
                     <img src="cannabis-1.jpg" alt="Cannabis Imagen 1" class="gallery-image active" data-index="0">
                     <img src="cannabis-2.jpg" alt="Cannabis Imagen 2" class="gallery-image" data-index="1">
                     <img src="cannabis-3.jpg" alt="Cannabis Imagen 3" class="gallery-image" data-index="2">
@@ -492,8 +134,19 @@
         const captionElement = document.querySelector('.gallery-caption');
         const imageContainer = document.getElementById('imageContainer');
 
+        // Verificar si hay imágenes disponibles
+        function checkImages() {
+            if (images.length === 0) {
+                imageContainer.classList.add('no-images');
+                return false;
+            }
+            return true;
+        }
+
         // Función para mostrar una imagen específica
         function showImage(index) {
+            if (!checkImages()) return;
+            
             if (index < 0) index = images.length - 1;
             if (index >= images.length) index = 0;
             
@@ -513,12 +166,15 @@
 
         // Función para cambiar a la siguiente o anterior imagen
         function changeImage(direction) {
+            if (!checkImages()) return;
             showImage(currentImageIndex + direction);
         }
 
         // Configurar intervalo para cambio automático de imágenes
         let slideInterval = setInterval(() => {
-            changeImage(1);
+            if (checkImages()) {
+                changeImage(1);
+            }
         }, 5000);
 
         // Detener el cambio automático cuando el usuario interactúa con la galería
@@ -529,9 +185,14 @@
         // Reanudar el cambio automático cuando el usuario deja de interactuar
         imageContainer.addEventListener('mouseleave', () => {
             slideInterval = setInterval(() => {
-                changeImage(1);
+                if (checkImages()) {
+                    changeImage(1);
+                }
             }, 5000);
         });
+
+        // Verificar imágenes al cargar
+        checkImages();
     </script>
 </body>
 </html>
