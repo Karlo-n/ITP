@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
     <style>
         /* Estilos específicos para este archivo */
         .substance-buttons {
@@ -437,7 +440,7 @@
                         </div>
                     </div>
                     
-                    <!-- Imágenes de la galería -->
+                    <!-- Imágenes de la galería - PATHS SIMPLIFICADOS AL MÁXIMO -->
                     <img src="cannabis-1.jpg" alt="Cannabis Imagen 1" class="gallery-image active" data-index="0">
                     <img src="cannabis-2.jpg" alt="Cannabis Imagen 2" class="gallery-image" data-index="1">
                     <img src="cannabis-3.jpg" alt="Cannabis Imagen 3" class="gallery-image" data-index="2">
@@ -569,6 +572,21 @@
     </footer>
 
     <script>
+        // Configuración de Firebase (REEMPLAZA ESTO CON TUS PROPIAS CREDENCIALES)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDa9xnEhh4O9FfWNA3FcYTaFpFOSo_FuVY",
+            authDomain: "infosustancias.firebaseapp.com",
+            projectId: "infosustancias",
+            storageBucket: "infosustancias.appspot.com",
+            messagingSenderId: "123456789012",
+            appId: "1:123456789012:web:a1b2c3d4e5f6g7h8i9j0k1"
+        };
+        
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const commentsRef = db.collection('comments');
+        
         // JavaScript para el funcionamiento de la galería
         let currentImageIndex = 0;
         const images = document.querySelectorAll('.gallery-image');
@@ -650,8 +668,8 @@
         const ratingInput = document.getElementById('ratingValue');
         const ratingStars = document.querySelectorAll('.rating-stars span');
         
-        // Almacenamiento local para comentarios
-        let comments = JSON.parse(localStorage.getItem('cannabisComments')) || [];
+        // Almacenamiento de comentarios
+        let comments = [];
         
         // Manejar botones de calificación
         ratingButtons.forEach(btn => {
@@ -699,13 +717,13 @@
                     </div>
                     <p class="comment-content">${comment.content}</p>
                     <div class="comment-actions">
-                        <button class="like-btn ${likeActiveClass}" onclick="likeComment(${comment.id})">
+                        <button class="like-btn ${likeActiveClass}" onclick="likeComment('${comment.id}')">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
                             </svg>
                             <span class="like-count">${comment.likes || 0}</span>
                         </button>
-                        <button class="dislike-btn ${dislikeActiveClass}" onclick="dislikeComment(${comment.id})">
+                        <button class="dislike-btn ${dislikeActiveClass}" onclick="dislikeComment('${comment.id}')">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm10-13h2a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"></path>
                             </svg>
@@ -727,13 +745,14 @@
         }
         
         // Funciones para manejar likes y dislikes
-        function likeComment(commentId) {
+        async function likeComment(commentId) {
             const userId = getUserId();
-            const commentIndex = comments.findIndex(c => c.id === commentId);
+            const commentRef = commentsRef.doc(commentId);
+            const doc = await commentRef.get();
             
-            if (commentIndex === -1) return;
+            if (!doc.exists) return;
             
-            const comment = comments[commentIndex];
+            const comment = doc.data();
             
             // Inicializar arrays si no existen
             if (!comment.likedBy) comment.likedBy = [];
@@ -741,38 +760,42 @@
             
             const alreadyLiked = comment.likedBy.includes(userId);
             
-            // Si ya le dio like, quitarlo
             if (alreadyLiked) {
+                // Quitar like
                 comment.likedBy = comment.likedBy.filter(id => id !== userId);
-                comment.likes = (comment.likes || 1) - 1;
+                comment.likes = Math.max(0, (comment.likes || 1) - 1);
             } else {
-                // Si le dio dislike antes, quitarlo primero
+                // Si ya le dio dislike, quitarlo
                 if (comment.dislikedBy.includes(userId)) {
                     comment.dislikedBy = comment.dislikedBy.filter(id => id !== userId);
                     comment.dislikes = Math.max(0, (comment.dislikes || 1) - 1);
                 }
                 
-                // Agregar like
+                // Añadir like
                 comment.likedBy.push(userId);
                 comment.likes = (comment.likes || 0) + 1;
             }
             
-            // Actualizar en localStorage
-            comments[commentIndex] = comment;
-            localStorage.setItem('cannabisComments', JSON.stringify(comments));
+            // Actualizar en Firestore
+            await commentRef.update(comment);
             
-            // Actualizar UI
-            loadTopComments();
-            loadAllComments();
+            // Actualizar comentarios locales
+            const index = comments.findIndex(c => c.id === commentId);
+            if (index !== -1) {
+                comments[index] = { ...comment, id: commentId };
+                loadTopComments();
+                loadAllComments();
+            }
         }
         
-        function dislikeComment(commentId) {
+        async function dislikeComment(commentId) {
             const userId = getUserId();
-            const commentIndex = comments.findIndex(c => c.id === commentId);
+            const commentRef = commentsRef.doc(commentId);
+            const doc = await commentRef.get();
             
-            if (commentIndex === -1) return;
+            if (!doc.exists) return;
             
-            const comment = comments[commentIndex];
+            const comment = doc.data();
             
             // Inicializar arrays si no existen
             if (!comment.likedBy) comment.likedBy = [];
@@ -780,29 +803,32 @@
             
             const alreadyDisliked = comment.dislikedBy.includes(userId);
             
-            // Si ya le dio dislike, quitarlo
             if (alreadyDisliked) {
+                // Quitar dislike
                 comment.dislikedBy = comment.dislikedBy.filter(id => id !== userId);
-                comment.dislikes = (comment.dislikes || 1) - 1;
+                comment.dislikes = Math.max(0, (comment.dislikes || 1) - 1);
             } else {
-                // Si le dio like antes, quitarlo primero
+                // Si ya le dio like, quitarlo
                 if (comment.likedBy.includes(userId)) {
                     comment.likedBy = comment.likedBy.filter(id => id !== userId);
                     comment.likes = Math.max(0, (comment.likes || 1) - 1);
                 }
                 
-                // Agregar dislike
+                // Añadir dislike
                 comment.dislikedBy.push(userId);
                 comment.dislikes = (comment.dislikes || 0) + 1;
             }
             
-            // Actualizar en localStorage
-            comments[commentIndex] = comment;
-            localStorage.setItem('cannabisComments', JSON.stringify(comments));
+            // Actualizar en Firestore
+            await commentRef.update(comment);
             
-            // Actualizar UI
-            loadTopComments();
-            loadAllComments();
+            // Actualizar comentarios locales
+            const index = comments.findIndex(c => c.id === commentId);
+            if (index !== -1) {
+                comments[index] = { ...comment, id: commentId };
+                loadTopComments();
+                loadAllComments();
+            }
         }
         
         // Función para cargar todos los comentarios
@@ -865,8 +891,25 @@
             totalCommentsElement.textContent = `${comments.length} comentarios`;
         }
         
+        // Cargar comentarios de Firebase al iniciar
+        async function loadCommentsFromFirebase() {
+            try {
+                const snapshot = await commentsRef.where('page', '==', 'cannabis').orderBy('timestamp', 'desc').get();
+                comments = snapshot.docs.map(doc => ({
+                    ...doc.data(),
+                    id: doc.id
+                }));
+                
+                loadTopComments();
+                loadAllComments();
+                updateAverageRating();
+            } catch (error) {
+                console.error('Error loading comments:', error);
+            }
+        }
+        
         // Manejar el envío del formulario de comentarios
-        commentForm.addEventListener('submit', function(e) {
+        commentForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             // Obtener valores del formulario
@@ -880,38 +923,49 @@
                 return;
             }
             
-            // Crear nuevo comentario
-            const newComment = {
-                id: Date.now(),
-                author: name,
-                date: new Date().toLocaleDateString('es-ES', {day: 'numeric', month: 'long', year: 'numeric'}),
-                rating: rating,
-                content: content,
-                likes: 0,
-                dislikes: 0,
-                likedBy: [],
-                dislikedBy: []
-            };
-            
-            // Añadir a la lista de comentarios
-            comments.unshift(newComment);
-            
-            // Guardar en localStorage
-            localStorage.setItem('cannabisComments', JSON.stringify(comments));
-            
-            // Actualizar visualización
-            loadTopComments();
-            loadAllComments();
-            updateAverageRating();
-            
-            // Limpiar formulario
-            commentForm.reset();
-            ratingButtons.forEach(btn => btn.classList.remove('selected'));
-            ratingStars.forEach(star => star.style.color = '#e0e0e0');
-            ratingInput.value = 0;
-            
-            // Mostrar mensaje de confirmación
-            alert('¡Gracias por tu comentario!');
+            try {
+                // Crear nuevo comentario en Firebase
+                const newCommentRef = await commentsRef.add({
+                    page: 'cannabis',
+                    author: name,
+                    email: email, // No se mostrará públicamente
+                    date: new Date().toLocaleDateString('es-ES', {day: 'numeric', month: 'long', year: 'numeric'}),
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    rating: rating,
+                    content: content,
+                    likes: 0,
+                    dislikes: 0,
+                    likedBy: [],
+                    dislikedBy: []
+                });
+                
+                // Obtener el nuevo comentario completo
+                const newCommentDoc = await newCommentRef.get();
+                const newComment = {
+                    ...newCommentDoc.data(),
+                    id: newCommentDoc.id
+                };
+                
+                // Añadir al inicio del array local
+                comments.unshift(newComment);
+                
+                // Actualizar visualización
+                loadTopComments();
+                loadAllComments();
+                updateAverageRating();
+                
+                // Limpiar formulario
+                commentForm.reset();
+                ratingButtons.forEach(btn => btn.classList.remove('selected'));
+                ratingStars.forEach(star => star.style.color = '#e0e0e0');
+                ratingInput.value = 0;
+                
+                // Mostrar mensaje de confirmación
+                alert('¡Gracias por tu comentario!');
+            } catch (error) {
+                console.error('Error adding comment:', error);
+                alert('Lo sentimos, ha ocurrido un error al publicar tu comentario.');
+            }
         });
         
         // Mostrar/ocultar todos los comentarios
@@ -929,13 +983,11 @@
         window.likeComment = likeComment;
         window.dislikeComment = dislikeComment;
         
-        // Cargar comentarios al iniciar
-        loadAllComments();
-        loadTopComments();
-        updateAverageRating();
-        
-        // Verificar imágenes al cargar
-        checkImages();
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCommentsFromFirebase();
+            checkImages();
+        });
     </script>
 </body>
 </html>
