@@ -67,7 +67,7 @@
             color: #00695c;
         }
         
-        /* Controles de navegación en las esquinas */
+        /* Controles de navegación (flechas) */
         .gallery-controls {
             position: relative;
             width: 100%;
@@ -87,6 +87,8 @@
             transition: all 0.3s ease;
             z-index: 10;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            top: 50%;
+            transform: translateY(-50%);
         }
         
         .nav-btn:hover {
@@ -95,22 +97,10 @@
         }
         
         .nav-btn.right {
-            top: 20px;
-            right: 20px;
-        }
-        
-        .nav-btn.bottom-right {
-            bottom: 20px;
             right: 20px;
         }
         
         .nav-btn.left {
-            top: 20px;
-            left: 20px;
-        }
-        
-        .nav-btn.bottom-left {
-            bottom: 20px;
             left: 20px;
         }
         
@@ -122,6 +112,195 @@
         /* Ocultar botones cuando no hay imágenes */
         .no-images .nav-btn {
             display: none;
+        }
+        
+        /* Sección de comentarios */
+        .comments-section {
+            margin-top: 40px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .comments-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 15px;
+        }
+        
+        .comments-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin: 0;
+        }
+        
+        .comments-stats {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .comments-count {
+            font-size: 0.9rem;
+            color: #546e7a;
+        }
+        
+        .average-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .star {
+            color: #ffc107;
+        }
+        
+        .rating-value {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .comment-form {
+            background-color: #f5f7fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            font-family: 'Open Sans', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #558b2f;
+        }
+        
+        .rating-selector {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .rating-selector label {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #e0e0e0;
+        }
+        
+        .rating-selector input {
+            display: none;
+        }
+        
+        .rating-selector label:hover,
+        .rating-selector label:hover ~ label,
+        .rating-selector input:checked ~ label {
+            color: #ffc107;
+        }
+        
+        .submit-btn {
+            background-color: #558b2f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: #33691e;
+        }
+        
+        .top-comments {
+            margin-bottom: 30px;
+        }
+        
+        .comment {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 15px;
+        }
+        
+        .comment:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .comment-author {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .comment-date {
+            font-size: 0.8rem;
+            color: #546e7a;
+        }
+        
+        .comment-rating {
+            display: flex;
+            gap: 2px;
+            font-size: 0.9rem;
+            color: #ffc107;
+            margin-bottom: 8px;
+        }
+        
+        .comment-content {
+            line-height: 1.6;
+            color: #2c3e50;
+        }
+        
+        .show-more-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #f5f7fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            text-align: center;
+            color: #2c3e50;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .show-more-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .all-comments {
+            display: none;
+            margin-top: 30px;
+        }
+        
+        .all-comments.show {
+            display: block;
         }
     </style>
 </head>
@@ -165,39 +344,25 @@
                 <h1 class="gallery-title">Galería de Imágenes: Cannabis</h1>
                 
                 <div class="image-container" id="imageContainer">
-                    <!-- Controles de navegación en las cuatro esquinas -->
+                    <!-- Controles de navegación (solo flechas) -->
                     <div class="gallery-controls">
-                        <div class="nav-btn right" onclick="changeImage(1)">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="9 18 15 12 9 6"></polyline>
-                            </svg>
-                        </div>
-                        <div class="nav-btn bottom-right" onclick="showImage(currentImageIndex+1)">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="8" x2="12" y2="16"></line>
-                                <line x1="8" y1="12" x2="16" y2="12"></line>
-                            </svg>
-                        </div>
                         <div class="nav-btn left" onclick="changeImage(-1)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="15 18 9 12 15 6"></polyline>
                             </svg>
                         </div>
-                        <div class="nav-btn bottom-left" onclick="showImageInfo()">
+                        <div class="nav-btn right" onclick="changeImage(1)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="16" x2="12" y2="12"></line>
-                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                <polyline points="9 18 15 12 9 6"></polyline>
                             </svg>
                         </div>
                     </div>
                     
-                    <!-- Imágenes de la galería -->
-                    <img src="/api/placeholder/900/500" alt="Cannabis Imagen 1" class="gallery-image active" data-index="0">
-                    <img src="/api/placeholder/900/500" alt="Cannabis Imagen 2" class="gallery-image" data-index="1">
-                    <img src="/api/placeholder/900/500" alt="Cannabis Imagen 3" class="gallery-image" data-index="2">
-                    <img src="/api/placeholder/900/500" alt="Cannabis Imagen 4" class="gallery-image" data-index="3">
+                    <!-- Imágenes de la galería con rutas corregidas -->
+                    <img src="./img/cannabis-1.jpg" alt="Cannabis Imagen 1" class="gallery-image active" data-index="0">
+                    <img src="./img/cannabis-2.jpg" alt="Cannabis Imagen 2" class="gallery-image" data-index="1" onerror="this.src='/api/placeholder/900/500'">
+                    <img src="./img/cannabis-3.jpg" alt="Cannabis Imagen 3" class="gallery-image" data-index="2" onerror="this.src='/api/placeholder/900/500'">
+                    <img src="./img/cannabis-4.jpg" alt="Cannabis Imagen 4" class="gallery-image" data-index="3" onerror="this.src='/api/placeholder/900/500'">
                     
                     <!-- Descripción de la imagen -->
                     <div class="gallery-caption">
@@ -216,6 +381,136 @@
                 <div class="gallery-info">
                     <p>Esta galería muestra diferentes aspectos relacionados con el cannabis, desde la planta en sus distintas etapas hasta representaciones de sus efectos y usos medicinales y recreativos.</p>
                     <p>El contenido tiene fines exclusivamente educativos e informativos, como parte de nuestro compromiso con la educación basada en evidencia científica.</p>
+                </div>
+                
+                <!-- Sección de comentarios -->
+                <div class="comments-section">
+                    <div class="comments-header">
+                        <h2 class="comments-title">Comentarios</h2>
+                        <div class="comments-stats">
+                            <span class="comments-count" id="totalComments">12 comentarios</span>
+                            <div class="average-rating">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star" style="color: #e0e0e0;">★</span>
+                                <span class="rating-value">4.2</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Formulario para añadir comentarios -->
+                    <div class="comment-form">
+                        <h3>Deja tu comentario</h3>
+                        <form id="commentForm">
+                            <div class="form-group">
+                                <label for="commentName">Nombre</label>
+                                <input type="text" id="commentName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="commentEmail">Email (no será publicado)</label>
+                                <input type="email" id="commentEmail" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Calificación</label>
+                                <div class="rating-selector">
+                                    <input type="radio" id="star5" name="rating" value="5">
+                                    <label for="star5">★</label>
+                                    <input type="radio" id="star4" name="rating" value="4">
+                                    <label for="star4">★</label>
+                                    <input type="radio" id="star3" name="rating" value="3">
+                                    <label for="star3">★</label>
+                                    <input type="radio" id="star2" name="rating" value="2">
+                                    <label for="star2">★</label>
+                                    <input type="radio" id="star1" name="rating" value="1">
+                                    <label for="star1">★</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="commentText">Comentario</label>
+                                <textarea id="commentText" class="form-control" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="submit-btn">Publicar comentario</button>
+                        </form>
+                    </div>
+                    
+                    <!-- Top 5 comentarios -->
+                    <div class="top-comments">
+                        <h3>Mejores comentarios</h3>
+                        <div id="topCommentsList">
+                            <!-- Comentario 1 -->
+                            <div class="comment">
+                                <div class="comment-header">
+                                    <span class="comment-author">María García</span>
+                                    <span class="comment-date">15 marzo, 2025</span>
+                                </div>
+                                <div class="comment-rating">
+                                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                                </div>
+                                <p class="comment-content">Excelente información educativa. La galería de imágenes permite entender mejor las diferencias entre distintas variedades de cannabis. Me parece importante tener este tipo de recursos para la educación.</p>
+                            </div>
+                            
+                            <!-- Comentario 2 -->
+                            <div class="comment">
+                                <div class="comment-header">
+                                    <span class="comment-author">Carlos Rodríguez</span>
+                                    <span class="comment-date">12 marzo, 2025</span>
+                                </div>
+                                <div class="comment-rating">
+                                    <span>★</span><span>★</span><span>★</span><span>★</span><span style="color: #e0e0e0;">★</span>
+                                </div>
+                                <p class="comment-content">Como estudiante de medicina, agradezco este enfoque objetivo y científico sobre las sustancias psicoactivas. La información presentada es precisa y actualizada.</p>
+                            </div>
+                            
+                            <!-- Comentario 3 -->
+                            <div class="comment">
+                                <div class="comment-header">
+                                    <span class="comment-author">Laura Martínez</span>
+                                    <span class="comment-date">10 marzo, 2025</span>
+                                </div>
+                                <div class="comment-rating">
+                                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                                </div>
+                                <p class="comment-content">Me encanta que el sitio aborde estos temas desde una perspectiva de reducción de daños y educación basada en evidencia. Las imágenes están muy bien seleccionadas para mostrar los aspectos más importantes.</p>
+                            </div>
+                            
+                            <!-- Comentario 4 -->
+                            <div class="comment">
+                                <div class="comment-header">
+                                    <span class="comment-author">Daniel López</span>
+                                    <span class="comment-date">8 marzo, 2025</span>
+                                </div>
+                                <div class="comment-rating">
+                                    <span>★</span><span>★</span><span>★</span><span style="color: #e0e0e0;">★</span><span style="color: #e0e0e0;">★</span>
+                                </div>
+                                <p class="comment-content">Información interesante, aunque me gustaría ver más detalles sobre los aspectos médicos y terapéuticos del cannabis. Buena iniciativa de todas formas.</p>
+                            </div>
+                            
+                            <!-- Comentario 5 -->
+                            <div class="comment">
+                                <div class="comment-header">
+                                    <span class="comment-author">Ana Sánchez</span>
+                                    <span class="comment-date">5 marzo, 2025</span>
+                                </div>
+                                <div class="comment-rating">
+                                    <span>★</span><span>★</span><span>★</span><span>★</span><span style="color: #e0e0e0;">★</span>
+                                </div>
+                                <p class="comment-content">Como educadora, valoro mucho los recursos visuales para explicar temas complejos. Esta galería es un excelente material didáctico para hablar sobre sustancias con adolescentes de manera objetiva.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Botón para mostrar todos los comentarios -->
+                        <button class="show-more-btn" id="showMoreBtn">Ver todos los comentarios</button>
+                    </div>
+                    
+                    <!-- Todos los comentarios (inicialmente ocultos) -->
+                    <div class="all-comments" id="allComments">
+                        <h3>Todos los comentarios</h3>
+                        <div id="allCommentsList">
+                            <!-- Aquí se cargarán todos los comentarios -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -299,12 +594,6 @@
             showImage(currentImageIndex + direction);
         }
 
-        // Función para mostrar información adicional
-        function showImageInfo() {
-            if (!checkImages()) return;
-            alert(captions[currentImageIndex]);
-        }
-
         // Configurar intervalo para cambio automático de imágenes
         let slideInterval = setInterval(() => {
             if (checkImages()) {
@@ -326,6 +615,234 @@
             }, 5000);
         });
 
+        // Sistema de comentarios
+        const commentForm = document.getElementById('commentForm');
+        const showMoreBtn = document.getElementById('showMoreBtn');
+        const allComments = document.getElementById('allComments');
+        const allCommentsList = document.getElementById('allCommentsList');
+        const topCommentsList = document.getElementById('topCommentsList');
+        const totalCommentsElement = document.getElementById('totalComments');
+        
+        // Base de datos simulada de comentarios (podría ser reemplazada por una base de datos real)
+        let commentsDB = [
+            {
+                id: 1,
+                author: "María García",
+                date: "15 marzo, 2025",
+                rating: 5,
+                content: "Excelente información educativa. La galería de imágenes permite entender mejor las diferencias entre distintas variedades de cannabis. Me parece importante tener este tipo de recursos para la educación."
+            },
+            {
+                id: 2,
+                author: "Carlos Rodríguez",
+                date: "12 marzo, 2025",
+                rating: 4,
+                content: "Como estudiante de medicina, agradezco este enfoque objetivo y científico sobre las sustancias psicoactivas. La información presentada es precisa y actualizada."
+            },
+            {
+                id: 3,
+                author: "Laura Martínez",
+                date: "10 marzo, 2025",
+                rating: 5,
+                content: "Me encanta que el sitio aborde estos temas desde una perspectiva de reducción de daños y educación basada en evidencia. Las imágenes están muy bien seleccionadas para mostrar los aspectos más importantes."
+            },
+            {
+                id: 4,
+                author: "Daniel López",
+                date: "8 marzo, 2025",
+                rating: 3,
+                content: "Información interesante, aunque me gustaría ver más detalles sobre los aspectos médicos y terapéuticos del cannabis. Buena iniciativa de todas formas."
+            },
+            {
+                id: 5,
+                author: "Ana Sánchez",
+                date: "5 marzo, 2025",
+                rating: 4,
+                content: "Como educadora, valoro mucho los recursos visuales para explicar temas complejos. Esta galería es un excelente material didáctico para hablar sobre sustancias con adolescentes de manera objetiva."
+            },
+            {
+                id: 6,
+                author: "Pablo Fernández",
+                date: "3 marzo, 2025",
+                rating: 4,
+                content: "Buen contenido educativo. Aprecio la objetividad con la que se presenta la información sin glorificar ni demonizar la sustancia."
+            },
+            {
+                id: 7,
+                author: "Elena Torres",
+                date: "2 marzo, 2025",
+                rating: 3,
+                content: "Las imágenes son de buena calidad aunque creo que falta un poco más de contexto histórico sobre el uso del cannabis."
+            },
+            {
+                id: 8,
+                author: "Roberto Jiménez",
+                date: "1 marzo, 2025",
+                rating: 5,
+                content: "Gran trabajo recopilando información científica actualizada. Se agradece este enfoque educativo en un tema que suele estar lleno de mitos y desinformación."
+            },
+            {
+                id: 9,
+                author: "Sofía Vargas",
+                date: "28 febrero, 2025",
+                rating: 4,
+                content: "Me ha parecido muy útil toda esta información. Trabajo en prevención y este tipo de recursos son excelentes para educar sin prejuicios."
+            },
+            {
+                id: 10,
+                author: "Miguel Ángel Pérez",
+                date: "26 febrero, 2025",
+                rating: 2,
+                content: "La información es correcta pero esperaba más datos sobre interacciones medicamentosas y contraindicaciones. Podría mejorarse esa parte."
+            },
+            {
+                id: 11,
+                author: "Carmen Romero",
+                date: "24 febrero, 2025",
+                rating: 5,
+                content: "Increíblemente completo y objetivo. Felicito a los estudiantes que han desarrollado este proyecto educativo."
+            },
+            {
+                id: 12,
+                author: "Javier Moreno",
+                date: "22 febrero, 2025",
+                rating: 4,
+                content: "Muy interesante la diferenciación entre THC y CBD, y sus efectos específicos. Las imágenes ayudan mucho a entender la información."
+            }
+        ];
+        
+        // Función para generar el HTML de un comentario
+        function createCommentHTML(comment) {
+            let starsHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= comment.rating) {
+                    starsHTML += '<span>★</span>';
+                } else {
+                    starsHTML += '<span style="color: #e0e0e0;">★</span>';
+                }
+            }
+            
+            return `
+                <div class="comment">
+                    <div class="comment-header">
+                        <span class="comment-author">${comment.author}</span>
+                        <span class="comment-date">${comment.date}</span>
+                    </div>
+                    <div class="comment-rating">
+                        ${starsHTML}
+                    </div>
+                    <p class="comment-content">${comment.content}</p>
+                </div>
+            `;
+        }
+        
+        // Función para cargar todos los comentarios
+        function loadAllComments() {
+            allCommentsList.innerHTML = '';
+            
+            commentsDB.forEach(comment => {
+                allCommentsList.innerHTML += createCommentHTML(comment);
+            });
+        }
+        
+        // Función para cargar los mejores comentarios (los 5 con mejor calificación)
+        function loadTopComments() {
+            // Ordenar comentarios por calificación (de mayor a menor)
+            const sortedComments = [...commentsDB].sort((a, b) => b.rating - a.rating);
+            const topFive = sortedComments.slice(0, 5);
+            
+            topCommentsList.innerHTML = '';
+            
+            topFive.forEach(comment => {
+                topCommentsList.innerHTML += createCommentHTML(comment);
+            });
+        }
+        
+        // Función para calcular y mostrar la calificación promedio
+        function updateAverageRating() {
+            const totalRating = commentsDB.reduce((sum, comment) => sum + comment.rating, 0);
+            const averageRating = totalRating / commentsDB.length;
+            
+            document.querySelector('.rating-value').textContent = averageRating.toFixed(1);
+            
+            // Actualizar estrellas visuales
+            const stars = document.querySelectorAll('.average-rating .star');
+            for (let i = 0; i < stars.length; i++) {
+                if (i < Math.floor(averageRating)) {
+                    stars[i].style.color = '#ffc107';
+                } else {
+                    stars[i].style.color = '#e0e0e0';
+                }
+            }
+            
+            // Actualizar contador de comentarios
+            totalCommentsElement.textContent = `${commentsDB.length} comentarios`;
+        }
+        
+        // Manejar el envío del formulario de comentarios
+        commentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Obtener valores del formulario
+            const name = document.getElementById('commentName').value;
+            const email = document.getElementById('commentEmail').value;
+            const content = document.getElementById('commentText').value;
+            
+            // Obtener calificación seleccionada
+            let rating = 0;
+            const ratingInputs = document.querySelectorAll('input[name="rating"]');
+            for (const input of ratingInputs) {
+                if (input.checked) {
+                    rating = parseInt(input.value);
+                    break;
+                }
+            }
+            
+            if (rating === 0) {
+                alert('Por favor, selecciona una calificación');
+                return;
+            }
+            
+            // Crear nuevo comentario
+            const newComment = {
+                id: commentsDB.length + 1,
+                author: name,
+                date: new Date().toLocaleDateString('es-ES', {day: 'numeric', month: 'long', year: 'numeric'}),
+                rating: rating,
+                content: content
+            };
+            
+            // Añadir a la "base de datos" simulada
+            commentsDB.unshift(newComment);
+            
+            // Actualizar visualización
+            loadTopComments();
+            loadAllComments();
+            updateAverageRating();
+            
+            // Limpiar formulario
+            commentForm.reset();
+            
+            // Mostrar mensaje de confirmación
+            alert('¡Gracias por tu comentario!');
+        });
+        
+        // Mostrar/ocultar todos los comentarios
+        showMoreBtn.addEventListener('click', function() {
+            allComments.classList.toggle('show');
+            
+            if (allComments.classList.contains('show')) {
+                showMoreBtn.textContent = 'Mostrar menos';
+            } else {
+                showMoreBtn.textContent = 'Ver todos los comentarios';
+            }
+        });
+        
+        // Cargar comentarios al iniciar
+        loadAllComments();
+        loadTopComments();
+        updateAverageRating();
+        
         // Verificar imágenes al cargar
         checkImages();
     </script>
