@@ -424,31 +424,35 @@
                 <h1 class="gallery-title">Galería de Imágenes: Cannabis</h1>
                 
                 <div class="image-container" id="imageContainer">
-                    <!-- Controles de navegación (solo flechas) -->
-                    <div class="gallery-controls">
-                        <div class="nav-btn left" onclick="changeImage(-1)">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="15 18 9 12 15 6"></polyline>
-                            </svg>
-                        </div>
-                        <div class="nav-btn right" onclick="changeImage(1)">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="9 18 15 12 9 6"></polyline>
-                            </svg>
-                        </div>
-                    </div>
-                    
-                    <!-- Imágenes de la galería -->
-                    <img src="/cannabis/cannabis-1.jpg" alt="Cannabis Imagen 1" class="gallery-image active" data-index="0">
-                    <img src="cannabis-2.jpg" alt="Cannabis Imagen 2" class="gallery-image" data-index="1">
-                    <img src="cannabis-3.jpg" alt="Cannabis Imagen 3" class="gallery-image" data-index="2">
-                    <img src="cannabis-4.jpg" alt="Cannabis Imagen 4" class="gallery-image" data-index="3">
-                    
-                    <!-- Descripción de la imagen -->
-                    <div class="gallery-caption">
-                        La planta de cannabis contiene más de 100 compuestos únicos llamados cannabinoides, siendo el THC y el CBD los más estudiados.
-                    </div>
-                </div>
+    <!-- Controles de navegación (solo flechas) -->
+    <div class="gallery-controls">
+        <div class="nav-btn left" onclick="changeImage(-1)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+        </div>
+        <div class="nav-btn right" onclick="changeImage(1)">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </div>
+    </div>
+    
+    <!-- Imágenes de la galería con rutas simplificadas y manejo de errores -->
+    <img src="cannabis-1.jpg" alt="Cannabis Imagen 1" class="gallery-image active" data-index="0" 
+         onerror="this.onerror=null; this.src='../cannabis/cannabis-1.jpg'; if(this.naturalWidth==0) {this.src='/cannabis/cannabis-1.jpg';}">
+    <img src="cannabis-2.jpg" alt="Cannabis Imagen 2" class="gallery-image" data-index="1" 
+         onerror="this.onerror=null; this.src='../cannabis/cannabis-2.jpg'; if(this.naturalWidth==0) {this.src='/cannabis/cannabis-2.jpg';}">
+    <img src="cannabis-3.jpg" alt="Cannabis Imagen 3" class="gallery-image" data-index="2" 
+         onerror="this.onerror=null; this.src='../cannabis/cannabis-3.jpg'; if(this.naturalWidth==0) {this.src='/cannabis/cannabis-3.jpg';}">
+    <img src="cannabis-4.jpg" alt="Cannabis Imagen 4" class="gallery-image" data-index="3" 
+         onerror="this.onerror=null; this.src='../cannabis/cannabis-4.jpg'; if(this.naturalWidth==0) {this.src='/cannabis/cannabis-4.jpg';}">
+    
+    <!-- Descripción de la imagen -->
+    <div class="gallery-caption">
+        La planta de cannabis contiene más de 100 compuestos únicos llamados cannabinoides, siendo el THC y el CBD los más estudiados.
+    </div>
+</div>
                 
                 <!-- Puntos de navegación -->
                 <div class="gallery-nav">
