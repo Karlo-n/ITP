@@ -9,6 +9,380 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos específicos para este archivo */
+        .substance-buttons {
+            background-color: #5c6bc0;
+            padding: 10px 0;
+            text-align: center;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .substance-button {
+            padding: 8px 15px;
+            border-radius: 50px;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+        
+        .substance-button:hover {
+            background-color: white;
+            transform: translateY(-3px);
+        }
+        
+        .cannabis-btn:hover {
+            color: #558b2f;
+        }
+        
+        .fentanyl-btn:hover {
+            color: #c62828;
+        }
+        
+        .alcohol-btn:hover {
+            color: #0277bd;
+        }
+        
+        .inhalants-btn:hover {
+            color: #6a1b9a;
+        }
+        
+        .methamphetamine-btn:hover {
+            color: #d84315;
+        }
+        
+        .vaping-btn:hover {
+            color: #546e7a;
+        }
+        
+        .benzos-btn:hover {
+            color: #00695c;
+        }
+        
+        /* Estilos mejorados para la galería */
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Cambiado de cover a contain para mostrar imagen completa */
+            transition: opacity 0.5s ease;
+            opacity: 0;
+            background-color: #000; /* Fondo negro para imágenes con transparencia */
+        }
+        
+        .gallery-image.active {
+            opacity: 1;
+        }
+        
+        /* Controles de navegación (flechas) */
+        .gallery-controls {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .nav-btn {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .nav-btn:hover {
+            background-color: #558b2f;
+            color: white;
+        }
+        
+        .nav-btn.right {
+            right: 20px;
+        }
+        
+        .nav-btn.left {
+            left: 20px;
+        }
+        
+        .nav-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Ocultar botones cuando no hay imágenes */
+        .no-images .nav-btn {
+            display: none;
+        }
+        
+        /* Sección de comentarios */
+        .comments-section {
+            margin-top: 40px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .comments-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 15px;
+        }
+        
+        .comments-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin: 0;
+        }
+        
+        .comments-stats {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .comments-count {
+            font-size: 0.9rem;
+            color: #546e7a;
+        }
+        
+        .average-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .star {
+            color: #ffc107;
+        }
+        
+        .rating-value {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .comment-form {
+            background-color: #f5f7fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            font-family: 'Open Sans', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #558b2f;
+        }
+        
+        /* Nuevo sistema de calificación con botones */
+        .rating-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .rating-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            color: #546e7a;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .rating-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .rating-btn.selected {
+            background-color: #558b2f;
+            color: white;
+            border-color: #558b2f;
+        }
+        
+        .rating-stars {
+            display: flex;
+            gap: 2px;
+            margin-top: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .rating-stars span {
+            color: #e0e0e0;
+        }
+        
+        .submit-btn {
+            background-color: #558b2f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: #33691e;
+        }
+        
+        .top-comments {
+            margin-bottom: 30px;
+        }
+        
+        .comment {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 15px;
+        }
+        
+        .comment:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .comment-author {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .comment-date {
+            font-size: 0.8rem;
+            color: #546e7a;
+        }
+        
+        .comment-rating {
+            display: flex;
+            gap: 2px;
+            font-size: 0.9rem;
+            color: #ffc107;
+            margin-bottom: 8px;
+        }
+        
+        .comment-content {
+            line-height: 1.6;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        /* Sistema de likes/dislikes */
+        .comment-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .like-btn, .dislike-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #546e7a;
+            font-size: 0.9rem;
+        }
+        
+        .like-btn:hover {
+            color: #4caf50;
+        }
+        
+        .dislike-btn:hover {
+            color: #f44336;
+        }
+        
+        .like-btn.active {
+            color: #4caf50;
+        }
+        
+        .dislike-btn.active {
+            color: #f44336;
+        }
+        
+        .show-more-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #f5f7fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            text-align: center;
+            color: #2c3e50;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .show-more-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .all-comments {
+            display: none;
+            margin-top: 30px;
+        }
+        
+        .all-comments.show {
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <header class="site-header">
@@ -120,18 +494,21 @@
                             </div>
                             <div class="form-group">
                                 <label>Calificación</label>
-                                <div class="rating-selector">
-                                    <input type="radio" id="star5" name="rating" value="5">
-                                    <label for="star5">★</label>
-                                    <input type="radio" id="star4" name="rating" value="4">
-                                    <label for="star4">★</label>
-                                    <input type="radio" id="star3" name="rating" value="3">
-                                    <label for="star3">★</label>
-                                    <input type="radio" id="star2" name="rating" value="2">
-                                    <label for="star2">★</label>
-                                    <input type="radio" id="star1" name="rating" value="1">
-                                    <label for="star1">★</label>
+                                <div class="rating-buttons">
+                                    <button type="button" class="rating-btn" data-value="1">1</button>
+                                    <button type="button" class="rating-btn" data-value="2">2</button>
+                                    <button type="button" class="rating-btn" data-value="3">3</button>
+                                    <button type="button" class="rating-btn" data-value="4">4</button>
+                                    <button type="button" class="rating-btn" data-value="5">5</button>
                                 </div>
+                                <div class="rating-stars">
+                                    <span id="ratingstar1">★</span>
+                                    <span id="ratingstar2">★</span>
+                                    <span id="ratingstar3">★</span>
+                                    <span id="ratingstar4">★</span>
+                                    <span id="ratingstar5">★</span>
+                                </div>
+                                <input type="hidden" id="ratingValue" name="rating" value="0">
                             </div>
                             <div class="form-group">
                                 <label for="commentText">Comentario</label>
@@ -263,16 +640,40 @@
             }, 5000);
         });
 
-        // Sistema de comentarios
+        // Sistema de comentarios con likes/dislikes
         const commentForm = document.getElementById('commentForm');
         const showMoreBtn = document.getElementById('showMoreBtn');
         const allComments = document.getElementById('allComments');
         const allCommentsList = document.getElementById('allCommentsList');
         const topCommentsList = document.getElementById('topCommentsList');
         const totalCommentsElement = document.getElementById('totalComments');
+        const ratingButtons = document.querySelectorAll('.rating-btn');
+        const ratingInput = document.getElementById('ratingValue');
+        const ratingStars = document.querySelectorAll('.rating-stars span');
         
         // Almacenamiento local para comentarios
         let comments = JSON.parse(localStorage.getItem('cannabisComments')) || [];
+        
+        // Manejar botones de calificación
+        ratingButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const rating = parseInt(this.dataset.value);
+                ratingInput.value = rating;
+                
+                // Actualizar visualmente los botones
+                ratingButtons.forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                // Actualizar estrellas
+                ratingStars.forEach((star, index) => {
+                    if (index < rating) {
+                        star.style.color = '#ffc107';
+                    } else {
+                        star.style.color = '#e0e0e0';
+                    }
+                });
+            });
+        });
         
         // Función para generar el HTML de un comentario
         function createCommentHTML(comment) {
@@ -285,8 +686,11 @@
                 }
             }
             
+            const likeActiveClass = comment.likedBy && comment.likedBy.includes(getUserId()) ? 'active' : '';
+            const dislikeActiveClass = comment.dislikedBy && comment.dislikedBy.includes(getUserId()) ? 'active' : '';
+            
             return `
-                <div class="comment">
+                <div class="comment" data-id="${comment.id}">
                     <div class="comment-header">
                         <span class="comment-author">${comment.author}</span>
                         <span class="comment-date">${comment.date}</span>
@@ -295,8 +699,111 @@
                         ${starsHTML}
                     </div>
                     <p class="comment-content">${comment.content}</p>
+                    <div class="comment-actions">
+                        <button class="like-btn ${likeActiveClass}" onclick="likeComment(${comment.id})">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                            </svg>
+                            <span class="like-count">${comment.likes || 0}</span>
+                        </button>
+                        <button class="dislike-btn ${dislikeActiveClass}" onclick="dislikeComment(${comment.id})">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm10-13h2a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3"></path>
+                            </svg>
+                            <span class="dislike-count">${comment.dislikes || 0}</span>
+                        </button>
+                    </div>
                 </div>
             `;
+        }
+        
+        // Función para generar un ID de usuario único
+        function getUserId() {
+            let userId = localStorage.getItem('cannabisUserId');
+            if (!userId) {
+                userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('cannabisUserId', userId);
+            }
+            return userId;
+        }
+        
+        // Funciones para manejar likes y dislikes
+        function likeComment(commentId) {
+            const userId = getUserId();
+            const commentIndex = comments.findIndex(c => c.id === commentId);
+            
+            if (commentIndex === -1) return;
+            
+            const comment = comments[commentIndex];
+            
+            // Inicializar arrays si no existen
+            if (!comment.likedBy) comment.likedBy = [];
+            if (!comment.dislikedBy) comment.dislikedBy = [];
+            
+            const alreadyLiked = comment.likedBy.includes(userId);
+            
+            // Si ya le dio like, quitarlo
+            if (alreadyLiked) {
+                comment.likedBy = comment.likedBy.filter(id => id !== userId);
+                comment.likes = (comment.likes || 1) - 1;
+            } else {
+                // Si le dio dislike antes, quitarlo primero
+                if (comment.dislikedBy.includes(userId)) {
+                    comment.dislikedBy = comment.dislikedBy.filter(id => id !== userId);
+                    comment.dislikes = Math.max(0, (comment.dislikes || 1) - 1);
+                }
+                
+                // Agregar like
+                comment.likedBy.push(userId);
+                comment.likes = (comment.likes || 0) + 1;
+            }
+            
+            // Actualizar en localStorage
+            comments[commentIndex] = comment;
+            localStorage.setItem('cannabisComments', JSON.stringify(comments));
+            
+            // Actualizar UI
+            loadTopComments();
+            loadAllComments();
+        }
+        
+        function dislikeComment(commentId) {
+            const userId = getUserId();
+            const commentIndex = comments.findIndex(c => c.id === commentId);
+            
+            if (commentIndex === -1) return;
+            
+            const comment = comments[commentIndex];
+            
+            // Inicializar arrays si no existen
+            if (!comment.likedBy) comment.likedBy = [];
+            if (!comment.dislikedBy) comment.dislikedBy = [];
+            
+            const alreadyDisliked = comment.dislikedBy.includes(userId);
+            
+            // Si ya le dio dislike, quitarlo
+            if (alreadyDisliked) {
+                comment.dislikedBy = comment.dislikedBy.filter(id => id !== userId);
+                comment.dislikes = (comment.dislikes || 1) - 1;
+            } else {
+                // Si le dio like antes, quitarlo primero
+                if (comment.likedBy.includes(userId)) {
+                    comment.likedBy = comment.likedBy.filter(id => id !== userId);
+                    comment.likes = Math.max(0, (comment.likes || 1) - 1);
+                }
+                
+                // Agregar dislike
+                comment.dislikedBy.push(userId);
+                comment.dislikes = (comment.dislikes || 0) + 1;
+            }
+            
+            // Actualizar en localStorage
+            comments[commentIndex] = comment;
+            localStorage.setItem('cannabisComments', JSON.stringify(comments));
+            
+            // Actualizar UI
+            loadTopComments();
+            loadAllComments();
         }
         
         // Función para cargar todos los comentarios
@@ -367,18 +874,9 @@
             const name = document.getElementById('commentName').value;
             const email = document.getElementById('commentEmail').value;
             const content = document.getElementById('commentText').value;
+            const rating = parseInt(ratingInput.value);
             
-            // Obtener calificación seleccionada
-            let rating = 0;
-            const ratingInputs = document.querySelectorAll('input[name="rating"]');
-            for (const input of ratingInputs) {
-                if (input.checked) {
-                    rating = parseInt(input.value);
-                    break;
-                }
-            }
-            
-            if (rating === 0) {
+            if (rating === 0 || isNaN(rating)) {
                 alert('Por favor, selecciona una calificación');
                 return;
             }
@@ -389,7 +887,11 @@
                 author: name,
                 date: new Date().toLocaleDateString('es-ES', {day: 'numeric', month: 'long', year: 'numeric'}),
                 rating: rating,
-                content: content
+                content: content,
+                likes: 0,
+                dislikes: 0,
+                likedBy: [],
+                dislikedBy: []
             };
             
             // Añadir a la lista de comentarios
@@ -405,6 +907,9 @@
             
             // Limpiar formulario
             commentForm.reset();
+            ratingButtons.forEach(btn => btn.classList.remove('selected'));
+            ratingStars.forEach(star => star.style.color = '#e0e0e0');
+            ratingInput.value = 0;
             
             // Mostrar mensaje de confirmación
             alert('¡Gracias por tu comentario!');
@@ -420,6 +925,10 @@
                 showMoreBtn.textContent = 'Ver todos los comentarios';
             }
         });
+        
+        // Exponer funciones para likes/dislikes al ámbito global
+        window.likeComment = likeComment;
+        window.dislikeComment = dislikeComment;
         
         // Cargar comentarios al iniciar
         loadAllComments();
