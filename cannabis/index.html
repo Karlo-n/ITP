@@ -9,6 +9,122 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos específicos para este archivo */
+        .substance-buttons {
+            background-color: #5c6bc0;
+            padding: 10px 0;
+            text-align: center;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .substance-button {
+            padding: 8px 15px;
+            border-radius: 50px;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+        
+        .substance-button:hover {
+            background-color: white;
+            transform: translateY(-3px);
+        }
+        
+        .cannabis-btn:hover {
+            color: #558b2f;
+        }
+        
+        .fentanyl-btn:hover {
+            color: #c62828;
+        }
+        
+        .alcohol-btn:hover {
+            color: #0277bd;
+        }
+        
+        .inhalants-btn:hover {
+            color: #6a1b9a;
+        }
+        
+        .methamphetamine-btn:hover {
+            color: #d84315;
+        }
+        
+        .vaping-btn:hover {
+            color: #546e7a;
+        }
+        
+        .benzos-btn:hover {
+            color: #00695c;
+        }
+        
+        /* Controles de navegación en las esquinas */
+        .gallery-controls {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .nav-btn {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-btn:hover {
+            background-color: #558b2f;
+            color: white;
+        }
+        
+        .nav-btn.right {
+            top: 20px;
+            right: 20px;
+        }
+        
+        .nav-btn.bottom-right {
+            bottom: 20px;
+            right: 20px;
+        }
+        
+        .nav-btn.left {
+            top: 20px;
+            left: 20px;
+        }
+        
+        .nav-btn.bottom-left {
+            bottom: 20px;
+            left: 20px;
+        }
+        
+        .nav-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Ocultar botones cuando no hay imágenes */
+        .no-images .nav-btn {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <header class="site-header">
@@ -29,22 +145,51 @@
         </div>
     </header>
 
+    <!-- Barra de navegación de sustancias -->
+    <section class="substance-buttons">
+        <div class="container">
+            <div class="buttons-container">
+                <a href="/cannabis" class="substance-button cannabis-btn">Cannabis</a>
+                <a href="/fentanillo" class="substance-button fentanyl-btn">Fentanilo</a>
+                <a href="/alcohol" class="substance-button alcohol-btn">Alcohol</a>
+                <a href="/inhalables" class="substance-button inhalants-btn">Inhalables</a>
+                <a href="/metanfetamina" class="substance-button methamphetamine-btn">Metanfetamina</a>
+                <a href="/vapeadores" class="substance-button vaping-btn">Vapeadores/Tabaco</a>
+                <a href="/benzodiazepinas" class="substance-button benzos-btn">Benzodiazepinas</a>
+            </div>
+        </div>
+    </section>
+
     <main>
         <div class="container">
             <div class="gallery-container">
                 <h1 class="gallery-title">Galería de Imágenes: Cannabis</h1>
                 
-                <div class="image-container">
-                    <!-- Flechas de navegación -->
-                    <div class="nav-arrows">
-                        <div class="nav-arrow prev" onclick="changeImage(-1)">
+                <div class="image-container" id="imageContainer">
+                    <!-- Controles de navegación en las cuatro esquinas -->
+                    <div class="gallery-controls">
+                        <div class="nav-btn right" onclick="changeImage(1)">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                        <div class="nav-btn bottom-right" onclick="showImage(currentImageIndex+1)">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="16"></line>
+                                <line x1="8" y1="12" x2="16" y2="12"></line>
+                            </svg>
+                        </div>
+                        <div class="nav-btn left" onclick="changeImage(-1)">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="15 18 9 12 15 6"></polyline>
                             </svg>
                         </div>
-                        <div class="nav-arrow next" onclick="changeImage(1)">
+                        <div class="nav-btn bottom-left" onclick="showImageInfo()">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="9 18 15 12 9 6"></polyline>
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
                             </svg>
                         </div>
                     </div>
@@ -55,7 +200,7 @@
                     <img src="/api/placeholder/900/500" alt="Cannabis Imagen 3" class="gallery-image" data-index="2">
                     <img src="/api/placeholder/900/500" alt="Cannabis Imagen 4" class="gallery-image" data-index="3">
                     
-                    <!-- Descripciones de las imágenes -->
+                    <!-- Descripción de la imagen -->
                     <div class="gallery-caption">
                         La planta de cannabis contiene más de 100 compuestos únicos llamados cannabinoides, siendo el THC y el CBD los más estudiados.
                     </div>
@@ -117,9 +262,21 @@
             "Los efectos del cannabis varían significativamente dependiendo de la composición química, dosis, método de consumo y factores individuales."
         ];
         const captionElement = document.querySelector('.gallery-caption');
+        const imageContainer = document.getElementById('imageContainer');
+
+        // Verificar si hay imágenes disponibles
+        function checkImages() {
+            if (images.length === 0) {
+                imageContainer.classList.add('no-images');
+                return false;
+            }
+            return true;
+        }
 
         // Función para mostrar una imagen específica
         function showImage(index) {
+            if (!checkImages()) return;
+            
             if (index < 0) index = images.length - 1;
             if (index >= images.length) index = 0;
             
@@ -139,25 +296,39 @@
 
         // Función para cambiar a la siguiente o anterior imagen
         function changeImage(direction) {
+            if (!checkImages()) return;
             showImage(currentImageIndex + direction);
+        }
+
+        // Función para mostrar información adicional
+        function showImageInfo() {
+            if (!checkImages()) return;
+            alert(captions[currentImageIndex]);
         }
 
         // Configurar intervalo para cambio automático de imágenes
         let slideInterval = setInterval(() => {
-            changeImage(1);
+            if (checkImages()) {
+                changeImage(1);
+            }
         }, 5000);
 
         // Detener el cambio automático cuando el usuario interactúa con la galería
-        document.querySelector('.image-container').addEventListener('mouseenter', () => {
+        imageContainer.addEventListener('mouseenter', () => {
             clearInterval(slideInterval);
         });
 
         // Reanudar el cambio automático cuando el usuario deja de interactuar
-        document.querySelector('.image-container').addEventListener('mouseleave', () => {
+        imageContainer.addEventListener('mouseleave', () => {
             slideInterval = setInterval(() => {
-                changeImage(1);
+                if (checkImages()) {
+                    changeImage(1);
+                }
             }, 5000);
         });
+
+        // Verificar imágenes al cargar
+        checkImages();
     </script>
 </body>
 </html>
