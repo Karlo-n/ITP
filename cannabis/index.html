@@ -9,6 +9,69 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos para el botón de ver poster completo */
+        .view-full-poster {
+            position: absolute;
+            top: 20px;
+            right: 70px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .view-full-poster:hover {
+            background-color: #558b2f;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Estilos para el modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            margin: auto;
+            display: block;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: #558b2f;
+        }
+    </style>
 </head>
 <body>
     <header class="site-header">
@@ -64,6 +127,9 @@
                         </div>
                     </div>
                     
+                    <!-- Botón para ver poster completo -->
+                    <button class="view-full-poster" onclick="openFullPoster()">Ver poster completo</button>
+                    
                     <!-- Imágenes de la galería -->
                     <img src="cannabis-1.jpg" alt="Cannabis Imagen 1" class="gallery-image active" data-index="0">
                     <img src="cannabis-2.jpg" alt="Cannabis Imagen 2" class="gallery-image" data-index="1">
@@ -91,6 +157,12 @@
             </div>
         </div>
     </main>
+
+    <!-- Modal para mostrar la imagen a tamaño completo -->
+    <div id="imageModal" class="modal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img id="fullPosterImage" class="modal-content">
+    </div>
 
     <footer class="site-footer">
         <div class="container">
@@ -133,6 +205,8 @@
         ];
         const captionElement = document.querySelector('.gallery-caption');
         const imageContainer = document.getElementById('imageContainer');
+        const modal = document.getElementById('imageModal');
+        const fullPosterImage = document.getElementById('fullPosterImage');
 
         // Verificar si hay imágenes disponibles
         function checkImages() {
@@ -168,6 +242,41 @@
         function changeImage(direction) {
             if (!checkImages()) return;
             showImage(currentImageIndex + direction);
+        }
+
+        // Función para abrir el poster completo en un modal
+        function openFullPoster() {
+            // Obtener la imagen activa actual
+            const activeImage = document.querySelector('.gallery-image.active');
+            if (!activeImage) return;
+            
+            // Establecer la fuente del modal con la imagen actual
+            fullPosterImage.src = activeImage.src;
+            
+            // Mostrar el modal
+            modal.style.display = 'block';
+            
+            // Detener el carrusel automático
+            clearInterval(slideInterval);
+        }
+        
+        // Función para cerrar el modal
+        function closeModal() {
+            modal.style.display = 'none';
+            
+            // Reanudar el carrusel automático
+            slideInterval = setInterval(() => {
+                if (checkImages()) {
+                    changeImage(1);
+                }
+            }, 5000);
+        }
+        
+        // Cerrar modal al hacer clic fuera de la imagen
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
         }
 
         // Configurar intervalo para cambio automático de imágenes
